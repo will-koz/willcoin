@@ -1,5 +1,5 @@
 import hashlib, time
-import conf, wmath
+import conf, wmath, wu
 
 class Wallet:
 	creator = ""
@@ -22,7 +22,7 @@ class Wallet:
 		stamp = wmath.stamp()
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
 		hash = hashlib.sha256(bytes(seed, conf.byte_encoding)).hexdigest()
-		print(seed)
+		wu.log(seed)
 		print(hash)
 
 class Cryptosystem:
