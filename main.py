@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 
-import discord, hashlib, json
-import will
+import discord
+import conf, will
 
-main_cs = will.Cryptosystem(size = 2 ** 25)
+main_cs = will.Cryptosystem(size = conf.default_cryptosystem_size)
 # the main instance of the cryptosystem. Unless the bot is running multiple systems from the same
 # server, there does not need to be an array of cryptosystems
