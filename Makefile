@@ -1,4 +1,7 @@
 package:
 	~/.local/bin/pipreqs . --force
 
-.PHONY: package
+clean:
+	rm -rf __pycache__
+
+.PHONY: package clean
