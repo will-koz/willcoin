@@ -6,10 +6,8 @@ default_cryptosystem_size = 2 ** 25
 default_stamp_size = 8
 default_token_name = "NewToken"
 default_wallet_name = "NewWallet"
-new_token_text1 = "Creating token "
-new_token_text2 = " with sha256 hash "
-new_wallet_text1 = "Creating wallet "
-new_wallet_text2 = " with sha256 hash "
+new_token_text = "Creating token %s with sha256 hash %s"
+new_wallet_text = "Creating wallet %s with sha256 hash %s"
 stamp_values = '0123456789abcdef'
 
 ansi_escape = "\033["
