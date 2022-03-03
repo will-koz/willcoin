@@ -1,13 +1,40 @@
 import hashlib, time
 import conf, wmath, wu
 
+class Token
+class Wallet
+class Cryptosystem
+
+class Token:
+	create_time = ""
+	creator = ""
+	hash = ""
+	name = ""
+	owner = ""
+	seed = ""
+	stamp = ""
+	def __init__ (self, _creator = conf.anonymous, _name = conf.default_token_name, _tokens = None):
+		# Token either needs to be created or loaded in. TODO
+		# Assume that if no other tokens are passed, it is okay to mint a token
+		self.new_token(_creator = _creator, _name = _name)
+
+	def new_token (self, _creator = conf.anonymous, _name = conf.default_token_name):
+		creator = _creator
+		name = _name
+		create_time = str(int(time.time()))
+		stamp = wmath.stamp()
+		seed = creator + ":" + name + ":" + create_time + ":" + stamp
+		hash = hashlib.sha256(bytes(seed, conf.byte_encoding)).hexdigest()
+		wu.log(conf.new_token_text1 + seed + conf.new_token_text2 + hash)
+
 class Wallet:
+	create_time = ""
 	creator = ""
 	hash = ""
 	name = ""
 	seed = ""
 	stamp = ""
-	create_time = ""
+	tokens = []
 	def __init__ (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
 		if _players == None:
@@ -22,8 +49,8 @@ class Wallet:
 		stamp = wmath.stamp()
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
 		hash = hashlib.sha256(bytes(seed, conf.byte_encoding)).hexdigest()
-		wu.log(seed)
-		print(hash)
+		wu.log(conf.new_wallet_text1 + seed + conf.new_wallet_text2 + hash)
+		self.tokens.append(Token())
 
 class Cryptosystem:
 	total_willcoin = 0
