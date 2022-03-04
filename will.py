@@ -1,9 +1,17 @@
-import hashlib, time
+import time
 import conf, wmath, wu
 
 class Player:
-	def __init__ (self):
-		return None # TODO
+	name = ""
+	wallets = []
+	def __init__ (self, _name = None, _wallets = None):
+		# Like many other classes, can be loaded in or created TODO
+		self.new_player(_name = _name, _wallets = _wallets)
+
+	def new_player (self, _name = None, _wallets = None):
+		# TODO Throw an error. _name should never be None.
+		name = _name
+		wallets = _wallets
 
 class Token:
 	cost = 0
@@ -25,7 +33,7 @@ class Token:
 		create_time = str(int(time.time()))
 		stamp = wmath.stamp()
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
-		hash = hashlib.sha256(bytes(seed, conf.byte_encoding)).hexdigest()
+		hash = wu.whash(seed)
 		wu.log(conf.new_token_text % (seed, hash))
 
 class Wallet:
@@ -51,13 +59,14 @@ class Wallet:
 		owner = creator
 		stamp = wmath.stamp()
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
-		hash = hashlib.sha256(bytes(seed, conf.byte_encoding)).hexdigest()
-		wu.log(conf.new_wallet_text + seed, hash)
+		hash = wu.whash(seed)
+		wu.log(conf.new_wallet_text % (seed, hash))
 		self.tokens.append(Token())
 
 class Cryptosystem:
 	total_willcoin = 0
 	bank = Wallet(_creator = conf.administration, _name = conf.bank_name)
+	auction = [] # This isn't a wallet because there are no willcoin associated with it.
 	players = {}
 	tokens = {} # The actual tokens, not just the hashes
 	wallets = {} # The actual wallets, not just the hashes
