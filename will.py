@@ -47,12 +47,12 @@ class Wallet:
 	tokens = []
 	def __init__ (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
-		if _players == None:
-			# if no players are passed, it is okay to assume that the wallet is okay to make
-			self.new_wallet(_creator = _creator, _name = _name, _players = _players)
+		# if no object is passed, it is okay to assume that the wallet is okay to make TODO
+		self.new_wallet(_creator = _creator, _name = _name, _players = _players)
 
 	def new_wallet (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
+		# TODO make sure that this function checks against existing players
 		creator = _creator
 		name = _name
 		create_time = str(int(time.time()))
@@ -61,7 +61,6 @@ class Wallet:
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
 		hash = wu.whash(seed)
 		wu.log(conf.new_wallet_text % (seed, hash))
-		self.tokens.append(Token())
 
 class Cryptosystem:
 	total_willcoin = 0

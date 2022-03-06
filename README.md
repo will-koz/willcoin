@@ -1,5 +1,7 @@
 # willcoin
 
+Willcoin is a centralized Discord cryptosystem. (That's fancy talk for a bot that attaches numbers to a user.)
+
 ## Installation
 
 ## TODO
