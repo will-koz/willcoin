@@ -34,7 +34,7 @@ class Token:
 		stamp = wmath.stamp()
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
 		hash = wu.whash(seed)
-		wu.log(conf.new_token_text % (seed, hash))
+		wu.log(conf.text_new_token % (seed, hash))
 
 class Wallet:
 	create_time = ""
@@ -60,10 +60,11 @@ class Wallet:
 		stamp = wmath.stamp()
 		seed = creator + ":" + name + ":" + create_time + ":" + stamp
 		hash = wu.whash(seed)
-		wu.log(conf.new_wallet_text % (seed, hash))
+		wu.log(conf.text_new_wallet % (seed, hash))
 
 class Cryptosystem:
 	total_willcoin = 0
+	reserve = 0
 	bank = Wallet(_creator = conf.administration, _name = conf.bank_name)
 	auction = [] # This isn't a wallet because there are no willcoin associated with it.
 	players = {}
@@ -75,6 +76,11 @@ class Cryptosystem:
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
 		total_willcoin = _size
 
-def exec_command (command):
-	# This is the big command that looks at all of the data
+def exec_command (command, permissions = conf.perm_ru):
+	# This is the big command that looks at all of the commands
 	command_tokens = command.split(conf.command_token_delimiter) # Not to be confused with tokens
+	command_mainfix = command_tokens[0] # Like a prefix or a suffix, but the main word in a command
+	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
+		return True # returns true to signal that exit was requested. Otherwise, uses other funcs.
+	elif permissions == conf.perm_su:
+		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset, "Hello"))

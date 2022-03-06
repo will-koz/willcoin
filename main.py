@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import discord, random, threading
+import discord, random, sys, threading
 import conf, will
 
 exit_requested = False
@@ -15,8 +15,9 @@ def su_command (): # Super User command thread
 	global exit_requested # Don't know why, but there needs to be a declaration of its globality.
 	while not exit_requested:
 		recieved_command = input()
-		if random.random() < 0.1:
-			exit_requested = True
+		if recieved_command[0] == conf.command_character: # Nice way to remove the command character
+			recieved_command = recieved_command[1:] # if it's there.
+		exit_requested = will.exec_command(recieved_command, permissions = 1)
 
 local_thread = threading.Thread(target = su_command)
 local_thread.start()
