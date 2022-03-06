@@ -15,6 +15,7 @@ def get_json (location):
 		return json.loads(request.content.decode(conf.byte_encoding))
 
 def log (message = "Test"):
+	# TODO make a nicer string output
 	output_text = conf.ansi_dull + "[" + str(datetime.datetime.now()) + "] " + conf.ansi_reset
 	output_text += message
 	print(output_text)

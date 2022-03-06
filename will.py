@@ -74,3 +74,7 @@ class Cryptosystem:
 
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
 		total_willcoin = _size
+
+def exec_command (command):
+	# This is the big command that looks at all of the data
+	command_tokens = command.split(conf.command_token_delimiter) # Not to be confused with tokens

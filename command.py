@@ -9,5 +9,4 @@ def get_command_from_string (target):
 	else:
 		return target[1:]
 
-def exec_command (target):
-	command_tokens = target.split(conf.command_token_delimiter) # Not to be confused with tokens
+# Other command parsing utilities will be put here if necessary.
