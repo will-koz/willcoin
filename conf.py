@@ -21,6 +21,7 @@ command_exit = "exit"
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
 
+text_command_unknown = "Unknown command '%s'"
 text_new_token = "Creating token %s with sha256 hash %s"
 text_new_wallet = "Creating wallet %s with sha256 hash %s"
 text_warning = "%s(Warning)%s %s"

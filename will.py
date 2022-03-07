@@ -83,4 +83,6 @@ def exec_command (command, permissions = conf.perm_ru):
 	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
 		return True # returns true to signal that exit was requested. Otherwise, uses other funcs.
 	elif permissions == conf.perm_su:
-		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset, "Hello"))
+		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
+			conf.text_command_unknown % (command_mainfix)))
+	return False
