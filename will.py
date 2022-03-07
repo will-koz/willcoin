@@ -81,7 +81,7 @@ def exec_command (command, permissions = conf.perm_ru):
 	command_tokens = command.split(conf.command_token_delimiter) # Not to be confused with tokens
 	command_mainfix = command_tokens[0] # Like a prefix or a suffix, but the main word in a command
 	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
-		return True # returns true to signal that exit was requested. Otherwise, uses other funcs.
+		return True # returns true to signal that exit was requested.
 	elif permissions == conf.perm_su:
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))

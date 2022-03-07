@@ -3,6 +3,9 @@
 import datetime, hashlib, json, requests
 import conf
 
+def fortune ():
+	# TODO this should be called with a Discord channel, for now just log it
+
 def get_json (location):
 	# Get JSON from either local storage or from the internet
 	try:
