@@ -28,13 +28,13 @@ class Token:
 		self.new_token(_creator = _creator, _name = _name)
 
 	def new_token (self, _creator = conf.anonymous, _name = conf.default_token_name):
-		creator = _creator
-		name = _name
-		create_time = str(int(time.time()))
-		stamp = wmath.stamp()
-		seed = creator + ":" + name + ":" + create_time + ":" + stamp
-		hash = wu.whash(seed)
-		wu.log(conf.text_new_token % (seed, hash))
+		self.creator = _creator
+		self.name = _name
+		self.create_time = str(int(time.time()))
+		self.stamp = wmath.stamp()
+		self.seed = self.creator + ":" + self.name + ":" + self.create_time + ":" + self.stamp
+		self.hash = wu.whash(self.seed)
+		wu.log(conf.text_new_token % (self.seed, self.hash))
 
 class Wallet:
 	create_time = ""
@@ -53,28 +53,32 @@ class Wallet:
 	def new_wallet (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
 		# TODO make sure that this function checks against existing players
-		creator = _creator
-		name = _name
-		create_time = str(int(time.time()))
-		owner = creator
-		stamp = wmath.stamp()
-		seed = creator + ":" + name + ":" + create_time + ":" + stamp
-		hash = wu.whash(seed)
-		wu.log(conf.text_new_wallet % (seed, hash))
+		self.creator = _creator
+		self.name = _name
+		self.create_time = str(int(time.time()))
+		self.owner = self.creator
+		self.stamp = wmath.stamp()
+		self.seed = self.creator + ":" + self.name + ":" + self.create_time + ":" + self.stamp
+		self.hash = wu.whash(self.seed)
+		wu.log(conf.text_new_wallet % (self.seed, self.hash))
 
 class Cryptosystem:
 	total_willcoin = 0
 	reserve = 0
-	bank = Wallet(_creator = conf.administration, _name = conf.bank_name)
+	bank = None
 	auction = [] # This isn't a wallet because there are no willcoin associated with it.
 	players = {}
 	tokens = {} # The actual tokens, not just the hashes
 	wallets = {} # The actual wallets, not just the hashes
 	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
 		self.new_cryptosystem(_size)
+		# Initialize bank
+		bank_wallet = Wallet(_creator = conf.administration, _name = conf.bank_name)
+		self.wallets[bank_wallet.hash] = bank_wallet
+		self.bank = bank_wallet.hash
 
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
-		total_willcoin = _size
+		self.total_willcoin = _size
 
 def exec_command (command, permissions = conf.perm_ru):
 	# This is the big command that looks at all of the commands
@@ -84,7 +88,7 @@ def exec_command (command, permissions = conf.perm_ru):
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune:
 		wu.fortune()
-	elif permissions == conf.perm_su:
+	elif permissions == conf.perm_su: # Default to logging unknown command for superusers
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))
 	return False

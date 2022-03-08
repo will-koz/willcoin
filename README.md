@@ -1,8 +1,12 @@
 # willcoin
 
-Willcoin is a centralized Discord cryptosystem. (That's fancy talk for a bot that attaches numbers to a user.)
+Willcoin is a centralized Discord cryptosystem. (That's fancy talk for a bot that attaches numbers
+to a user.)
 
 ## Installation
+
+This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
+recommend installing in Linux or in a Linux VM.
 
 ## TODO
 
