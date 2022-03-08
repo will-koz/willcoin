@@ -37,6 +37,7 @@ class Token:
 		wu.log(conf.text_new_token % (self.seed, self.hash))
 
 class Wallet:
+	coins = 0
 	create_time = ""
 	creator = ""
 	hash = ""
@@ -72,22 +73,36 @@ class Cryptosystem:
 	wallets = {} # The actual wallets, not just the hashes
 	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
 		self.new_cryptosystem(_size)
+
+	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
+		# Read carefully: This is for creating a cryptosystem, not loading one.
+		self.total_willcoin = _size
 		# Initialize bank
 		bank_wallet = Wallet(_creator = conf.administration, _name = conf.bank_name)
 		self.wallets[bank_wallet.hash] = bank_wallet
 		self.bank = bank_wallet.hash
+		self.wallets[self.bank].coins = self.total_willcoin
 
-	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
-		self.total_willcoin = _size
+	def reserve_coins(self, amount = conf.default_reserve_amount):
+		amount = int(amount)
+		self.wallets[self.bank].coins -= amount
+		self.reserve += amount
+		wu.log(conf.text_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
-def exec_command (command, permissions = conf.perm_ru):
-	# This is the big command that looks at all of the commands
+def exec_command (command, cryptosystem, permissions = conf.perm_ru):
+	# This is the big function that looks at all of the commands
+	if command == "":
+		return False
 	command_tokens = command.split(conf.command_token_delimiter) # Not to be confused with tokens
 	command_mainfix = command_tokens[0] # Like a prefix or a suffix, but the main word in a command
+
+	# If there is a good alternative to switch / case in python, I want to know it
 	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune:
 		wu.fortune()
+	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
+		cryptosystem.reserve_coins(20)
 	elif permissions == conf.perm_su: # Default to logging unknown command for superusers
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))

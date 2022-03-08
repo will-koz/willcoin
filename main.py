@@ -15,9 +15,10 @@ def local_command_daemon (): # Super User command thread
 	global exit_requested # Don't know why, but there needs to be a declaration of its globality.
 	while not exit_requested:
 		recieved_command = input()
-		if recieved_command[0] == conf.command_character: # Nice way to remove the command character
+		# Nice way to remove the command character:
+		if recieved_command != "" and recieved_command[0] == conf.command_character:
 			recieved_command = recieved_command[1:] # if it's there.
-		exit_requested = will.exec_command(recieved_command, permissions = 1)
+		exit_requested = will.exec_command(recieved_command, main_cs, permissions = 1)
 
 local_thread = threading.Thread(target = local_command_daemon)
 local_thread.start()
