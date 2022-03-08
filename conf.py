@@ -21,6 +21,7 @@ ansi_error = ansi_escape + "1;31m"
 command_exit = "exit"
 command_fortune = "fortune"
 command_reserve = "reserve"
+command_unreserve = "unreserve"
 
 fortunes = [
 	"**Sample Fortune**",
@@ -33,5 +34,7 @@ perm_su = 1 # Permissions - Super User
 text_command_unknown = "Unknown command '%s'"
 text_new_token = "Creating token %s with sha256 hash %s"
 text_new_wallet = "Creating wallet %s with sha256 hash %s"
-text_reserve = "Reserved " + symbol + "%s. Reserve: " + symbol + "%s. Bank: " + symbol + " %s"
+text_reserve = "Reserve: " + symbol + "%s. Bank: " + symbol + "%s"
+text_reserve_reserve = "Reserved " + symbol + "%s. " + text_reserve
+text_reserve_unreserve = "Unreserved " + symbol + "%s. " + text_reserve
 text_warning = "%s(Warning)%s %s"

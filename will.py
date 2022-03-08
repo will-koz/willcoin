@@ -83,11 +83,19 @@ class Cryptosystem:
 		self.bank = bank_wallet.hash
 		self.wallets[self.bank].coins = self.total_willcoin
 
-	def reserve_coins(self, amount = conf.default_reserve_amount):
+	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = int(amount)
+		amount = min(self.wallets[self.bank].coins, amount)
 		self.wallets[self.bank].coins -= amount
 		self.reserve += amount
-		wu.log(conf.text_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
+		wu.log(conf.text_reserve_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
+
+	def unreserve_coins (self, amount = conf.default_reserve_amount):
+		amount = int(amount)
+		amount = min(self.reserve, amount)
+		self.reserve -= amount
+		self.wallets[self.bank].coins += amount
+		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
 def exec_command (command, cryptosystem, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
@@ -102,7 +110,15 @@ def exec_command (command, cryptosystem, permissions = conf.perm_ru):
 	elif command_mainfix == conf.command_fortune:
 		wu.fortune()
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
-		cryptosystem.reserve_coins(20)
+		try:
+			cryptosystem.reserve_coins(command_tokens[1])
+		except IndexError:
+			cryptosystem.reserve_coins()
+	elif command_mainfix == conf.command_unreserve and permissions == conf.perm_su:
+		try:
+			cryptosystem.unreserve_coins(command_tokens[1])
+		except:
+			cryptosystem.unreserve_coins()
 	elif permissions == conf.perm_su: # Default to logging unknown command for superusers
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))
