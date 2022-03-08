@@ -17,6 +17,12 @@ ansi_dull = ansi_escape + "2m"
 ansi_error = ansi_escape + "1;31m"
 
 command_exit = "exit"
+command_fortune = "fortune"
+
+fortunes = [
+	"**Sample Fortune**",
+	"2 + 2 = 5"
+]
 
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
