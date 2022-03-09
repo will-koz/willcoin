@@ -23,6 +23,12 @@ def log (message = "Test"):
 def whash (input = ""):
 	return hashlib.sha256(bytes(input, conf.byte_encoding)).hexdigest()
 
+def wint (x):
+	try:
+		return int(x)
+	except ValueError:
+		return 0
+
 def fortune ():
 	# TODO this should be called with a Discord channel, for now just log it
 	log(random.choice(conf.fortunes))

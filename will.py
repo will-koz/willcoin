@@ -84,14 +84,14 @@ class Cryptosystem:
 		self.wallets[self.bank].coins = self.total_willcoin
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
-		amount = int(amount)
+		amount = wu.wint(amount)
 		amount = min(self.wallets[self.bank].coins, amount)
 		self.wallets[self.bank].coins -= amount
 		self.reserve += amount
 		wu.log(conf.text_reserve_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
 	def unreserve_coins (self, amount = conf.default_reserve_amount):
-		amount = int(amount)
+		amount = wu.int(amount)
 		amount = min(self.reserve, amount)
 		self.reserve -= amount
 		self.wallets[self.bank].coins += amount
