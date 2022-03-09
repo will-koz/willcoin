@@ -9,9 +9,11 @@ default_reserve_amount = 2 ** 10
 default_stamp_size = 8
 default_token_name = "NewToken"
 default_wallet_name = "NewWallet"
+file_mode = "r"
 request_not_found_code = 429
 stamp_values = "0123456789abcdef"
 symbol = "\u20A9"
+token = "token.txt"
 
 ansi_escape = "\033["
 ansi_reset = ansi_escape + "0m"

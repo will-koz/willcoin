@@ -8,6 +8,9 @@ to a user.)
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
 recommend installing in Linux or in a Linux VM.
 
+- Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
+add to this repo.
+
 <!-- TODO: write more of an Installation Guide -->
 
 ## TODO

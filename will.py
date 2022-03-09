@@ -8,8 +8,7 @@ class Player:
 		# Like many other classes, can be loaded in or created TODO
 		self.new_player(_name = _name, _wallets = _wallets)
 
-	def new_player (self, _name = None, _wallets = None):
-		# TODO Throw an error. _name should never be None.
+	def new_player (self, _name, _wallets = None):
 		name = _name
 		wallets = _wallets
 
@@ -32,6 +31,7 @@ class Token:
 		self.name = _name
 		self.create_time = str(int(time.time()))
 		self.stamp = wmath.stamp()
+		# TODO change seed finder string
 		self.seed = self.creator + ":" + self.name + ":" + self.create_time + ":" + self.stamp
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_token % (self.seed, self.hash))
@@ -59,13 +59,14 @@ class Wallet:
 		self.create_time = str(int(time.time()))
 		self.owner = self.creator
 		self.stamp = wmath.stamp()
+		# TODO change seed finder string
 		self.seed = self.creator + ":" + self.name + ":" + self.create_time + ":" + self.stamp
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_wallet % (self.seed, self.hash))
 
 class Cryptosystem:
 	total_willcoin = 0
-	reserve = 0
+	reserve = 0 # This isn't a wallet because there are no tokens associated with it
 	bank = None
 	auction = [] # This isn't a wallet because there are no willcoin associated with it.
 	players = {}
@@ -91,7 +92,7 @@ class Cryptosystem:
 		wu.log(conf.text_reserve_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
 	def unreserve_coins (self, amount = conf.default_reserve_amount):
-		amount = wu.int(amount)
+		amount = wu.wint(amount)
 		amount = min(self.reserve, amount)
 		self.reserve -= amount
 		self.wallets[self.bank].coins += amount

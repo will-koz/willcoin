@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import discord, random, sys, threading
-import conf, will
+import conf, will, wu
 
 exit_requested = False
 
@@ -22,3 +22,18 @@ def local_command_daemon (): # Super User command thread
 
 local_thread = threading.Thread(target = local_command_daemon)
 local_thread.start()
+
+# Create the Discord Client
+
+token = open(conf.token, conf.file_mode)
+token = token.readline().strip()
+
+class WillClient (discord.Client):
+	async def on_ready (self):
+		wu.log("Logged in as {0}!".format(self.user))
+
+	async def on_message (self, message):
+		wu.log("Message from {0.author}: {0.content}".format(message))
+
+wc = WillClient()
+wc.run(token)
