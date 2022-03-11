@@ -98,7 +98,7 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
-def exec_command (command, cryptosystem, permissions = conf.perm_ru):
+def exec_command (command, cryptosystem, client, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
 	if command == "":
 		return False
@@ -107,6 +107,7 @@ def exec_command (command, cryptosystem, permissions = conf.perm_ru):
 
 	# If there is a good alternative to switch / case in python, I want to know it
 	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
+		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune:
 		wu.fortune()
