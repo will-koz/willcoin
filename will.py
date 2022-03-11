@@ -98,16 +98,14 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
-def exec_command (command, cryptosystem, permissions = conf.perm_ru):
+def exec_command (command, cryptosystem, client, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
-	if command == "":
-		return False
 	command_tokens = command.split(conf.command_token_delimiter) # Not to be confused with tokens
 	command_mainfix = command_tokens[0] # Like a prefix or a suffix, but the main word in a command
 
 	# If there is a good alternative to switch / case in python, I want to know it
 	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
-		return True # returns true to signal that exit was requested.
+		client.close()
 	elif command_mainfix == conf.command_fortune:
 		wu.fortune()
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
@@ -123,4 +121,3 @@ def exec_command (command, cryptosystem, permissions = conf.perm_ru):
 	elif permissions == conf.perm_su: # Default to logging unknown command for superusers
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))
-	return False

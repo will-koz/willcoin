@@ -3,6 +3,8 @@
 import datetime, hashlib, json, random, requests
 import conf
 
+queued_logs = []
+
 def get_json (location):
 	# Get JSON from either local storage or from the internet
 	try:
@@ -18,7 +20,13 @@ def log (message = "Test"):
 	output_text = conf.text_log_time % (conf.ansi_dull,
 		str(datetime.datetime.now()), conf.ansi_reset)
 	output_text += conf.text_log_message % (message)
-	print(output_text)
+	queued_logs.append(output_text)
+
+def log_dump ():
+	global queued_logs
+	for i in queued_logs:
+		print(i)
+	queued_logs = []
 
 def whash (input = ""):
 	return hashlib.sha256(bytes(input, conf.byte_encoding)).hexdigest()
