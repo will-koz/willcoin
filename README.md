@@ -11,6 +11,7 @@ recommend installing in Linux or in a Linux VM.
 - Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
 add to this repo.
 - Create a server that can serve as a testing server and invite the bot to that server
+- Run `make install` <!-- TODO -->
 
 <!-- TODO: write more of an Installation Guide -->
 
