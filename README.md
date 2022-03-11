@@ -25,3 +25,5 @@ add to this repo.
 - [ ] Thread Handling
 - [ ] Fortune / Wikipedia API functions
 - [ ] >info command
+
+## Testing git
