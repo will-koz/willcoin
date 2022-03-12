@@ -36,6 +36,7 @@ perm_su = 1 # Permissions - Super User
 text_command_unknown = "Unknown command '%s'"
 text_log_message = "%s"
 text_log_time = "%s[%s]%s "
+text_logged_in = "Logged in as %s!"
 text_new_token = "Creating token %s with sha256 hash %s"
 text_new_wallet = "Creating wallet %s with sha256 hash %s"
 text_reserve = "Reserve: " + symbol + "%s. Bank: " + symbol + "%s"

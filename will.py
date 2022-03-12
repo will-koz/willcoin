@@ -125,3 +125,10 @@ def exec_command (command, cryptosystem, client, permissions = conf.perm_ru):
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))
 	return False
+
+async def handle_message (client, message):
+	if message.author.id == client.user.id:
+		return # delete this line. I dare you
+
+	if (True):
+		await message.channel.send("hello")

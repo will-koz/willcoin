@@ -16,10 +16,10 @@ token = token.readline().strip()
 
 class WillClient (discord.Client):
 	async def on_ready (self):
-		wu.log("Logged in as {0}!".format(self.user))
+		wu.log(conf.text_logged_in % (self.user))
 
 	async def on_message (self, message):
-		wu.log("Message from {0.author}: {0.content}".format(message))
+		await will.handle_message(self, message)
 
 wc = WillClient()
 
