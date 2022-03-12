@@ -26,14 +26,15 @@ command_reserve = "reserve"
 command_unreserve = "unreserve"
 
 fortunes = [
-	"**Sample Fortune**",
-	"2 + 2 = 5"
+	"2 + 2 = 5",
+	"\\*\\*Sample Fortune\\*\\*"
 ]
 
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
 
 text_command_unknown = "Unknown command '%s'"
+text_fortune = "Gave fortune '%s' to %s."
 text_log_message = "%s"
 text_log_time = "%s[%s]%s "
 text_logged_in = "Logged in as %s!"

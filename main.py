@@ -19,7 +19,8 @@ class WillClient (discord.Client):
 		wu.log(conf.text_logged_in % (self.user))
 
 	async def on_message (self, message):
-		await will.handle_message(self, message)
+		global main_cs
+		await will.handle_message(self, message, main_cs)
 
 wc = WillClient()
 

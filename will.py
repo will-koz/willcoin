@@ -1,5 +1,5 @@
 import time
-import conf, wmath, wu
+import command, conf, wmath, wu
 
 class Player:
 	name = ""
@@ -98,8 +98,9 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
-def exec_command (command, cryptosystem, client, permissions = conf.perm_ru):
+async def exec_command (command, cryptosystem, client, message = None, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
+	# message is the variable for the message object. command is the variable for message.content
 	if command == "":
 		return False
 	command_tokens = command.split(conf.command_token_delimiter) # Not to be confused with tokens
@@ -110,7 +111,7 @@ def exec_command (command, cryptosystem, client, permissions = conf.perm_ru):
 		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune:
-		wu.fortune()
+		await wu.say_fortune(message)
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.reserve_coins(command_tokens[1])
@@ -124,11 +125,14 @@ def exec_command (command, cryptosystem, client, permissions = conf.perm_ru):
 	elif permissions == conf.perm_su: # Default to logging unknown command for superusers
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))
+	elif message != None:
+		await message.channel.send(conf.text_command_unknown % (command_mainfix))
 	return False
 
-async def handle_message (client, message):
+async def handle_message (client, message, cs):
 	if message.author.id == client.user.id:
 		return # delete this line. I dare you
 
-	if (True):
-		await message.channel.send("hello")
+	message_command = command.get_command_from_string(message.content)
+	if message_command:
+		await exec_command(message_command, cs, client, message = message)

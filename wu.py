@@ -30,5 +30,9 @@ def wint (x):
 		return 0
 
 def fortune ():
-	# TODO this should be called with a Discord channel, for now just log it
-	log(random.choice(conf.fortunes))
+	return random.choice(conf.fortunes)
+
+async def say_fortune (message):
+	f = fortune()
+	await message.channel.send(f)
+	log(conf.text_fortune % (f, message.author))
