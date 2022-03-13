@@ -115,6 +115,13 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune:
 		await wu.say_fortune(message)
+	elif command_mainfix == conf.command_info and permissions == conf.perm_ru:
+		try:
+			command_subfix = command_tokens[1]
+			if command_subfix == conf.command_fortune:
+				await message.channel.send(conf.info_fortune)
+		except IndexError:
+			await message.channel.send(conf.info_about)
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.reserve_coins(command_tokens[1])

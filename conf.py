@@ -33,6 +33,14 @@ fortunes = [
 	"\\*\\*Sample Fortune\\*\\*"
 ]
 
+info_about = """
+TODO
+"""
+info_fortune = """
+The fortune comand is used to get random content. It can be used to get a random unix fortune-like
+fortune. It will be able to get a random cat image, wikipedia page, and meme soon. TODO
+"""
+
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
 
