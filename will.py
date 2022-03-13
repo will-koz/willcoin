@@ -53,7 +53,7 @@ class Wallet:
 
 	def new_wallet (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
-		# TODO make sure that this function checks against existing players
+		# TODO make sure that this function checks against existing wallets
 		self.creator = _creator
 		self.name = _name
 		self.create_time = str(int(time.time()))
@@ -98,7 +98,8 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
-	def wallet_init (self):
+	def wallet_init (self, creator, name):
+		working_wallet = Wallet(creator, name)
 		wu.log("Initializing wallet")
 
 async def exec_command (command, cryptosystem, client, message = None, permissions = conf.perm_ru):
