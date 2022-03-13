@@ -8,6 +8,6 @@ clean:
 	rm -rf __pycache__
 
 install:
-	touch token.txt
+	install
 
 .PHONY: package clean install
