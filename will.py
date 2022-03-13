@@ -98,6 +98,9 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
+	def wallet_init (self):
+		wu.log("Initializing wallet")
+
 async def exec_command (command, cryptosystem, client, message = None, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
 	# message is the variable for the message object. command is the variable for message.content
@@ -122,6 +125,20 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			cryptosystem.unreserve_coins(command_tokens[1])
 		except:
 			cryptosystem.unreserve_coins()
+	elif command_mainfix == conf.command_wallet:
+		try:
+			command_subfix = command_tokens[1]
+			passed_name = command_tokens[2]
+			if command_subfix == conf.command_wallet_init:
+				cryptosystem.wallet_init()
+			else:
+				await message.channel.send(conf.text_command_unknown % (command_subfix))
+		except IndexError:
+			if message != None:
+				await message.channel.send(conf.text_command_parseerror % (command))
+				await message.channel.send(conf.text_command_infoprompt % (command_mainfix))
+			else:
+				wu.log(conf.text_command_parseerror % (command))
 	elif permissions == conf.perm_su: # Default to logging unknown command for superusers
 		wu.log(conf.text_warning % (conf.ansi_error, conf.ansi_reset,
 			conf.text_command_unknown % (command_mainfix)))
