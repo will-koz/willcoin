@@ -4,6 +4,7 @@ import command, conf, wmath, wu
 class Player:
 	name = ""
 	wallets = []
+	created_wallets = []
 	def __init__ (self, _name = None, _wallets = None):
 		# Like many other classes, can be loaded in or created TODO
 		self.new_player(_name = _name, _wallets = _wallets)
@@ -84,6 +85,13 @@ class Cryptosystem:
 		self.bank = bank_wallet.hash
 		self.wallets[self.bank].coins = self.total_willcoin
 
+	def player_init (self, name):
+		# This should be called regardless of if the player exists, just to make sure, so the first
+		# line makes sure they don't already exist.
+		if not name in self.players:
+			self.players[name] = Player()
+			wu.log(conf.text_new_player % (name))
+
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
 		amount = min(self.wallets[self.bank].coins, amount)
@@ -99,7 +107,11 @@ class Cryptosystem:
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
 	def wallet_init (self, creator, name):
+		self.player_init(creator.name)
 		working_wallet = Wallet(creator.name, name)
+		self.wallets[working_wallet.hash] = working_wallet
+		self.players[creator.name].wallets.append(working_wallet.hash)
+		self.players[creator.name].created_wallets.append(working_wallet.hash)
 
 async def exec_command (command, cryptosystem, client, message = None, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
@@ -120,6 +132,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_fortune:
 				await message.channel.send(conf.info_fortune)
+			else:
+				await message.channel.send(conf.info_none % (command_subfix))
 		except IndexError:
 			await message.channel.send(conf.info_about)
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:

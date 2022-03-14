@@ -40,6 +40,11 @@ info_fortune = """
 The fortune comand is used to get random content. It can be used to get a random unix fortune-like
 fortune. It will be able to get a random cat image, wikipedia page, and meme soon. TODO
 """
+info_none = """
+Sorry, but the command '%s' wasn't recognized. See if you have any typos, or are thinking of a
+subcommand for another command (i.e. 'init' isn't a command, but 'wallet init' is). Or maybe there
+isn't documentation for that yet. If you think there should be, tell the administrator.
+"""
 
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
@@ -51,6 +56,7 @@ text_fortune = "Gave fortune '%s' to %s."
 text_log_message = "%s"
 text_log_time = "%s[%s]%s "
 text_logged_in = "Logged in as %s!"
+text_new_player = "Initializing player %s"
 text_new_token = "Creating token %s with sha256 hash %s"
 text_new_wallet = "Creating wallet %s with sha256 hash %s"
 text_reserve = "Reserve: " + symbol + "%s. Bank: " + symbol + "%s"
