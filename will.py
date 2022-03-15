@@ -76,6 +76,13 @@ class Cryptosystem:
 	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
 		self.new_cryptosystem(_size)
 
+	def check_player_has_wallet (self, player_name, wallet_name):
+		wallet_array = self.players[player_name].created_wallets
+		for i in wallet_array:
+			if self.wallets[i].name == wallet_name:
+				return True
+		return False
+
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
 		# Read carefully: This is for creating a cryptosystem, not loading one.
 		self.total_willcoin = _size
@@ -106,12 +113,18 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
-	def wallet_init (self, creator, name):
+	async def wallet_init (self, creator, name, message):
 		self.player_init(creator.name)
+		if self.check_player_has_wallet(creator.name, name):
+			creator_name = creator.name.split(conf.player_name_delimiter)[0]
+			await message.channel.send(conf.text_wallet_already_exists % (creator_name, name))
+			return
 		working_wallet = Wallet(creator.name, name)
 		self.wallets[working_wallet.hash] = working_wallet
 		self.players[creator.name].wallets.append(working_wallet.hash)
 		self.players[creator.name].created_wallets.append(working_wallet.hash)
+		await message.channel.send(conf.text_new_wallet % (working_wallet.seed,
+			working_wallet.hash))
 
 async def exec_command (command, cryptosystem, client, message = None, permissions = conf.perm_ru):
 	# This is the big function that looks at all of the commands
@@ -151,7 +164,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			passed_name = command_tokens[2]
 			if command_subfix == conf.command_wallet_init:
-				cryptosystem.wallet_init(message.author, passed_name)
+				await cryptosystem.wallet_init(message.author, passed_name, message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:
