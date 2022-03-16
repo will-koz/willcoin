@@ -120,6 +120,11 @@ class Cryptosystem:
 		# owner is the owner of the wallet to be destroyed, name is the name of the wallet to be
 		# destroyed, and message is the message that requested the wallet to be destroyed.
 		self.player_init(owner.name) # make sure the player exists, to stop errors down the line
+		# TODO
+		# get the wallet if it exists, if it doesn't then tell the user
+		# move coin and tokens to other wallets, if owner has at least two wallets before this
+		# function is called
+		# remove from owner wallets, then from creator wallets, then from cryptosystem wallets
 
 	async def wallet_init (self, creator, name, message):
 		self.player_init(creator.name)
