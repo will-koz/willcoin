@@ -27,6 +27,7 @@ command_info = "info"
 command_reserve = "reserve"
 command_unreserve = "unreserve"
 command_wallet = "wallet"
+command_wallet_destroy = "destroy"
 command_wallet_init = "init"
 
 fortunes = [
