@@ -116,6 +116,11 @@ class Cryptosystem:
 		self.wallets[self.bank].coins += amount
 		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
+	async def wallet_destroy (self, owner, name, message):
+		# owner is the owner of the wallet to be destroyed, name is the name of the wallet to be
+		# destroyed, and message is the message that requested the wallet to be destroyed.
+		self.player_init(owner.name) # make sure the player exists, to stop errors down the line
+
 	async def wallet_init (self, creator, name, message):
 		self.player_init(creator.name)
 		if self.check_player_has_wallet(creator.name, name):
