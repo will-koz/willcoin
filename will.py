@@ -77,6 +77,9 @@ class Cryptosystem:
 		self.new_cryptosystem(_size)
 
 	def check_player_has_wallet (self, player_name, wallet_name):
+		if not player_name in self.players:
+			# Don't need to bother checking, the player doesn't have any wallets
+			return False
 		wallet_array = self.players[player_name].created_wallets
 		for i in wallet_array:
 			if self.wallets[i].name == wallet_name:
