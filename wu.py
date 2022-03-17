@@ -1,6 +1,6 @@
 # acronym of will and utils
 
-import datetime, hashlib, json, random, requests
+import datetime, discord, hashlib, json, random, requests
 import conf
 
 def get_json (location):
@@ -28,6 +28,11 @@ def wint (x):
 		return int(x)
 	except ValueError:
 		return 0
+
+# --------------------------------------------------------------------------------------------------
+
+def color_fortune ():
+	return discord.Colour.random()
 
 def fortune ():
 	return random.choice(conf.fortunes)
