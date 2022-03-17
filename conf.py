@@ -23,6 +23,7 @@ ansi_error = ansi_escape + "1;31m"
 
 command_exit = "exit"
 command_fortune = "fortune"
+command_fortune_color = "color"
 command_info = "info"
 command_reserve = "reserve"
 command_unreserve = "unreserve"

@@ -152,7 +152,15 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune:
-		await wu.say_fortune(message)
+		try:
+			command_subfix = command_tokens[1]
+			if command_subfix == command_fortune_color:
+				await message.channel.send("Got here...")
+				await wu.say_color_fortune(message)
+			else:
+				await wu.say_fortune(message)
+		except:
+			await wu.say_fortune(message)
 	elif command_mainfix == conf.command_info and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
