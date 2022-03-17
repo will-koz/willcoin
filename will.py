@@ -154,8 +154,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_fortune:
 		try:
 			command_subfix = command_tokens[1]
-			if command_subfix == command_fortune_color:
-				await message.channel.send("Got here...")
+			if command_subfix == conf.command_fortune_color:
 				await wu.say_color_fortune(message)
 			else:
 				await wu.say_fortune(message)
