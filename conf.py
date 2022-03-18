@@ -56,6 +56,7 @@ text_command_infoprompt = "Maybe try `" + command_character + command_info + " %
 text_command_parseerror = "Error parsing '%s'"
 text_command_unknown = "Unknown command '%s'"
 text_fortune = "Gave fortune '%s' to %s."
+text_fortune_color = "Gave color '%s' to %s"
 text_log_message = "%s"
 text_log_time = "%s[%s]%s "
 text_logged_in = "Logged in as %s!"

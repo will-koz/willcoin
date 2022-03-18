@@ -40,7 +40,7 @@ def fortune ():
 async def say_color_fortune (message):
 	c = color_fortune()
 	await message.channel.send(c)
-	# TODO log this event
+	log(conf.text_fortune_color % (c, message.author))
 
 async def say_fortune (message):
 	f = fortune()
