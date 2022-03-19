@@ -20,8 +20,27 @@ add to this repo.
 - [x] Connect to Discord API
 - [ ] Parse Commands, call functions with appropriate users and permissions
   - [ ] For some remaining commands, create formal functions
+    - [ ] >wallet
+      - [ ] init
+      - [ ] move
+      - [ ] destroy
+      - [ ] give
+    - [ ] >account
+      - [ ] ls
+      - [ ] top
+    - [ ] >give
+	- [ ] >token
+      - [ ] mint
+      - [ ] unown
+      - [ ] sell
+    - [ ] >exit
+    - [ ] >save
+    - [ ] >reboot
+    - [ ] >announce
+    - [ ] >reserve
+    - [ ] >unreserve
+    - [ ] >info
 - [ ] Load data from external file
 - [ ] Save data to external file
 - [x] Thread Handling
 - [ ] Fortune / Wikipedia API functions
-- [ ] >info command
