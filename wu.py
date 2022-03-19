@@ -46,3 +46,7 @@ async def say_fortune (message):
 	f = fortune()
 	await message.channel.send(f)
 	log(conf.text_fortune % (f, message.author))
+
+def gen_willcoin_embed ():
+	e = discord.Embed(title = "text", color = color_fortune, description = "text")
+	return e

@@ -189,7 +189,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:
 			if message != None:
-				await message.channel.send(conf.text_command_parseerror % (command))
+				#await message.channel.send(embed = wu.gen_willcoin_embed(conf.text_command_parseerror % (command)))
+				await message.channel.send(embed = wu.gen_willcoin_embed())
 				await message.channel.send(conf.text_command_infoprompt % (command_mainfix))
 			else:
 				wu.log(conf.text_command_parseerror % (command))
