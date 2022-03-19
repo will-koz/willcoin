@@ -21,7 +21,7 @@ add to this repo.
 - [ ] Parse Commands, call functions with appropriate users and permissions
   - [ ] For some remaining commands, create formal functions
     - [ ] >wallet
-      - [ ] init
+      - [x] init
       - [ ] move
       - [ ] destroy
       - [ ] give
@@ -37,9 +37,9 @@ add to this repo.
     - [ ] >save
     - [ ] >reboot
     - [ ] >announce
-    - [ ] >reserve
-    - [ ] >unreserve
-    - [ ] >info
+    - [x] >reserve
+    - [x] >unreserve
+    - [x] >info
 - [ ] Load data from external file
 - [ ] Save data to external file
 - [x] Thread Handling
