@@ -9,6 +9,7 @@ default_reserve_amount = 2 ** 10
 default_stamp_size = 8
 default_token_name = "NewToken"
 default_wallet_name = "NewWallet"
+embed_delimiter = " "
 file_mode = "r"
 player_name_delimiter = '#'
 request_not_found_code = 429
@@ -53,7 +54,7 @@ perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
 
 text_command_infoprompt = "Maybe try `" + command_character + command_info + " %s`"
-text_command_parseerror = "Error parsing '%s'"
+text_command_parseerror = "Error parsing '%s'."
 text_command_unknown = "Unknown command '%s'"
 text_fortune = "Gave fortune '%s' to %s."
 text_fortune_color = "Gave color '%s' to %s"

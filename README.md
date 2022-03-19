@@ -44,3 +44,4 @@ add to this repo.
 - [ ] Save data to external file
 - [x] Thread Handling
 - [ ] Fortune / Wikipedia API functions
+- [ ] Redo logging and make all output text embeds
