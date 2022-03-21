@@ -45,3 +45,5 @@ add to this repo.
 - [x] Thread Handling
 - [ ] Fortune / Wikipedia API functions
 - [ ] Redo logging and make all output text embeds
+
+## Thanks
