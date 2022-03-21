@@ -12,6 +12,7 @@ recommend installing in Linux or in a Linux VM.
 add to this repo.
 - Create a server that can serve as a testing server and invite the bot to that server
 - Run `make install` <!-- TODO -->
+- Put your Discord bot token into token.txt
 
 <!-- TODO: write more of an Installation Guide -->
 
