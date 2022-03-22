@@ -121,7 +121,14 @@ class Cryptosystem:
 		# destroyed, and message is the message that requested the wallet to be destroyed.
 		self.player_init(owner.name) # make sure the player exists, to stop errors down the line
 		# TODO
-		# get the wallet if it exists, if it doesn't then tell the user
+		working_wallet = None
+		for i in self.players.wallets:
+			if self.wallets[i].name == name:
+				working_wallet = self.wallets[i]
+				break
+		if working_wallet == None:
+			# TODO: give this warning back to user
+			return # don't need to go any further
 		# move coin and tokens to other wallets, if owner has at least two wallets before this
 		# function is called
 		# remove from owner wallets, then from creator wallets, then from cryptosystem wallets
