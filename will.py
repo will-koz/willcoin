@@ -191,7 +191,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			passed_name = command_tokens[2]
 			if command_subfix == conf.command_wallet_destroy:
-				await cryptosystem.wallet_destroy()
+				await cryptosystem.wallet_destroy(message.author.name, passed_name, message)
 			elif command_subfix == conf.command_wallet_init:
 				await cryptosystem.wallet_init(message.author, passed_name, message)
 			else:
