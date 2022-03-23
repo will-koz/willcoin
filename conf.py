@@ -22,6 +22,7 @@ ansi_reset = ansi_escape + "0m"
 ansi_dull = ansi_escape + "2m"
 ansi_error = ansi_escape + "1;31m"
 
+command_announce = "account"
 command_exit = "exit"
 command_fortune = "fortune"
 command_fortune_color = "color"
