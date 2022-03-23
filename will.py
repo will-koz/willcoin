@@ -102,6 +102,9 @@ class Cryptosystem:
 			self.players[name] = Player()
 			wu.log(conf.text_new_player % (name))
 
+	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
+		self.player_init(player_name)
+
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
 		amount = min(self.wallets[self.bank].coins, amount)
@@ -158,10 +161,18 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	command_mainfix = command_tokens[0] # Like a prefix or a suffix, but the main word in a command
 
 	# If there is a good alternative to switch / case in python, I want to know it
-	if command_mainfix == conf.command_exit and permissions == conf.perm_su:
+	if command_mainfix == conf.command_account and permissions == conf.perm_ru:
+		try:
+			command_subfix = command_tokens[1]
+			if command_subfix == conf.command_account_ls:
+				embed_text = cryptosystem.get_account_info(command_tokens[2])
+		except IndexError:
+			# TEMP replace with ls command, but for the sender
+			await message.channel.send(conf.info_about)
+	elif command_mainfix == conf.command_exit and permissions == conf.perm_su:
 		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
-	elif command_mainfix == conf.command_fortune:
+	elif command_mainfix == conf.command_fortune and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_fortune_color:
