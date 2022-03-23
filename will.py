@@ -122,11 +122,14 @@ class Cryptosystem:
 		self.player_init(owner.name) # make sure the player exists, to stop errors down the line
 		# TODO
 		working_wallet = None
+		target_wallet = None # The wallet that all coin and tokens will be moved to
 		for i in self.players.wallets:
 			if self.wallets[i].name == name:
 				working_wallet = self.wallets[i]
 				break
-		if working_wallet == None:
+			elif target_wallet == None:
+				target_wallet = self.wallets[i]
+		if working_wallet == None or target_wallet == None:
 			# TODO: give this warning back to user
 			return # don't need to go any further
 		# move coin and tokens to other wallets, if owner has at least two wallets before this
