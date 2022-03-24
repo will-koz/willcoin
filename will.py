@@ -102,8 +102,11 @@ class Cryptosystem:
 			self.players[name] = Player()
 			wu.log(conf.text_new_player % (name))
 
-	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
+	def get_account_coin(self, player_name):
 		self.player_init(player_name)
+
+	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
+		wallet_sum = self.get_account_coin(player_name)
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
