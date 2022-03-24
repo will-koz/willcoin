@@ -55,6 +55,9 @@ isn't documentation for that yet. If you think there should be, tell the adminis
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
 
+text_account_info = """
+Total Wallet coins: %s
+"""
 text_command_infoprompt = "Maybe try `" + command_character + command_info + " %s`"
 text_command_parseerror = "Error parsing '%s'."
 text_command_unknown = "Unknown command '%s'"

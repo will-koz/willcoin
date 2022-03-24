@@ -106,9 +106,12 @@ class Cryptosystem:
 		self.player_init(player_name)
 		coins = 0
 		for i in self.players[player_name].wallets:
+			coins += self.wallets[i].coins
 
 	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
 		wallet_sum = self.get_account_coin(player_name) # player init is done in here
+		return_string = cont.text_account_info % (wallet_sum)
+		return return_string
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
