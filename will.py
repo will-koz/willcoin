@@ -174,7 +174,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_account_ls:
 				embed_text = cryptosystem.get_account_info(command_tokens[2])
-				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text))
+				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
+					title = conf.text_account_title % (command_tokens[2])))
 		except IndexError:
 			# TEMP replace with ls command, but for the sender
 			await message.channel.send(conf.info_about)

@@ -58,6 +58,7 @@ perm_su = 1 # Permissions - Super User
 text_account_info = """
 Total Wallet coins: %s
 """
+text_account_title = "Account information for %s:"
 text_command_infoprompt = "Maybe try `" + command_character + command_info + " %s`"
 text_command_parseerror = "Error parsing '%s'."
 text_command_unknown = "Unknown command '%s'"
