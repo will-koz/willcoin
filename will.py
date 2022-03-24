@@ -107,6 +107,7 @@ class Cryptosystem:
 		coins = 0
 		for i in self.players[player_name].wallets:
 			coins += self.wallets[i].coins
+		return coins
 
 	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
 		wallet_sum = self.get_account_coin(player_name) # player init is done in here
