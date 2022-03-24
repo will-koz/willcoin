@@ -110,7 +110,7 @@ class Cryptosystem:
 
 	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
 		wallet_sum = self.get_account_coin(player_name) # player init is done in here
-		return_string = cont.text_account_info % (wallet_sum)
+		return_string = conf.text_account_info % (wallet_sum)
 		return return_string
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
@@ -174,6 +174,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_account_ls:
 				embed_text = cryptosystem.get_account_info(command_tokens[2])
+				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text))
 		except IndexError:
 			# TEMP replace with ls command, but for the sender
 			await message.channel.send(conf.info_about)
