@@ -26,8 +26,8 @@ add to this repo.
       - [ ] move
       - [ ] destroy
       - [ ] give
-    - [ ] >account
-      - [ ] ls
+    - [x] >account
+      - [x] ls
       - [ ] top
     - [ ] >give
 	- [ ] >token
