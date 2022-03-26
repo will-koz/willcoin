@@ -55,9 +55,9 @@ perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
 
 text_account_info = """
-Total created wallets: %s
-Total wallets: %s
-Total wallet coins: %s
+Created wallets: %s
+Wallets: %s
+Coins in wallets: %s
 """
 text_account_title = "Account information for %s:"
 text_command_infoprompt = "Maybe try `" + command_character + command_info + " %s`"
