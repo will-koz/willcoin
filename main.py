@@ -35,6 +35,8 @@ def local_command_daemon (): # Super User command thread
 			recieved_command = recieved_command[1:] # if it's there.
 		exit_requested = will.exec_command(recieved_command, main_cs, client = wc, permissions = 1)
 
+# In line above, figure out how to make it asynchronous
+
 local_thread = threading.Thread(target = local_command_daemon)
 local_thread.start()
 

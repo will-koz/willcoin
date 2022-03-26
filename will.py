@@ -183,8 +183,10 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
 					title = conf.text_account_title % (command_tokens[2])))
 		except IndexError:
-			# TEMP replace with ls command, but for the sender
-			await message.channel.send(conf.info_about)
+			# Default to aliasing 'account' command to 'account ls [sender]'
+			embed_text = cryptosystem.get_account_info(str(message.author))
+			await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
+				title = conf.text_account_title % (str(message.author))))
 	elif command_mainfix == conf.command_exit and permissions == conf.perm_su:
 		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
