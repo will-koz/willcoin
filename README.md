@@ -8,10 +8,11 @@ to a user.)
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
 recommend installing in Linux or in a Linux VM.
 
-- Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
-add to this repo.
-- Create a server that can serve as a testing server and invite the bot to that server
 - Run `make install` <!-- TODO -->
+- Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
+add to this repo, which is why you should run the above command. This step and the next step is
+documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
+- Create a server that can serve as a testing server and invite the bot to that server. See above.
 - Put your Discord bot token into token.txt
 
 <!-- TODO: write more of an Installation Guide -->
@@ -46,6 +47,8 @@ add to this repo.
 - [x] Thread Handling
 - [ ] Fortune / Wikipedia API functions
 - [ ] Redo logging and make all output text embeds
+- [ ] Install script
+- [ ] grep -r TODO TEMP
 
 ## Thanks
 

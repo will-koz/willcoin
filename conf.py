@@ -23,6 +23,7 @@ ansi_error = ansi_escape + "1;31m"
 
 command_account = "account"
 command_account_ls = "ls"
+command_account_top = "top" # TODO
 command_exit = "exit"
 command_fortune = "fortune"
 command_fortune_color = "color"
