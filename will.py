@@ -61,7 +61,7 @@ class Wallet:
 		self.owner = self.creator
 		self.stamp = wmath.stamp()
 		# TODO change seed finder string
-		self.seed = self.creator + ":" + self.name + ":" + self.create_time + ":" + self.stamp
+		self.seed = str(self.creator) + ":" + self.name + ":" + self.create_time + ":" + self.stamp
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_wallet % (self.seed, self.hash))
 
@@ -136,7 +136,7 @@ class Cryptosystem:
 	async def wallet_destroy (self, owner, name, message):
 		# owner is the owner of the wallet to be destroyed, name is the name of the wallet to be
 		# destroyed, and message is the message that requested the wallet to be destroyed.
-		self.player_init(owner.name) # make sure the player exists, to stop errors down the line
+		self.player_init(owner) # make sure the player exists, to stop errors down the line
 		# TODO
 		working_wallet = None
 		target_wallet = None # The wallet that all coin and tokens will be moved to
@@ -154,15 +154,15 @@ class Cryptosystem:
 		# remove from owner wallets, then from creator wallets, then from cryptosystem wallets
 
 	async def wallet_init (self, creator, name, message):
-		self.player_init(creator.name)
-		if self.check_player_has_wallet(creator.name, name):
-			creator_name = creator.name.split(conf.player_name_delimiter)[0]
+		self.player_init(creator)
+		if self.check_player_has_wallet(creator, name):
+			creator_name = creator.name
 			await message.channel.send(conf.text_wallet_already_exists % (creator_name, name))
 			return
-		working_wallet = Wallet(creator.name, name)
+		working_wallet = Wallet(creator, name)
 		self.wallets[working_wallet.hash] = working_wallet
-		self.players[creator.name].wallets.append(working_wallet.hash)
-		self.players[creator.name].created_wallets.append(working_wallet.hash)
+		self.players[creator].wallets.append(working_wallet.hash)
+		self.players[creator].created_wallets.append(working_wallet.hash)
 		await message.channel.send(conf.text_new_wallet % (working_wallet.seed,
 			working_wallet.hash))
 
@@ -221,7 +221,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			passed_name = command_tokens[2]
 			if command_subfix == conf.command_wallet_destroy:
-				await cryptosystem.wallet_destroy(message.author.name, passed_name, message)
+				await cryptosystem.wallet_destroy(message.author, passed_name, message)
 			elif command_subfix == conf.command_wallet_init:
 				await cryptosystem.wallet_init(message.author, passed_name, message)
 			else:
