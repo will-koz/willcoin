@@ -76,6 +76,9 @@ class Cryptosystem:
 	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
 		self.new_cryptosystem(_size)
 
+	# TODO: still need to find a way to export data to json file
+	# TODO: and bring it back in
+
 	def check_player_has_wallet (self, player_name, wallet_name):
 		if not player_name in self.players:
 			# Don't need to bother checking, the player doesn't have any wallets
@@ -111,7 +114,9 @@ class Cryptosystem:
 
 	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
 		wallet_sum = self.get_account_coin(player_name) # player init is done in here
-		return_string = conf.text_account_info % (wallet_sum)
+		wallets_num = len(self.players[player_name].wallets)
+		cwallets_num = len(self.players[player_name].created_wallets)
+		return_string = conf.text_account_info % (cwallets_num, wallets_num, wallet_sum)
 		return return_string
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
