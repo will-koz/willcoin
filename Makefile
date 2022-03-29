@@ -13,6 +13,7 @@ fortuned:
 	python3 -c "import wu ; wu.fortune_dump()"
 
 install:
-	install
+	chmod +x install
+	./install
 
 .PHONY: package clean fortuned install

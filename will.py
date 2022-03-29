@@ -79,11 +79,11 @@ class Cryptosystem:
 	# TODO: still need to find a way to export data to json file
 	# TODO: and bring it back in
 
-	def save_cryptosystem ():
-		"# Save cryptosystem to JSON..."
+	def save_cryptosystem (self):
+		print(json.dumps(self.__dict__))
 		"# Export JSON to file..."
 
-	def load_cryptosystem ():
+	def load_cryptosystem (self):
 		"# Load JSON file..."
 		"# Load JSON to cryptosystem..."
 
@@ -221,6 +221,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			cryptosystem.reserve_coins(command_tokens[1])
 		except IndexError:
 			cryptosystem.reserve_coins()
+	elif command_mainfix == conf.command_save and permissions == conf.perm_su:
+		cryptosystem.save_cryptosystem()
 	elif command_mainfix == conf.command_unreserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.unreserve_coins(command_tokens[1])
