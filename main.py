@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import discord, random, sys, threading
+import asyncio, discord, random, sys, threading
 import conf, will, wu
 
 exit_requested = False
@@ -26,16 +26,20 @@ wc = WillClient()
 
 # Create a thread for parsing local commands
 
-def local_command_daemon (): # Super User command thread
+async def local_command_function (): # Super User command thread
 	global exit_requested, wc # Don't know why, but there needs to be a declaration of its globality.
 	while not exit_requested:
 		recieved_command = input()
 		# Nice way to remove the command character:
 		if recieved_command != "" and recieved_command[0] == conf.command_character:
 			recieved_command = recieved_command[1:] # if it's there.
-		exit_requested = will.exec_command(recieved_command, main_cs, client = wc, permissions = 1)
+		exit_requested = await will.exec_command(recieved_command, main_cs, client = wc, permissions = 1)
 
-# In line above, figure out how to make it asynchronous
+def local_command_daemon ():
+	loop = asyncio.new_event_loop()
+	asyncio.set_event_loop(loop)
+	loop.run_until_complete(local_command_function())
+	loop.close()
 
 local_thread = threading.Thread(target = local_command_daemon)
 local_thread.start()
