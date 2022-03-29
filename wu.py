@@ -37,6 +37,10 @@ def color_fortune ():
 def fortune ():
 	return random.choice(conf.fortunes)
 
+def fortune_dump ():
+	for i in conf.fortunes:
+		print(i)
+
 async def say_color_fortune (message):
 	c = color_fortune()
 	await message.channel.send(c)

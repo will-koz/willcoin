@@ -36,8 +36,20 @@ command_wallet_destroy = "destroy"
 command_wallet_init = "init"
 
 fortunes = [
+	":(){:|:&};:",
+	"\\*\\*Sample Fortune\\*\\*",
+	"\u0D9E",
+	"\u221E\u00B2 - 1 = (\u221E - 1)(\u221E + 1)",
 	"2 + 2 = 5",
-	"\\*\\*Sample Fortune\\*\\*"
+	"254ebc9d57cb06da5ea1bf685c7a04b0bfe9c808d5dcb5d093fc640f713dab9e",
+	"Epstein didn't kill himself.",
+	"https://en.wikipedia.org/wiki/Wikipedia",
+	"https://twitter.com",
+	"Police police police police.",
+	"Sponsored by Hooli",
+	"This message will never appear on the splash screen, isn't that weird?",
+	"What do you know about rolling down in the deep?",
+	"while (true) return (true) ?: true;"
 ]
 
 info_about = """

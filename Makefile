@@ -8,7 +8,11 @@ package:
 clean:
 	rm -rf __pycache__
 
+fortuned:
+	# fortune dump
+	python3 -c "import wu ; wu.fortune_dump()"
+
 install:
 	install
 
-.PHONY: package clean install
+.PHONY: package clean fortuned install
