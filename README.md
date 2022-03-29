@@ -20,7 +20,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 ## TODO
 
 - [x] Connect to Discord API
-- [ ] Parse Commands, call functions with appropriate users and permissions
+- [x] Parse Commands, call functions with appropriate users and permissions
   - [ ] For some remaining commands, create formal functions
     - [x] >wallet
       - [x] init
