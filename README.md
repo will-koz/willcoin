@@ -22,7 +22,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [x] Connect to Discord API
 - [ ] Parse Commands, call functions with appropriate users and permissions
   - [ ] For some remaining commands, create formal functions
-    - [ ] >wallet
+    - [x] >wallet
       - [x] init
       - [ ] move
       - [ ] destroy
@@ -35,20 +35,22 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
       - [ ] mint
       - [ ] unown
       - [ ] sell
-    - [ ] >exit
     - [ ] >save
-    - [ ] >reboot
-    - [ ] >announce
     - [x] >reserve
     - [x] >unreserve
     - [x] >info
 - [ ] Load data from external file
 - [ ] Save data to external file
 - [x] Thread Handling
-- [ ] Fortune / Wikipedia API functions
 - [ ] Redo logging and make all output text embeds
 - [ ] Install script
 - [ ] grep -r TODO TEMP
+
+### Important but unnecessary:
+- [ ] '>announce' command
+- [ ] '>exit' command
+- [ ] '>reboot' command
+- [ ] Fortune / Wikipedia API functions
 
 ## Thanks
 

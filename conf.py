@@ -11,6 +11,7 @@ default_token_name = "NewToken"
 default_wallet_name = "NewWallet"
 embed_delimiter = " "
 file_mode = "r"
+json_file = "cryptosystem.json"
 request_not_found_code = 429
 stamp_values = "0123456789abcdef"
 symbol = "\u20A9"

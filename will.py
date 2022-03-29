@@ -79,6 +79,14 @@ class Cryptosystem:
 	# TODO: still need to find a way to export data to json file
 	# TODO: and bring it back in
 
+	def save_cryptosystem ():
+		"# Save cryptosystem to JSON..."
+		"# Export JSON to file..."
+
+	def load_cryptosystem ():
+		"# Load JSON file..."
+		"# Load JSON to cryptosystem..."
+
 	def check_player_has_wallet (self, player_name, wallet_name):
 		if not player_name in self.players:
 			# Don't need to bother checking, the player doesn't have any wallets
