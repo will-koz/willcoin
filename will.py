@@ -2,9 +2,16 @@ import json, jsonpickle, time
 import command, conf, wmath, wu
 
 class Player:
-	def __init__ (self, _name = None):
-		# Like many other classes, can be loaded in or created TODO
-		self.new_player(_name = _name)
+	def __init__ (self, _name = None, _jsonobj = None):
+		if _jsonobj == None:
+			self.new_player(_name = _name)
+		else:
+			self.json_player(jsonobj = _jsonobj)
+
+	def json_player (self, jsonobj):
+		self.name = jsonobj["name"]
+		self.wallets = jsonobj["wallets"].copy()
+		self.created_wallets = jsonobj["created_wallets"].copy()
 
 	def new_player (self, _name):
 		self.name = _name
@@ -12,32 +19,48 @@ class Player:
 		self.created_wallets = []
 
 class Token:
-	def __init__ (self, _creator = conf.anonymous, _name = conf.default_token_name):
+	def __init__ (self, creator = conf.anonymous, name = conf.default_token_name, jsonobj = None):
 		# Token either needs to be created or loaded in. TODO
 		# Assume that if no other tokens are passed, it is okay to mint a token
 		self.new_token(_creator = _creator, _name = _name, _initwallet = "")
 
-	def new_token (self, _initwallet, _creator = conf.anonymous, _name = conf.default_token_name):
+	def new_token (self, _initwallet, _url,
+		_creator = conf.anonymous, _name = conf.default_token_name):
 		self.cost = 0
 		self.create_time = str(int(time.time()))
 		self.creator = _creator
+		self.rarity = wmath.getrarity()
 		self.name = _name
-		self.stamp = wmath.stamp()
 		self.owner = _initwallet # The owner field is populated by a wallet hash, not a player
+		self.stamp = wmath.stamp()
+		self.url = _url
 
 		self.seed = conf.seed_template % (self.creator, self.name, self.create_time, self.stamp)
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_token % (self.seed, self.hash))
 
 class Wallet:
-	def __init__ (self,
-		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
-		# if no object is passed, it is okay to assume that the wallet is okay to make TODO
-		self.new_wallet(_creator = _creator, _name = _name, _players = _players)
+	def __init__ (self, creator = conf.anonymous, name = conf.default_wallet_name, jsonobj = None):
+		if jsonobj == None:
+			self.new_wallet(_creator = creator, _name = name)
+		else:
+			self.json_wallet(_jsonobj = jsonobj)
 
-	def new_wallet (self,
-		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
+	def json_wallet (self, _jsonobj):
+		self.coins = _jsonobj["coins"]
+		self.create_time = _jsonobj["create_time"]
+		self.creator = _jsonobj["creator"]
+		self.hash = _jsonobj["hash"]
+		self.name = _jsonobj["name"]
+		self.owner = _jsonobj["owner"]
+		self.seed = _jsonobj["seed"]
+		self.stamp = _jsonobj["stamp"]
+		self.tokens = _jsonobj["tokens"].copy()
+		wu.log("Loaded in " + self.hash)
+
+	def new_wallet (self, _creator = conf.anonymous, _name = conf.default_wallet_name):
 		# TODO make sure that this function checks against existing wallets
+		# or maybe not. Ill think about it.
 		self.coins = 0
 		self.create_time = str(int(time.time()))
 		self.creator = str(_creator)
@@ -52,20 +75,19 @@ class Wallet:
 		wu.log(conf.text_new_wallet % (self.seed, self.hash))
 
 class Cryptosystem:
-	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
-		self.new_cryptosystem(_size)
-
-	# TODO: still need to find a way to export data to json file
-	# TODO: and bring it back in
+	def __init__ (self, _location):
+		self.load_cryptosystem(_location)
 
 	def save_cryptosystem (self):
 		output_file = open(conf.json_file, conf.json_file_mode)
 		output_file.write(jsonpickle.encode(self))
 		output_file.close()
 
-	def load_cryptosystem (self):
-		"# Load JSON file..."
-		"# Load JSON to cryptosystem..."
+	def load_cryptosystem (self, loc = conf.json_file):
+		file = open(loc)
+		jsonobject = json.load(file)
+		file.close()
+		self.json_cryptosystem(jsonobject)
 
 	def check_player_has_wallet (self, player_name, wallet_name):
 		if not player_name in self.players:
@@ -77,6 +99,22 @@ class Cryptosystem:
 				return True
 		return False
 
+	def json_cryptosystem (self, jsonobj):
+		wu.log("Opening from file")
+		self.total_willcoin = jsonobj["total_willcoin"]
+		self.reserve = jsonobj["reserve"]
+		self.auction = jsonobj["auction"].copy()
+		self.bank = jsonobj["bank"]
+		self.players = {}
+		self.tokens = {}
+		self.wallets = {}
+		for player in jsonobj["players"]:
+			self.players[jsonobj["players"][player]["name"]] = \
+				Player(_jsonobj = jsonobj["players"][player])
+		for wallet in jsonobj["wallets"]:
+			self.wallets[jsonobj["wallets"][wallet]["hash"]] = \
+				Wallet(jsonobj = jsonobj["wallets"][wallet])
+
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
 		# This is for creating a cryptosystem, not loading one.
 		self.total_willcoin = _size
@@ -86,7 +124,7 @@ class Cryptosystem:
 		self.tokens = {} # The actual tokens, not just the hashes
 		self.wallets = {} # The actual wallets, not just the hashes
 
-		bank_wallet = Wallet(_creator = conf.administration, _name = conf.bank_name)
+		bank_wallet = Wallet(creator = conf.administration, name = conf.bank_name)
 		self.bank = bank_wallet.hash
 
 		self.wallets[bank_wallet.hash] = bank_wallet

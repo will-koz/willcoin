@@ -13,6 +13,15 @@ embed_delimiter = " "
 file_mode = "r"
 json_file = "cryptosystem.json"
 json_file_mode = "w"
+rarities = [
+	("common", 100),
+	("\"special\"", 75),
+	("kinda cool", 45),
+	("rare-ish", 20),
+	("person who pays for WinRAR", 6),
+	("legendary", 3),
+	("uncommon", 1)
+]
 request_not_found_code = 429
 seed_template = "%s:%s:%s:%s"
 stamp_values = "0123456789abcdef"

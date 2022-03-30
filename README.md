@@ -52,6 +52,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [ ] '>reboot' command
 - [ ] Fortune / Wikipedia API functions
 - [ ] Create a systemd service / unit
+- [ ] make '>info' for commands
 
 ## Thanks
 
