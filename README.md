@@ -25,13 +25,13 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
     - [x] >wallet
       - [x] init
       - [ ] move
-      - [ ] destroy
+      - [x] destroy
       - [ ] give
     - [x] >account
       - [x] ls
       - [ ] top
     - [ ] >give
-	- [ ] >token
+	- [x] >token
       - [ ] mint
       - [ ] unown
       - [ ] sell
@@ -51,6 +51,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [ ] '>exit' command
 - [ ] '>reboot' command
 - [ ] Fortune / Wikipedia API functions
+- [ ] Create a systemd service / unit
 
 ## Thanks
 

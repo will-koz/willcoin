@@ -1,5 +1,7 @@
 # This is the installation script for the willcoin cryptosystem
 
+pip install -r requirements.txt
+
 touch cryptosystem.json
 touch token.txt
 

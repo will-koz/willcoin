@@ -220,6 +220,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			cryptosystem.reserve_coins()
 	elif command_mainfix == conf.command_save and permissions == conf.perm_su:
 		cryptosystem.save_cryptosystem()
+	elif command_mainfix == conf.command_token and permissions == conf.perm_ru:
+		pass # TODO
 	elif command_mainfix == conf.command_unreserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.unreserve_coins(command_tokens[1])
