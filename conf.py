@@ -24,6 +24,7 @@ rarities = [
 ]
 request_not_found_code = 429
 seed_template = "%s:%s:%s:%s"
+special_rarity = "This rarity shouldn't be possible if the random choice algorithm worked..."
 stamp_values = "0123456789abcdef"
 symbol = "\u20A9"
 token = "token.txt"

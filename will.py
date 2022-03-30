@@ -20,11 +20,24 @@ class Player:
 
 class Token:
 	def __init__ (self, creator = conf.anonymous, name = conf.default_token_name, jsonobj = None):
-		# Token either needs to be created or loaded in. TODO
-		# Assume that if no other tokens are passed, it is okay to mint a token
-		self.new_token(_creator = _creator, _name = _name, _initwallet = "")
+		if jsonobj == None:
+			self.new_token(_creator = _creator, _name = _name, _initwallet = "")
+		else:
+			self.json_token(_jsonobj = jsonobj)
 
-	def new_token (self, _initwallet, _url,
+	def json_token (self, _jsonobj):
+		self.cost = _jsonobj["cost"]
+		self.create_time = _jsonobj["create_time"]
+		self.creator = _jsonobj["creator"]
+		self.hash = _jsonobj["hash"]
+		self.rarity = _jsonobj["rarity"]
+		self.name = _jsonobj["name"]
+		self.owner = _jsonobj["owner"]
+		self.seed = _jsonobj["seed"]
+		self.stamp = _jsonobj["stamp"]
+		self.url = _jsonobj["url"]
+
+	def new_token (self, _url, _initwallet,
 		_creator = conf.anonymous, _name = conf.default_token_name):
 		self.cost = 0
 		self.create_time = str(int(time.time()))
@@ -111,6 +124,9 @@ class Cryptosystem:
 		for player in jsonobj["players"]:
 			self.players[jsonobj["players"][player]["name"]] = \
 				Player(_jsonobj = jsonobj["players"][player])
+		for token in jsonobj["tokens"]:
+			self.tokens[jsonobj["tokens"][token]["hash"]] = \
+				Token(_jsonobj = jsonobj["tokens"][token])
 		for wallet in jsonobj["wallets"]:
 			self.wallets[jsonobj["wallets"][wallet]["hash"]] = \
 				Wallet(jsonobj = jsonobj["wallets"][wallet])
@@ -195,6 +211,7 @@ class Cryptosystem:
 		self.players[working_wallet.creator].created_wallets.remove(working_wallet.hash)
 		self.players[working_wallet.owner].wallets.remove(working_wallet.hash)
 		del self.wallets[working_wallet.hash]
+		# TODO log and tell user
 
 	async def wallet_init (self, creator, name, message):
 		self.player_init(creator)

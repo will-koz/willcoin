@@ -10,5 +10,11 @@ def getrarity ():
 	sum = 0
 	for i in conf.rarities:
 		sum += i[1]
-	choice = random.
+	choice = int(random.random() * sum)
 	for i in conf.rarities:
+		if choice < i[1]:
+			return i[0]
+		else:
+			choice -= i[1]
+	# shouldn't get here if this works
+	return conf.special_rarity
