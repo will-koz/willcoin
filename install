@@ -2,3 +2,5 @@
 
 touch cryptosystem.json
 touch token.txt
+
+chmod +x main.py

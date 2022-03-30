@@ -9,9 +9,9 @@ class Player:
 		# Like many other classes, can be loaded in or created TODO
 		self.new_player(_name = _name, _wallets = _wallets)
 
-	def new_player (self, _name, _wallets = None):
-		name = _name
-		wallets = _wallets
+	def new_player (self, _name, _wallets = []):
+		self.name = _name
+		self.wallets = _wallets
 
 class Token:
 	cost = 0
@@ -38,15 +38,6 @@ class Token:
 		wu.log(conf.text_new_token % (self.seed, self.hash))
 
 class Wallet:
-	coins = 0
-	create_time = ""
-	creator = ""
-	hash = ""
-	name = ""
-	owner = ""
-	seed = ""
-	stamp = ""
-	tokens = []
 	def __init__ (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
 		# if no object is passed, it is okay to assume that the wallet is okay to make TODO
@@ -55,24 +46,23 @@ class Wallet:
 	def new_wallet (self,
 		_creator = conf.anonymous, _name = conf.default_wallet_name, _players = None):
 		# TODO make sure that this function checks against existing wallets
+		self.coins = 0
+		self.create_time = str(int(time.time()))
 		self.creator = _creator
 		self.name = _name
-		self.create_time = str(int(time.time()))
-		self.owner = self.creator
 		self.stamp = wmath.stamp()
-		# TODO change seed finder string
-		self.seed = str(self.creator) + ":" + self.name + ":" + self.create_time + ":" + self.stamp
+		self.tokens = []
+
+		self.owner = self.creator
+		self.seed = conf.seed_template % (str(self.creator), \
+			self.name, self.create_time, self.stamp)
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_wallet % (self.seed, self.hash))
 
+	def toJson (self):
+		return json.dumps(self, default = lambda x: self.__dict__)
+
 class Cryptosystem:
-	total_willcoin = 0
-	reserve = 0 # This isn't a wallet because there are no tokens associated with it
-	bank = None
-	auction = [] # This isn't a wallet because there are no willcoin associated with it.
-	players = {}
-	tokens = {} # The actual tokens, not just the hashes
-	wallets = {} # The actual wallets, not just the hashes
 	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
 		self.new_cryptosystem(_size)
 
@@ -80,7 +70,7 @@ class Cryptosystem:
 	# TODO: and bring it back in
 
 	def save_cryptosystem (self):
-		print(json.dumps(self.__dict__))
+		print(self.__dict__)
 		"# Export JSON to file..."
 
 	def load_cryptosystem (self):
@@ -98,12 +88,18 @@ class Cryptosystem:
 		return False
 
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
-		# Read carefully: This is for creating a cryptosystem, not loading one.
+		# This is for creating a cryptosystem, not loading one.
 		self.total_willcoin = _size
-		# Initialize bank
+		self.reserve = 0
+		self.auction = []
+		self.players = {}
+		self.tokens = {} # The actual tokens, not just the hashes
+		self.wallets = {} # The actual wallets, not just the hashes
+
 		bank_wallet = Wallet(_creator = conf.administration, _name = conf.bank_name)
-		self.wallets[bank_wallet.hash] = bank_wallet
 		self.bank = bank_wallet.hash
+
+		self.wallets[bank_wallet.hash] = bank_wallet
 		self.wallets[self.bank].coins = self.total_willcoin
 
 	def player_init (self, name):

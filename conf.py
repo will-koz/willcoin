@@ -13,6 +13,7 @@ embed_delimiter = " "
 file_mode = "r"
 json_file = "cryptosystem.json"
 request_not_found_code = 429
+seed_template = "%s:%s:%s:%s"
 stamp_values = "0123456789abcdef"
 symbol = "\u20A9"
 token = "token.txt"
