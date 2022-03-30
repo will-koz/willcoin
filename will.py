@@ -51,9 +51,6 @@ class Wallet:
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_wallet % (self.seed, self.hash))
 
-	def toJson (self):
-		return json.dumps(self, default = lambda x: self.__dict__)
-
 class Cryptosystem:
 	def __init__ (self, _location = None, _size = conf.default_cryptosystem_size):
 		self.new_cryptosystem(_size)
@@ -133,22 +130,33 @@ class Cryptosystem:
 	async def wallet_destroy (self, owner, name, message):
 		# owner is the owner of the wallet to be destroyed, name is the name of the wallet to be
 		# destroyed, and message is the message that requested the wallet to be destroyed.
-		self.player_init(owner) # make sure the player exists, to stop errors down the line
+		self.player_init(str(owner)) # make sure the player exists, to stop errors down the line
 		# TODO
 		working_wallet = None
 		target_wallet = None # The wallet that all coin and tokens will be moved to
-		for i in self.players.wallets:
+		for i in self.players[str(owner)].wallets:
 			if self.wallets[i].name == name:
 				working_wallet = self.wallets[i]
-				break
 			elif target_wallet == None:
 				target_wallet = self.wallets[i]
+			if working_wallet != None and target_wallet != None:
+				break
 		if working_wallet == None or target_wallet == None:
 			# TODO: give this warning back to user
 			return # don't need to go any further
-		# move coin and tokens to other wallets, if owner has at least two wallets before this
-		# function is called
+		moved_coins = working_wallet.coins
+		# By storing this in a seperate variable, it'll prevent infinite money glitches, hopefully
+		working_wallet.coins -= moved_coins
+		target_wallet.coins += moved_coins
+		while working_wallet.tokens:
+			# TEMP come back later and determine if there needs to be more delicate handling of
+			# transferred tokens
+			target_wallet.tokens.append(working_wallet.tokens.pop())
+
 		# remove from owner wallets, then from creator wallets, then from cryptosystem wallets
+		self.players[working_wallet.creator].created_wallets.remove(working_wallet.hash)
+		self.players[working_wallet.owner].wallets.remove(working_wallet.hash)
+		del self.wallets[working_wallet.hash]
 
 	async def wallet_init (self, creator, name, message):
 		self.player_init(creator)

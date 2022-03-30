@@ -30,9 +30,9 @@ async def local_command_function (): # Super User command thread
 	global exit_requested, wc # Don't know why, but there needs to be a declaration of its globality.
 	while not exit_requested:
 		recieved_command = input()
-		# Nice way to remove the command character:
+		# Nice way to remove the command character if it's there.
 		if recieved_command != "" and recieved_command[0] == conf.command_character:
-			recieved_command = recieved_command[1:] # if it's there.
+			recieved_command = recieved_command[1:]
 		exit_requested = await will.exec_command(recieved_command, main_cs, client = wc, permissions = 1)
 
 def local_command_daemon ():
