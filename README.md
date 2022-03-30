@@ -35,12 +35,12 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
       - [ ] mint
       - [ ] unown
       - [ ] sell
-    - [ ] >save
+    - [x] >save
     - [x] >reserve
     - [x] >unreserve
     - [x] >info
 - [ ] Load data from external file
-- [ ] Save data to external file
+- [x] Save data to external file
 - [x] Thread Handling
 - [ ] Redo logging and make all output text embeds
 - [ ] Install script

@@ -1,39 +1,31 @@
-import json, time
+import json, jsonpickle, time
 import command, conf, wmath, wu
 
 class Player:
-	name = ""
-	wallets = []
-	created_wallets = []
-	def __init__ (self, _name = None, _wallets = None):
+	def __init__ (self, _name = None):
 		# Like many other classes, can be loaded in or created TODO
-		self.new_player(_name = _name, _wallets = _wallets)
+		self.new_player(_name = _name)
 
-	def new_player (self, _name, _wallets = []):
+	def new_player (self, _name):
 		self.name = _name
-		self.wallets = _wallets
+		self.wallets = []
+		self.created_wallets = []
 
 class Token:
-	cost = 0
-	create_time = ""
-	creator = ""
-	hash = ""
-	name = ""
-	owner = ""
-	seed = ""
-	stamp = ""
-	def __init__ (self, _creator = conf.anonymous, _name = conf.default_token_name, _tokens = None):
+	def __init__ (self, _creator = conf.anonymous, _name = conf.default_token_name):
 		# Token either needs to be created or loaded in. TODO
 		# Assume that if no other tokens are passed, it is okay to mint a token
-		self.new_token(_creator = _creator, _name = _name)
+		self.new_token(_creator = _creator, _name = _name, _initwallet = "")
 
-	def new_token (self, _creator = conf.anonymous, _name = conf.default_token_name):
+	def new_token (self, _initwallet, _creator = conf.anonymous, _name = conf.default_token_name):
+		self.cost = 0
+		self.create_time = str(int(time.time()))
 		self.creator = _creator
 		self.name = _name
-		self.create_time = str(int(time.time()))
 		self.stamp = wmath.stamp()
-		# TODO change seed finder string
-		self.seed = self.creator + ":" + self.name + ":" + self.create_time + ":" + self.stamp
+		self.owner = _initwallet # The owner field is populated by a wallet hash, not a player
+
+		self.seed = conf.seed_template % (self.creator, self.name, self.create_time, self.stamp)
 		self.hash = wu.whash(self.seed)
 		wu.log(conf.text_new_token % (self.seed, self.hash))
 
@@ -48,7 +40,7 @@ class Wallet:
 		# TODO make sure that this function checks against existing wallets
 		self.coins = 0
 		self.create_time = str(int(time.time()))
-		self.creator = _creator
+		self.creator = str(_creator)
 		self.name = _name
 		self.stamp = wmath.stamp()
 		self.tokens = []
@@ -70,8 +62,9 @@ class Cryptosystem:
 	# TODO: and bring it back in
 
 	def save_cryptosystem (self):
-		print(self.__dict__)
-		"# Export JSON to file..."
+		output_file = open(conf.json_file, conf.json_file_mode)
+		output_file.write(jsonpickle.encode(self))
+		output_file.close()
 
 	def load_cryptosystem (self):
 		"# Load JSON file..."
@@ -105,8 +98,8 @@ class Cryptosystem:
 	def player_init (self, name):
 		# This should be called regardless of if the player exists, just to make sure, so the first
 		# line makes sure they don't already exist.
-		if not name in self.players:
-			self.players[name] = Player()
+		if not str(name) in self.players:
+			self.players[str(name)] = Player(str(name))
 			wu.log(conf.text_new_player % (name))
 
 	def get_account_coin(self, player_name):
@@ -165,8 +158,8 @@ class Cryptosystem:
 			return
 		working_wallet = Wallet(creator, name)
 		self.wallets[working_wallet.hash] = working_wallet
-		self.players[creator].wallets.append(working_wallet.hash)
-		self.players[creator].created_wallets.append(working_wallet.hash)
+		self.players[str(creator)].wallets.append(working_wallet.hash)
+		self.players[str(creator)].created_wallets.append(working_wallet.hash)
 		await message.channel.send(conf.text_new_wallet % (working_wallet.seed,
 			working_wallet.hash))
 

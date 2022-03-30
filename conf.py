@@ -12,6 +12,7 @@ default_wallet_name = "NewWallet"
 embed_delimiter = " "
 file_mode = "r"
 json_file = "cryptosystem.json"
+json_file_mode = "w"
 request_not_found_code = 429
 seed_template = "%s:%s:%s:%s"
 stamp_values = "0123456789abcdef"
