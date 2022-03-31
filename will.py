@@ -270,6 +270,27 @@ class Cryptosystem:
 		del self.wallets[working_wallet.hash]
 		# TODO log and tell user
 
+	async def wallet_give (self, user, name, target_user, message):
+		self.player_init(user)
+		working_user = self.players[user]
+		working_target_user = None
+		try:
+			working_target_user = self.players[target_user]
+		except KeyError:
+			await message.channel.send(conf.text_wallet_give_target_user_not_found % (target_user))
+			return # TODO
+		working_wallet = None
+		for i in working_user.wallets:
+			if self.wallets[i].name == name:
+				working_wallet = i
+				break
+		if not working_wallet:
+			return # TODO
+		working_user.wallets.remove(working_wallet)
+		working_target_user.wallets.append(working_wallet)
+		self.wallets[working_wallet].owner = working_target_user
+		# TODO give messages back to user
+
 	async def wallet_init (self, creator, name, message):
 		self.player_init(creator)
 		if self.check_player_has_wallet(creator, name):
@@ -360,6 +381,9 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			passed_name = command_tokens[2]
 			if command_subfix == conf.command_wallet_destroy:
 				await cryptosystem.wallet_destroy(message.author, passed_name, message)
+			elif command_subfix == conf.command_wallet_give:
+				await cryptosystem.wallet_give(str(message.author), passed_name, \
+					command_tokens[3], message)
 			elif command_subfix == conf.command_wallet_init:
 				await cryptosystem.wallet_init(message.author, passed_name, message)
 			else:

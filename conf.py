@@ -55,6 +55,7 @@ command_token_mint = "mint"
 command_unreserve = "unreserve"
 command_wallet = "wallet"
 command_wallet_destroy = "destroy"
+command_wallet_give = "give"
 command_wallet_init = "init"
 
 fortunes = [
@@ -120,4 +121,5 @@ Currently valued at %s%s.
 text_token_footer = "Seed and sha256 hash: %s %s"
 text_token_title = "**%s** : *%s*"
 text_wallet_already_exists = "%s, you already have a wallet named '%s'"
+text_wallet_give_target_user_not_found = "Couldn't find %s."
 text_warning = "%s(Warning)%s %s"

@@ -24,7 +24,8 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
   - [ ] For some remaining commands, create formal functions
     - [x] >wallet
 	  - [ ] movet
-      - [ ] give
+      - [x] give
+      - [ ] ls
       - [ ] move
       - [x] destroy
       - [x] init
