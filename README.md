@@ -44,7 +44,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 	  - [ ] unsell
       - [x] mint
 	  - [x] ls
-      - [ ] sell
+      - [x] sell
       - [ ] unown
     - [x] >save
     - [x] >reserve

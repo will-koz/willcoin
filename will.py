@@ -255,7 +255,7 @@ class Cryptosystem:
 	async def token_buy (self, user, token, message):
 		working_token = ""
 		for tokenh in self.auction:
-			if self.tokens[tokenh].hash == token:
+			if tokenh == token:
 				working_token = tokenh
 				break
 		if working_token == "":
@@ -306,6 +306,21 @@ class Cryptosystem:
 		generated_coins = math.ceil(self.wallets[self.bank].coins / conf.return_diminish_factor)
 		self.wallets[self.bank].coins -= generated_coins
 		working_wallet.coins += generated_coins
+
+	async def token_sell (self, user, token, amount, message):
+		working_token = ""
+		wu.log("here")
+		for walleth in self.players[user].wallets:
+			for tokenh in self.wallets[walleth].tokens:
+				if self.tokens[tokenh].name == token:
+					working_token = tokenh
+					break
+					break
+		if working_token == "":
+			return # TODO
+		if not working_token in self.auction:
+			self.auction.append(working_token)
+		self.tokens[working_token].cost = wmath.atoi(amount)
 
 	def unreserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
@@ -531,6 +546,9 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await cryptosystem.token_ls(command_tokens[2], message)
 			elif command_subfix == conf.command_token_mint:
 				await cryptosystem.token_mint(command_tokens[2], message)
+			elif command_subfix == conf.command_token_sell:
+				await cryptosystem.token_sell(str(message.author), command_tokens[2], \
+					command_tokens[3], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:
