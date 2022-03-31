@@ -205,7 +205,22 @@ class Cryptosystem:
 				token[1].cost, token[1].hash)
 			counter += 1
 		final_text = conf.text_template_account % (player_text, wallet_text, token_text)
-		await message.channel.send(embed = wu.gen_willcoin_embed(final_text, title = conf.text_top_accounts))
+		await message.channel.send(embed = wu.gen_willcoin_embed(final_text, \
+			title = conf.text_top_accounts))
+
+	async def auction_ls (self, message):
+		wu.log ("here")
+		reply_text = ""
+		counter = 1
+		for i in self.auction:
+			if counter != 1:
+				reply_text += "\n"
+			reply_text += conf.text_template_token % (counter, self.tokens[i].name, conf.symbol, \
+				self.tokens[i].cost, i)
+			counter += 1
+		if reply_text == "":
+			reply_text = conf.text_auction_none
+		await message.channel.send(embed = wu.gen_willcoin_embed(reply_text, title = ""))
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
@@ -327,6 +342,19 @@ class Cryptosystem:
 		self.wallets[working_wallet].owner = working_target_user
 		# TODO give messages back to user
 
+	async def wallet_main (self, user, name, message):
+		working_wallet = ""
+		for wallet in self.players[user].wallets:
+			if self.wallets[wallet].name == name:
+				working_wallet = wallet
+				break
+		if working_wallet == "":
+			return # TODO
+		self.players[user].wallets.remove(working_wallet)
+		self.players[user].wallets.insert(0, working_wallet)
+		await message.channel.send(embed = wu.gen_willcoin_embed(conf.text_wallet_mained % (name, \
+			user), title = ""))
+
 	async def wallet_msg (self, hash, mc):
 		working_wallet = self.wallets[hash]
 		title = conf.text_wallet_title % (working_wallet.name, working_wallet.owner)
@@ -394,6 +422,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			embed_text = cryptosystem.get_account_info(str(message.author))
 			await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
 				title = conf.text_account_title % (str(message.author))))
+	elif command_mainfix == conf.command_auction and permissions == conf.perm_ru:
+		await cryptosystem.auction_ls(message)
 	elif command_mainfix == conf.command_exit and permissions == conf.perm_su:
 		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
@@ -408,7 +438,6 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			elif command_subfix == conf.command_fortune_wiki:
 				await wu.say_wiki_fortune(message)
 			else:
-				print(conf.command_fortune_wiki, command_subfix)
 				await wu.say_fortune(message)
 		except IndexError:
 			await wu.say_fortune(message)
@@ -457,6 +486,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await cryptosystem.wallet_init(message.author, passed_name, message)
 			elif command_subfix == conf.command_wallet_ls:
 				await cryptosystem.wallet_ls(command_tokens[2], message)
+			elif command_subfix == conf.command_wallet_main:
+				await cryptosystem.wallet_main(str(message.author), passed_name, message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:

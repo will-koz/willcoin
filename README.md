@@ -27,13 +27,17 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
       - [x] give
       - [x] ls
       - [ ] move
+	  - [x] main
       - [x] destroy
       - [x] init
     - [x] >account
       - [x] ls
       - [x] top
     - [ ] >give
-	- [ ] >auction
+	  - [ ] coin
+	  - [ ] token
+	  - [ ] wallet
+	- [x] >auction
 	- [x] >token
 	  - [ ] buy
 	  - [ ] unsell

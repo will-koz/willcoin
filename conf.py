@@ -42,6 +42,7 @@ ansi_error = ansi_escape + "1;31m"
 command_account = "account"
 command_account_ls = "ls"
 command_account_top = "top"
+command_auction = "auction"
 command_exit = "exit"
 command_fortune = "fortune"
 command_fortune_cat = "cat"
@@ -59,6 +60,7 @@ command_wallet_destroy = "destroy"
 command_wallet_give = "give"
 command_wallet_init = "init"
 command_wallet_ls = "ls"
+command_wallet_main = "main"
 
 fortunes = [
 	":(){:|:&};:",
@@ -102,6 +104,7 @@ Wallets: %s
 Coins in wallets: %s
 """
 text_account_title = "Account information for %s:"
+text_auction_none = "It looks like no one wants to auction tokens right now."
 text_command_infoprompt = "Maybe try `" + command_character + command_info + " %s`"
 text_command_parseerror = "Error parsing '%s'."
 text_command_unknown = "Unknown command '%s'"
@@ -134,5 +137,6 @@ Currently has %s%s.
 """
 text_wallet_footer = "Seed and sha256 hash: %s %s"
 text_wallet_give_target_user_not_found = "Couldn't find %s."
+text_wallet_mained = "Made '%s' %s's main wallet."
 text_wallet_title = "**%s** : *%s*"
 text_warning = "%s(Warning)%s %s"
