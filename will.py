@@ -1,4 +1,4 @@
-import json, jsonpickle, math, time
+import json, jsonpickle, math, requests, time
 import command, conf, wmath, wu
 
 class Player:
@@ -180,6 +180,29 @@ class Cryptosystem:
 		self.reserve += amount
 		wu.log(conf.text_reserve_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
 
+	async def token_msg (self, hash, mc):
+		working_token = self.tokens[hash]
+		title = conf.text_token_title % (working_token.name, working_token.rarity)
+		body = conf.text_token_body % (working_token.creator, working_token.create_time, \
+			conf.symbol, working_token.cost)
+		footer = conf.text_token_footer % (working_token.seed, working_token.hash)
+		await mc.send(embed = wu.gen_willcoin_embed(body, title = title, \
+			img = working_token.url, foot = footer))
+
+	async def token_ls (self, identifier, message):
+		hash = ""
+		try:
+			hash = self.tokens[identifier].hash
+		except:
+			for i in self.players[str(message.author)].created_tokens:
+				if self.tokens[i].name == identifier:
+					hash = self.tokens[i].hash
+		if hash == "":
+			# TODO: give this data to user
+			pass
+		else:
+			await self.token_msg(hash, message.channel)
+
 	async def token_mint (self, mint_name, message):
 		# TODO make sure all of the returns have appropriate logging and message.sending
 		url = ""
@@ -196,6 +219,7 @@ class Cryptosystem:
 		self.wallets[working_token.owner].tokens.append(working_token.hash)
 		self.player_init(working_token.creator)
 		self.players[working_token.creator].created_tokens.append(working_token.hash)
+		await self.token_msg(working_token.hash, message.channel)
 
 		# This part is for the assigning of coins to minted tokens
 		working_wallet = None # Initialize it because I don't know about variable scopes in python
@@ -286,11 +310,17 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_fortune and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
-			if command_subfix == conf.command_fortune_color:
+			if command_subfix == conf.command_fortune_cat:
+				await message.channel.send(embed = wu.gen_willcoin_embed("", title = "", \
+					img = requests.get(conf.cat_loc).json()["file"]))
+			elif command_subfix == conf.command_fortune_color:
 				await wu.say_color_fortune(message)
+			elif command_subfix == conf.command_fortune_wiki:
+				await wu.say_wiki_fortune(message)
 			else:
+				print(conf.command_fortune_wiki, command_subfix)
 				await wu.say_fortune(message)
-		except:
+		except IndexError:
 			await wu.say_fortune(message)
 	elif command_mainfix == conf.command_info and permissions == conf.perm_ru:
 		try:
@@ -311,8 +341,9 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_token and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
-			if command_subfix == conf.command_token_mint:
-				wu.log("Here")
+			if command_subfix == conf.command_token_ls:
+				await cryptosystem.token_ls(command_tokens[2], message)
+			elif command_subfix == conf.command_token_mint:
 				await cryptosystem.token_mint(command_tokens[2], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))

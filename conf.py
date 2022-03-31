@@ -2,6 +2,7 @@ administration = "Admin"
 anonymous = "Anon"
 bank_name = "BankOfWill"
 byte_encoding = "utf-8"
+cat_loc = "https://aws.random.cat/meow"
 command_character = '.'
 command_token_delimiter = ' '
 default_cryptosystem_size = 2 ** 25
@@ -30,6 +31,7 @@ special_rarity = "This rarity shouldn't be possible if the random choice algorit
 stamp_values = "0123456789abcdef"
 symbol = "\u20A9"
 token = "token.txt"
+wiki_loc = "https://en.wikipedia.org/api/rest_v1/page/random/summary"
 
 ansi_escape = "\033["
 ansi_reset = ansi_escape + "0m"
@@ -41,11 +43,14 @@ command_account_ls = "ls"
 command_account_top = "top" # TODO
 command_exit = "exit"
 command_fortune = "fortune"
+command_fortune_cat = "cat"
 command_fortune_color = "color"
+command_fortune_wiki = "wiki"
 command_info = "info"
 command_reserve = "reserve"
 command_save = "save"
 command_token = "token"
+command_token_ls = "ls"
 command_token_mint = "mint"
 command_unreserve = "unreserve"
 command_wallet = "wallet"
@@ -108,5 +113,11 @@ text_new_wallet = "Creating wallet %s with sha256 hash %s"
 text_reserve = "Reserve: " + symbol + "%s. Bank: " + symbol + "%s"
 text_reserve_reserve = "Reserved " + symbol + "%s. " + text_reserve
 text_reserve_unreserve = "Unreserved " + symbol + "%s. " + text_reserve
+text_token_body = """
+Created by %s at %s.
+Currently valued at %s%s.
+"""
+text_token_footer = "Seed and sha256 hash: %s %s"
+text_token_title = "**%s** : *%s*"
 text_wallet_already_exists = "%s, you already have a wallet named '%s'"
 text_warning = "%s(Warning)%s %s"

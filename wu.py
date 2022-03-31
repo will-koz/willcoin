@@ -53,6 +53,14 @@ async def say_fortune (message):
 	await message.channel.send(f)
 	log(conf.text_fortune % (f, message.author))
 
-def gen_willcoin_embed (text, title = None):
+async def say_wiki_fortune (message):
+	f = requests.get(conf.wiki_loc).json()["content_urls"]["desktop"]["page"]
+	await message.channel.send(f)
+
+def gen_willcoin_embed (text, title = None, img = None, foot = None):
 	e = discord.Embed(color = color_fortune(), description = text, title = title)
+	if foot:
+		e.set_footer(text = foot)
+	if img:
+		e.set_image(url = img)
 	return e

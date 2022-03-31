@@ -36,7 +36,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 	  - [ ] buy
 	  - [ ] unsell
       - [x] mint
-	  - [ ] ls
+	  - [x] ls
       - [ ] sell
       - [ ] unown
     - [x] >save
@@ -54,7 +54,9 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [ ] '>announce' command
 - [ ] '>exit' command
 - [ ] '>reboot' command
-- [ ] Fortune / Wikipedia API functions
+- [x] Fortune cat functions
+  - [x] color
+  - [x] wikipedia
 - [ ] Create a systemd service / unit
 - [ ] make '>info' for commands
 
