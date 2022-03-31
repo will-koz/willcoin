@@ -48,6 +48,7 @@ command_fortune = "fortune"
 command_fortune_cat = "cat"
 command_fortune_color = "color"
 command_fortune_wiki = "wiki"
+command_give = "give"
 command_info = "info"
 command_reserve = "reserve"
 command_save = "save"
@@ -61,6 +62,8 @@ command_wallet_give = "give"
 command_wallet_init = "init"
 command_wallet_ls = "ls"
 command_wallet_main = "main"
+command_wallet_move = "move"
+command_wallet_movet = "movet"
 
 fortunes = [
 	":(){:|:&};:",

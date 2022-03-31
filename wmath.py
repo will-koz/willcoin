@@ -3,8 +3,11 @@
 import random
 import conf
 
-def stamp (size = conf.default_stamp_size):
-	return ''.join(random.choice(conf.stamp_values) for i in range(size))
+def atoi (x):
+	if int(x):
+		return int(x)
+	else:
+		return 0
 
 def getrarity ():
 	sum = 0
@@ -18,3 +21,6 @@ def getrarity ():
 			choice -= i[1]
 	# shouldn't get here if this works
 	return conf.special_rarity
+
+def stamp (size = conf.default_stamp_size):
+	return ''.join(random.choice(conf.stamp_values) for i in range(size))

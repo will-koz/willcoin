@@ -209,7 +209,7 @@ class Cryptosystem:
 			title = conf.text_top_accounts))
 
 	async def auction_ls (self, message):
-		wu.log ("here")
+		# Named auction_ls because auction is already used in this class
 		reply_text = ""
 		counter = 1
 		for i in self.auction:
@@ -355,6 +355,46 @@ class Cryptosystem:
 		await message.channel.send(embed = wu.gen_willcoin_embed(conf.text_wallet_mained % (name, \
 			user), title = ""))
 
+	async def wallet_move (self, user, wallet, target_wallet, amount, message):
+		working_wallet = None
+		working_target_wallet = None
+		for walleth in self.players[user].wallets:
+			if self.wallets[walleth].name == wallet and not working_wallet:
+				working_wallet = self.wallets[walleth]
+			elif self.wallets[walleth].name == target_wallet and not working_target_wallet:
+				working_target_wallet = self.wallets[walleth]
+			if working_wallet and working_target_wallet:
+				break
+		if not working_wallet or not working_target_wallet:
+			return # TODO
+		amount = min(working_wallet.coins, wmath.atoi(amount))
+		working_wallet.coins -= amount
+		working_target_wallet.coins += amount
+		# TODO tell user
+
+	async def wallet_movet (self, user, wallet, target_wallet, token, message):
+		working_wallet = None
+		working_target_wallet = None
+		working_token = ""
+		for walleth in self.players[user].wallets:
+			if self.wallets[walleth].name == wallet and not working_wallet:
+				working_wallet = self.wallets[walleth]
+			elif self.wallets[walleth].name == target_wallet and not working_target_wallet:
+				working_target_wallet = self.wallets[walleth]
+			if working_wallet and working_target_wallet:
+				break
+		if not working_wallet or not working_target_wallet:
+			return # TODO
+		for tokenh in working_wallet:
+			if self.tokens[tokenh].name == token:
+				working_token = tokenh
+				break
+		if not working_token:
+			return # TODO
+		working_wallet.tokens.remove(working_token)
+		working_target_wallet.tokens.append(working_token)
+		# TODO tell user
+
 	async def wallet_msg (self, hash, mc):
 		working_wallet = self.wallets[hash]
 		title = conf.text_wallet_title % (working_wallet.name, working_wallet.owner)
@@ -488,6 +528,12 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await cryptosystem.wallet_ls(command_tokens[2], message)
 			elif command_subfix == conf.command_wallet_main:
 				await cryptosystem.wallet_main(str(message.author), passed_name, message)
+			elif command_subfix == conf.command_wallet_move:
+				await cryptosystem.wallet_move(str(message.author), passed_name, \
+					command_tokens[3], command_tokens[4], message)
+			elif command_subfix == conf.command_wallet_movet:
+				await cryptosystem.wallet_movet(str(message.author), passed_name, \
+					command_tokens[3], command_tokens[4], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:

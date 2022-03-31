@@ -23,10 +23,10 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [x] Parse Commands, call functions with appropriate users and permissions
   - [ ] For some remaining commands, create formal functions
     - [x] >wallet
-	  - [ ] movet
+	  - [x] movet TODO test this
       - [x] give
       - [x] ls
-      - [ ] move
+      - [x] move
 	  - [x] main
       - [x] destroy
       - [x] init
@@ -37,6 +37,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 	  - [ ] coin
 	  - [ ] token
 	  - [ ] wallet
+	  - [ ] towallet
 	- [x] >auction
 	- [x] >token
 	  - [ ] buy
