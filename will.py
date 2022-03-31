@@ -291,6 +291,28 @@ class Cryptosystem:
 		self.wallets[working_wallet].owner = working_target_user
 		# TODO give messages back to user
 
+	async def wallet_msg (self, hash, mc):
+		working_wallet = self.wallets[hash]
+		title = conf.text_wallet_title % (working_wallet.name, working_wallet.owner)
+		body = conf.text_wallet_body % (working_wallet.creator, working_wallet.create_time, \
+			conf.symbol, working_wallet.coins)
+		footer = conf.text_wallet_footer % (working_wallet.seed, working_wallet.hash)
+		await mc.send(embed = wu.gen_willcoin_embed(body, title = title, foot = footer))
+
+	async def wallet_ls (self, identifier, message):
+		hash = ""
+		try:
+			hash = self.wallets[identifier].hash
+		except:
+			for i in self.players[str(message.author)].created_wallets:
+				if self.wallets[i].name == identifier:
+					hash = self.wallets[i].hash
+		if hash == "":
+			# TODO: give this data to user
+			pass
+		else:
+			await self.wallet_msg(hash, message.channel)
+
 	async def wallet_init (self, creator, name, message):
 		self.player_init(creator)
 		if self.check_player_has_wallet(creator, name):
@@ -386,6 +408,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 					command_tokens[3], message)
 			elif command_subfix == conf.command_wallet_init:
 				await cryptosystem.wallet_init(message.author, passed_name, message)
+			elif command_subfix == conf.command_wallet_ls:
+				await cryptosystem.wallet_ls(command_tokens[2], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:
