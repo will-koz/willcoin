@@ -252,6 +252,31 @@ class Cryptosystem:
 		else:
 			await self.token_msg(hash, message.channel)
 
+	async def token_buy (self, user, token, message):
+		working_token = ""
+		for tokenh in self.auction:
+			if self.tokens[tokenh].hash == token:
+				working_token = tokenh
+				break
+		if working_token == "":
+			return # TODO
+		if not working_token in self.auction:
+			return # TODO
+		working_wallet = None
+		for walleth in self.players[user].wallets:
+			if self.wallets[walleth].coins >= self.tokens[working_token].cost:
+				working_wallet = self.wallets[walleth]
+				break
+		if not working_wallet:
+			return # TODO
+		working_wallet.tokens.append(working_token)
+		self.wallets[self.tokens[working_token].owner].tokens.remove(token)
+		working_wallet.coins -= self.tokens[working_token].cost
+		self.wallets[self.tokens[working_token].owner].coins += self.tokens[working_token].cost
+		self.tokens[working_token].owner = working_wallet.hash
+		self.auction.remove(working_token)
+		# TODO Tell user
+
 	async def token_mint (self, mint_name, message):
 		# TODO make sure all of the returns have appropriate logging and message.sending
 		url = ""
@@ -500,14 +525,16 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_token and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
-			if command_subfix == conf.command_token_ls:
+			if command_subfix == conf.command_token_buy:
+				await cryptosystem.token_buy(str(message.author), command_tokens[2], message)
+			elif command_subfix == conf.command_token_ls:
 				await cryptosystem.token_ls(command_tokens[2], message)
 			elif command_subfix == conf.command_token_mint:
 				await cryptosystem.token_mint(command_tokens[2], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:
-			await message.channel.send(info_token)
+			await message.channel.send("TODO token thing")
 	elif command_mainfix == conf.command_unreserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.unreserve_coins(command_tokens[1])

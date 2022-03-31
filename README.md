@@ -40,7 +40,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 	  - [ ] towallet
 	- [x] >auction
 	- [x] >token
-	  - [ ] buy
+	  - [x] buy
 	  - [ ] unsell
       - [x] mint
 	  - [x] ls
