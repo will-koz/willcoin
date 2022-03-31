@@ -1,4 +1,4 @@
-import json, jsonpickle, time
+import json, jsonpickle, math, time
 import command, conf, wmath, wu
 
 class Player:
@@ -12,16 +12,19 @@ class Player:
 		self.name = jsonobj["name"]
 		self.wallets = jsonobj["wallets"].copy()
 		self.created_wallets = jsonobj["created_wallets"].copy()
+		self.created_tokens = jsonobj["created_tokens"].copy()
 
 	def new_player (self, _name):
 		self.name = _name
 		self.wallets = []
 		self.created_wallets = []
+		self.created_tokens = []
 
 class Token:
-	def __init__ (self, creator = conf.anonymous, name = conf.default_token_name, jsonobj = None):
+	def __init__ (self, url, initwallet, creator = conf.anonymous,
+		name = conf.default_token_name, jsonobj = None):
 		if jsonobj == None:
-			self.new_token(_creator = _creator, _name = _name, _initwallet = "")
+			self.new_token(url, initwallet, _creator = creator, _name = name)
 		else:
 			self.json_token(_jsonobj = jsonobj)
 
@@ -89,7 +92,10 @@ class Wallet:
 
 class Cryptosystem:
 	def __init__ (self, _location):
-		self.load_cryptosystem(_location)
+		try:
+			self.load_cryptosystem(_location)
+		except FileNotFoundError:
+			self.new_cryptosystem()
 
 	def save_cryptosystem (self):
 		output_file = open(conf.json_file, conf.json_file_mode)
@@ -126,7 +132,7 @@ class Cryptosystem:
 				Player(_jsonobj = jsonobj["players"][player])
 		for token in jsonobj["tokens"]:
 			self.tokens[jsonobj["tokens"][token]["hash"]] = \
-				Token(_jsonobj = jsonobj["tokens"][token])
+				Token(None, None, jsonobj = jsonobj["tokens"][token])
 		for wallet in jsonobj["wallets"]:
 			self.wallets[jsonobj["wallets"][wallet]["hash"]] = \
 				Wallet(jsonobj = jsonobj["wallets"][wallet])
@@ -173,6 +179,33 @@ class Cryptosystem:
 		self.wallets[self.bank].coins -= amount
 		self.reserve += amount
 		wu.log(conf.text_reserve_reserve % (amount, self.reserve, self.wallets[self.bank].coins))
+
+	async def token_mint (self, mint_name, message):
+		# TODO make sure all of the returns have appropriate logging and message.sending
+		url = ""
+		initwallet = self.bank
+		async for m in message.channel.history(limit = conf.history_limit):
+			# Sorry for the naming scheme of m for message
+			if m.author.name == message.author.name and m.attachments:
+				url = m.attachments[0].url
+				break
+		if url == "":
+			return
+		working_token = Token(url, initwallet, creator = str(message.author), name = mint_name)
+		self.tokens[working_token.hash] = working_token
+		self.wallets[working_token.owner].tokens.append(working_token.hash)
+		self.player_init(working_token.creator)
+		self.players[working_token.creator].created_tokens.append(working_token.hash)
+
+		# This part is for the assigning of coins to minted tokens
+		working_wallet = None # Initialize it because I don't know about variable scopes in python
+		if len(self.players[working_token.creator].wallets):
+			working_wallet = self.wallets[self.players[working_token.creator].wallets[0]]
+		else:
+			return
+		generated_coins = math.ceil(self.wallets[self.bank].coins / conf.return_diminish_factor)
+		self.wallets[self.bank].coins -= generated_coins
+		working_wallet.coins += generated_coins
 
 	def unreserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
@@ -276,7 +309,15 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_save and permissions == conf.perm_su:
 		cryptosystem.save_cryptosystem()
 	elif command_mainfix == conf.command_token and permissions == conf.perm_ru:
-		pass # TODO
+		try:
+			command_subfix = command_tokens[1]
+			if command_subfix == conf.command_token_mint:
+				wu.log("Here")
+				await cryptosystem.token_mint(command_tokens[2], message)
+			else:
+				await message.channel.send(conf.text_command_unknown % (command_subfix))
+		except IndexError:
+			await message.channel.send(info_token)
 	elif command_mainfix == conf.command_unreserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.unreserve_coins(command_tokens[1])

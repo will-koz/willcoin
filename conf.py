@@ -2,7 +2,7 @@ administration = "Admin"
 anonymous = "Anon"
 bank_name = "BankOfWill"
 byte_encoding = "utf-8"
-command_character = '>'
+command_character = '.'
 command_token_delimiter = ' '
 default_cryptosystem_size = 2 ** 25
 default_reserve_amount = 2 ** 10
@@ -11,6 +11,7 @@ default_token_name = "NewToken"
 default_wallet_name = "NewWallet"
 embed_delimiter = " "
 file_mode = "r"
+history_limit = 20
 json_file = "cryptosystem.json"
 json_file_mode = "w"
 rarities = [
@@ -23,6 +24,7 @@ rarities = [
 	("uncommon", 1)
 ]
 request_not_found_code = 429
+return_diminish_factor = 30
 seed_template = "%s:%s:%s:%s"
 special_rarity = "This rarity shouldn't be possible if the random choice algorithm worked..."
 stamp_values = "0123456789abcdef"
@@ -44,6 +46,7 @@ command_info = "info"
 command_reserve = "reserve"
 command_save = "save"
 command_token = "token"
+command_token_mint = "mint"
 command_unreserve = "unreserve"
 command_wallet = "wallet"
 command_wallet_destroy = "destroy"
@@ -77,6 +80,9 @@ info_none = """
 Sorry, but the command '%s' wasn't recognized. See if you have any typos, or are thinking of a
 subcommand for another command (i.e. 'init' isn't a command, but 'wallet init' is). Or maybe there
 isn't documentation for that yet. If you think there should be, tell the administrator.
+"""
+info_token = """
+TODO
 """
 
 perm_ru = 0 # Permissions - Regular User

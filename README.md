@@ -23,18 +23,22 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [x] Parse Commands, call functions with appropriate users and permissions
   - [ ] For some remaining commands, create formal functions
     - [x] >wallet
-      - [x] init
+	  - [ ] movet
+      - [ ] give
       - [ ] move
       - [x] destroy
-      - [ ] give
+      - [x] init
     - [x] >account
       - [x] ls
       - [ ] top
     - [ ] >give
 	- [x] >token
-      - [ ] mint
-      - [ ] unown
+	  - [ ] buy
+	  - [ ] unsell
+      - [x] mint
+	  - [ ] ls
       - [ ] sell
+      - [ ] unown
     - [x] >save
     - [x] >reserve
     - [x] >unreserve
@@ -43,10 +47,10 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [x] Save data to external file
 - [x] Thread Handling
 - [ ] Redo logging and make all output text embeds
-- [ ] Install script
 - [ ] grep -r TODO TEMP
 
 ### Important but unnecessary:
+- [ ] Install script
 - [ ] '>announce' command
 - [ ] '>exit' command
 - [ ] '>reboot' command

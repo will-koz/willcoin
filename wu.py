@@ -1,7 +1,7 @@
 # acronym of will and utils
 
 import datetime, discord, hashlib, json, random, requests
-import conf
+import conf, wmath
 
 def get_json (location):
 	# Get JSON from either local storage or from the internet
@@ -40,6 +40,8 @@ def fortune ():
 def fortune_dump ():
 	for i in conf.fortunes:
 		print(i)
+	for i in range(25):
+		print(wmath.getrarity())
 
 async def say_color_fortune (message):
 	c = color_fortune()
