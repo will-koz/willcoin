@@ -25,14 +25,15 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
     - [x] >wallet
 	  - [ ] movet
       - [x] give
-      - [ ] ls
+      - [x] ls
       - [ ] move
       - [x] destroy
       - [x] init
     - [x] >account
       - [x] ls
-      - [ ] top
+      - [x] top
     - [ ] >give
+	- [ ] >auction
 	- [x] >token
 	  - [ ] buy
 	  - [ ] unsell
@@ -57,6 +58,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [ ] '>reboot' command
 - [x] Fortune cat functions
   - [x] color
+  - [ ] make only fortune color a random color ; all others are red or something
   - [x] wikipedia
 - [ ] Create a systemd service / unit
 - [ ] make '>info' for commands

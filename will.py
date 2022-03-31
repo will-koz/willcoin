@@ -173,6 +173,40 @@ class Cryptosystem:
 		return_string = conf.text_account_info % (cwallets_num, wallets_num, wallet_sum)
 		return return_string
 
+	async def account_top (self, message):
+		players = sorted(self.players.items(), reverse = True, \
+			key = lambda item : self.get_account_coin(item[1].name))[:conf.ls_amount]
+		wallets = sorted(self.wallets.items(), reverse = True, \
+			key = lambda item : self.wallets[item[1].hash].coins)[:conf.ls_amount]
+		tokens = sorted(self.tokens.items(), reverse = True, \
+			key = lambda item : self.tokens[item[1].hash].cost)[:conf.ls_amount]
+		player_text = ""
+		counter = 1
+		for player in players:
+			if counter != 1:
+				player_text += "\n"
+			player_text += conf.text_template_player % (counter, player[1].name, conf.symbol, \
+				self.get_account_coin(player[1].name))
+			counter += 1
+		wallet_text = ""
+		counter = 1
+		for wallet in wallets:
+			if counter != 1:
+				wallet_text += "\n"
+			wallet_text += conf.text_template_wallet % (counter, wallet[1].name, conf.symbol, \
+				wallet[1].coins, wallet[1].hash)
+			counter += 1
+		token_text = ""
+		counter = 1
+		for token in tokens:
+			if counter != 1:
+				token_text += "\n"
+			token_text += conf.text_template_token % (counter, token[1].name, conf.symbol, \
+				token[1].cost, token[1].hash)
+			counter += 1
+		final_text = conf.text_template_account % (player_text, wallet_text, token_text)
+		await message.channel.send(embed = wu.gen_willcoin_embed(final_text, title = conf.text_top_accounts))
+
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
 		amount = min(self.wallets[self.bank].coins, amount)
@@ -213,10 +247,12 @@ class Cryptosystem:
 				url = m.attachments[0].url
 				break
 		if url == "":
-			return
+			return # TODO
 		working_token = Token(url, initwallet, creator = str(message.author), name = mint_name)
 		self.tokens[working_token.hash] = working_token
 		self.wallets[working_token.owner].tokens.append(working_token.hash)
+		if working_token.owner == self.bank:
+			self.auction.append(working_token.hash)
 		self.player_init(working_token.creator)
 		self.players[working_token.creator].created_tokens.append(working_token.hash)
 		await self.token_msg(working_token.hash, message.channel)
@@ -226,7 +262,7 @@ class Cryptosystem:
 		if len(self.players[working_token.creator].wallets):
 			working_wallet = self.wallets[self.players[working_token.creator].wallets[0]]
 		else:
-			return
+			return # TODO
 		generated_coins = math.ceil(self.wallets[self.bank].coins / conf.return_diminish_factor)
 		self.wallets[self.bank].coins -= generated_coins
 		working_wallet.coins += generated_coins
@@ -296,6 +332,12 @@ class Cryptosystem:
 		title = conf.text_wallet_title % (working_wallet.name, working_wallet.owner)
 		body = conf.text_wallet_body % (working_wallet.creator, working_wallet.create_time, \
 			conf.symbol, working_wallet.coins)
+		# TODO: add list of tokens above
+		counter = 1
+		for token in working_wallet.tokens:
+			body += conf.text_template_token % (counter, self.tokens[token].name, conf.symbol, \
+				self.tokens[token].cost, self.tokens[token].hash)
+			counter += 1
 		footer = conf.text_wallet_footer % (working_wallet.seed, working_wallet.hash)
 		await mc.send(embed = wu.gen_willcoin_embed(body, title = title, foot = footer))
 
@@ -342,6 +384,11 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				embed_text = cryptosystem.get_account_info(command_tokens[2])
 				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
 					title = conf.text_account_title % (command_tokens[2])))
+			elif command_subfix == conf.command_account_top:
+				await cryptosystem.account_top(message)
+			else:
+				# TODO: give info back
+				pass
 		except IndexError:
 			# Default to aliasing 'account' command to 'account ls [sender]'
 			embed_text = cryptosystem.get_account_info(str(message.author))

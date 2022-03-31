@@ -15,6 +15,7 @@ file_mode = "r"
 history_limit = 20
 json_file = "cryptosystem.json"
 json_file_mode = "w"
+ls_amount = 5
 rarities = [
 	("common", 100),
 	("\"special\"", 75),
@@ -40,7 +41,7 @@ ansi_error = ansi_escape + "1;31m"
 
 command_account = "account"
 command_account_ls = "ls"
-command_account_top = "top" # TODO
+command_account_top = "top"
 command_exit = "exit"
 command_fortune = "fortune"
 command_fortune_cat = "cat"
@@ -115,12 +116,17 @@ text_new_wallet = "Creating wallet %s with sha256 hash %s"
 text_reserve = "Reserve: " + symbol + "%s. Bank: " + symbol + "%s"
 text_reserve_reserve = "Reserved " + symbol + "%s. " + text_reserve
 text_reserve_unreserve = "Unreserved " + symbol + "%s. " + text_reserve
+text_template_account = "**Players:**%s\n\n**Wallets:**%s\n\n**Tokens:**%s"
+text_template_player = "\n%s \u2015 `%s (%s%s net worth)`"
+text_template_token = "\n%s \u2015 `%s (valued at %s%s)\n%s`"
+text_template_wallet = "\n%s \u2015 `%s (with %s%s)\n%s`"
 text_token_body = """
 Created by %s at %s.
 Currently valued at %s%s.
 """
 text_token_footer = "Seed and sha256 hash: %s %s"
 text_token_title = "**%s** : *%s*"
+text_top_accounts = "Top Accounts"
 text_wallet_already_exists = "%s, you already have a wallet named '%s'"
 text_wallet_body = """
 Created by %s at %s.
