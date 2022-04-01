@@ -160,13 +160,17 @@ class Cryptosystem:
 			wu.log(conf.text_new_player % (name))
 
 	def get_account_coin(self, player_name):
-		self.player_init(player_name)
 		coins = 0
 		for i in self.players[player_name].wallets:
 			coins += self.wallets[i].coins
 		return coins
 
-	def get_account_info (self, player_name): # Sorry its not in perfect alphabetic order
+	async def get_account_info (self, player_name, message):
+		try:
+			working_target_user = self.players[player_name]
+		except KeyError:
+			await message.channel.send(conf.text_target_user_not_found % (player_name))
+			return # TODO
 		wallet_sum = self.get_account_coin(player_name) # player init is done in here
 		wallets_num = len(self.players[player_name].wallets)
 		cwallets_num = len(self.players[player_name].created_wallets)
@@ -221,6 +225,26 @@ class Cryptosystem:
 		if reply_text == "":
 			reply_text = conf.text_auction_none
 		await message.channel.send(embed = wu.gen_willcoin_embed(reply_text, title = ""))
+
+	async def give_wallet (self, user, target_user, wallet_name, message):
+		self.player_init(user)
+		working_target_user = None
+		working_wallet = ""
+		try:
+			working_target_user = self.players[target_user]
+		except KeyError:
+			await message.channel.send(conf.text_target_user_not_found % (target_user))
+			return # TODO
+		for i in self.players[user].wallets:
+			if self.wallets[i].name == wallet_name:
+				working_wallet = i
+				break
+		if not working_wallet:
+			return # TODO
+		self.players[user].wallets.remove(working_wallet)
+		self.players[target_user].wallets.append(working_wallet)
+		self.wallets[working_wallet].owner = target_user
+		# TODO tell user this worked
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
@@ -408,7 +432,7 @@ class Cryptosystem:
 		try:
 			working_target_user = self.players[target_user]
 		except KeyError:
-			await message.channel.send(conf.text_wallet_give_target_user_not_found % (target_user))
+			await message.channel.send(conf.text_target_user_not_found % (target_user))
 			return # TODO
 		working_wallet = None
 		for i in working_user.wallets:
@@ -533,9 +557,10 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 		try:
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_account_ls:
-				embed_text = cryptosystem.get_account_info(command_tokens[2])
-				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
-					title = conf.text_account_title % (command_tokens[2])))
+				embed_text = await cryptosystem.get_account_info(command_tokens[2], message)
+				if embed_text:
+					await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
+						title = conf.text_account_title % (command_tokens[2])))
 			elif command_subfix == conf.command_account_top:
 				await cryptosystem.account_top(message)
 			else:
@@ -543,9 +568,10 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				pass
 		except IndexError:
 			# Default to aliasing 'account' command to 'account ls [sender]'
-			embed_text = cryptosystem.get_account_info(str(message.author))
-			await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
-				title = conf.text_account_title % (str(message.author))))
+			embed_text = await cryptosystem.get_account_info(str(message.author), message)
+			if embed_text:
+				await message.channel.send(embed = wu.gen_willcoin_embed(embed_text, \
+					title = conf.text_account_title % (str(message.author))))
 	elif command_mainfix == conf.command_auction and permissions == conf.perm_ru:
 		await cryptosystem.auction_ls(message)
 	elif command_mainfix == conf.command_exit and permissions == conf.perm_su:
@@ -565,6 +591,16 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await wu.say_fortune(message)
 		except IndexError:
 			await wu.say_fortune(message)
+	elif command_mainfix == conf.command_give and permissions == conf.perm_ru:
+		try:
+			command_subfix = command_tokens[1]
+			if command_subfix == conf.command_give_wallet:
+				await cryptosystem.give_wallet(str(message.author), command_tokens[2], \
+					command_tokens[3], message)
+			else:
+				pass # TODO, give info back to user
+		except IndexError:
+			await message.channel.send("TODO give thing")
 	elif command_mainfix == conf.command_info and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]

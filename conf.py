@@ -48,7 +48,8 @@ command_fortune = "fortune"
 command_fortune_cat = "cat"
 command_fortune_color = "color"
 command_fortune_wiki = "wiki"
-command_give = "give" # TODO
+command_give = "give"
+command_give_wallet = "wallet"
 command_info = "info"
 command_reserve = "reserve"
 command_save = "save"
@@ -126,6 +127,7 @@ text_new_wallet = "Creating wallet %s with sha256 hash %s"
 text_reserve = "Reserve: " + symbol + "%s. Bank: " + symbol + "%s"
 text_reserve_reserve = "Reserved " + symbol + "%s. " + text_reserve
 text_reserve_unreserve = "Unreserved " + symbol + "%s. " + text_reserve
+text_target_user_not_found = "Couldn't find %s."
 text_template_account = "**Players:**%s\n\n**Wallets:**%s\n\n**Tokens:**%s"
 text_template_player = "\n%s \u2015 `%s (%s%s net worth)`"
 text_template_token = "\n%s \u2015 `%s (valued at %s%s)\n%s`"
@@ -143,7 +145,6 @@ Created by %s at %s.
 Currently has %s%s.
 """
 text_wallet_footer = "Seed and sha256 hash: %s %s"
-text_wallet_give_target_user_not_found = "Couldn't find %s."
 text_wallet_mained = "Made '%s' %s's main wallet."
 text_wallet_title = "**%s** : *%s*"
 text_warning = "%s(Warning)%s %s"

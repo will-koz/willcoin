@@ -33,10 +33,10 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
     - [x] >account
       - [x] ls
       - [x] top
-    - [ ] >give
+    - [x] >give
 	  - [ ] coin
 	  - [ ] token
-	  - [ ] wallet
+	  - [x] wallet
 	  - [ ] towallet
 	- [x] >auction
 	- [x] >token
@@ -58,9 +58,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 
 ### Important but unnecessary:
 - [ ] Install script
-- [ ] '>announce' command
-- [ ] '>exit' command
-- [ ] '>reboot' command
+- [ ] '.bank' command (alias for .wallet ls [bank hash])
 - [x] Fortune cat functions
   - [x] color
   - [ ] make only fortune color a random color ; all others are red or something
@@ -68,6 +66,14 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [ ] Create a systemd service / unit
 - [ ] unreserve to specific wallet
 - [ ] make '>info' for commands
+
+### Long Term
+ - [ ] Make a readthedocs.io
+ - [ ] Make a logo
+ - [ ] Server-side utilities
+   - [ ] '>announce' command
+   - [ ] '>exit' command
+   - [ ] '>reboot' command
 
 ## Thanks
 
