@@ -35,7 +35,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
       - [x] top
     - [x] >give
 	  - [x] coin
-	  - [ ] token
+	  - [x] token
 	  - [x] towallet
 	- [x] >auction
 	- [x] >token
