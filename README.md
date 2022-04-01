@@ -41,7 +41,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 	- [x] >auction
 	- [x] >token
 	  - [x] buy
-	  - [ ] unsell
+	  - [x] unsell
       - [x] mint
 	  - [x] ls
       - [x] sell

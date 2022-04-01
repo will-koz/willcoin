@@ -243,6 +243,7 @@ class Cryptosystem:
 		try:
 			hash = self.tokens[identifier].hash
 		except:
+			self.player_init(message.author)
 			for i in self.players[str(message.author)].created_tokens:
 				if self.tokens[i].name == identifier:
 					hash = self.tokens[i].hash
@@ -253,6 +254,7 @@ class Cryptosystem:
 			await self.token_msg(hash, message.channel)
 
 	async def token_buy (self, user, token, message):
+		self.player_init(user)
 		working_token = ""
 		for tokenh in self.auction:
 			if tokenh == token:
@@ -308,6 +310,7 @@ class Cryptosystem:
 		working_wallet.coins += generated_coins
 
 	async def token_sell (self, user, token, amount, message):
+		self.player_init(user)
 		working_token = ""
 		for walleth in self.players[user].wallets:
 			for tokenh in self.wallets[walleth].tokens:
@@ -321,7 +324,26 @@ class Cryptosystem:
 			self.auction.append(working_token)
 		self.tokens[working_token].cost = max(wmath.atoi(amount), 0)
 
+	async def token_unsell (self, user, token, message):
+		self.player_init(user)
+		working_token = ""
+		for walleth in self.players[user].wallets:
+			for tokenh in self.wallets[walleth].tokens:
+				if self.tokens[tokenh].name == token:
+					working_token = tokenh
+					break
+					break
+		if working_token == "":
+			return # TODO
+		if working_token in self.auction:
+			self.auction.remove(working_token)
+			# TODO Let user know
+		else:
+			pass
+			# TODO Let user know
+
 	async def token_unown (self, user, token, message):
+		self.player_init(user)
 		working_token = ""
 		working_wallet = None
 		working_target_wallet = self.wallets[self.bank]
@@ -401,6 +423,7 @@ class Cryptosystem:
 		# TODO give messages back to user
 
 	async def wallet_main (self, user, name, message):
+		self.player_init(user)
 		working_wallet = ""
 		for wallet in self.players[user].wallets:
 			if self.wallets[wallet].name == name:
@@ -414,6 +437,7 @@ class Cryptosystem:
 			user), title = ""))
 
 	async def wallet_move (self, user, wallet, target_wallet, amount, message):
+		self.player_init(user)
 		working_wallet = None
 		working_target_wallet = None
 		for walleth in self.players[user].wallets:
@@ -431,6 +455,7 @@ class Cryptosystem:
 		# TODO tell user
 
 	async def wallet_movet (self, user, wallet, target_wallet, token, message):
+		self.player_init(user)
 		working_wallet = None
 		working_target_wallet = None
 		working_token = ""
@@ -472,6 +497,7 @@ class Cryptosystem:
 		try:
 			hash = self.wallets[identifier].hash
 		except:
+			self.player_init(str(message.author))
 			for i in self.players[str(message.author)].created_wallets:
 				if self.wallets[i].name == identifier:
 					hash = self.wallets[i].hash
@@ -569,6 +595,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 					command_tokens[3], message)
 			elif command_subfix == conf.command_token_unown:
 				await cryptosystem.token_unown(str(message.author), command_tokens[2], message)
+			elif command_subfix == conf.command_token_unsell:
+				await cryptosystem.token_unsell(str(message.author), command_tokens[2], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:
