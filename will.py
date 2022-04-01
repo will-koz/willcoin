@@ -253,6 +253,27 @@ class Cryptosystem:
 		self.wallets[working_target_wallet].coins += amount
 		# TODO tell user this worked
 
+	async def give_towallet (self, user, target_wallet, amount, message):
+		self.player_init(user)
+		amount = max(wmath.atoi(amount), 0)
+		working_wallet = ""
+		working_target_wallet = None
+		for i in self.players[user].wallets:
+			if self.wallets[i].coins >= amount:
+				working_wallet = i
+				break
+		if not working_wallet:
+			await message.channel.send("Couldn't find a wallet with this number of coins...")
+			return # TODO
+		try:
+			working_target_wallet = self.wallets[target_wallet]
+		except KeyError:
+			await message.channel.send("Couldn't find target wallet")
+			return # TODO
+		self.wallets[working_wallet].coins -= amount
+		working_target_wallet.coins += amount
+		# TODO tell user this worked
+
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
 		amount = min(self.wallets[self.bank].coins, amount)
@@ -603,6 +624,9 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_give_coin:
 				await cryptosystem.give_coin(str(message.author), command_tokens[2], \
+					command_tokens[3], message)
+			elif command_subfix == conf.command_give_towallet:
+				await cryptosystem.give_towallet(str(message.author), command_tokens[2], \
 					command_tokens[3], message)
 			elif command_subfix == conf.command_give_wallet:
 				await cryptosystem.wallet_give(str(message.author), command_tokens[3], \

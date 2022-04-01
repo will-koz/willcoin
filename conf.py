@@ -50,6 +50,7 @@ command_fortune_color = "color"
 command_fortune_wiki = "wiki"
 command_give = "give"
 command_give_coin = "coin"
+command_give_towallet = "towallet"
 command_give_wallet = "wallet"
 command_info = "info"
 command_reserve = "reserve"
@@ -76,12 +77,25 @@ fortunes = [
 	"\\*\\*Sample Fortune\\*\\*",
 	"\u0D9E",
 	"\u221E\u00B2 - 1 = (\u221E - 1)(\u221E + 1)",
+	"<PC Load Letter>",
 	"2 + 2 = 5",
 	"254ebc9d57cb06da5ea1bf685c7a04b0bfe9c808d5dcb5d093fc640f713dab9e",
+	"dQw4w9WgXcQ",
 	"Epstein didn't kill himself.",
+	"Everybody walk the dinosaur",
+	"Go Greendale!",
+	"Hey you, you're finally awake",
+	"HEYYEYAAEYAAAEYAEYAA",
 	"https://en.wikipedia.org/wiki/Wikipedia",
 	"https://twitter.com",
+	"Insane (in the Brain)",
+	"Loading: 142%",
+	"Not PS5 Compatible ... yet",
+	"Open the door, get on the floor",
+	"Or is it?",
 	"Police police police police.",
+	"Return to Monke",
+	"Sponsored by Duolingo - \"Have you done your Spanish?\"",
 	"Sponsored by Hooli",
 	"This message will never appear on the splash screen, isn't that weird?",
 	"What do you know about rolling down in the deep?",
