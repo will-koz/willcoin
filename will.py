@@ -226,24 +226,31 @@ class Cryptosystem:
 			reply_text = conf.text_auction_none
 		await message.channel.send(embed = wu.gen_willcoin_embed(reply_text, title = ""))
 
-	async def give_wallet (self, user, target_user, wallet_name, message):
+	async def give_coin (self, user, target_user, amount, message):
 		self.player_init(user)
+		amount = max(wmath.atoi(amount), 0)
 		working_target_user = None
 		working_wallet = ""
+		working_target_wallet = ""
 		try:
 			working_target_user = self.players[target_user]
 		except KeyError:
 			await message.channel.send(conf.text_target_user_not_found % (target_user))
 			return # TODO
 		for i in self.players[user].wallets:
-			if self.wallets[i].name == wallet_name:
+			if self.wallets[i].coins >= amount:
 				working_wallet = i
 				break
+		for i in working_target_user.wallets:
+			working_target_wallet = i
+			break
 		if not working_wallet:
+			await message.channel.send("Couldn't find a wallet with this number of coins...")
 			return # TODO
-		self.players[user].wallets.remove(working_wallet)
-		self.players[target_user].wallets.append(working_wallet)
-		self.wallets[working_wallet].owner = target_user
+		if not working_target_wallet:
+			return # TODO
+		self.wallets[working_wallet].coins -= amount
+		self.wallets[working_target_wallet].coins += amount
 		# TODO tell user this worked
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
@@ -594,9 +601,12 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_give and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
-			if command_subfix == conf.command_give_wallet:
-				await cryptosystem.give_wallet(str(message.author), command_tokens[2], \
+			if command_subfix == conf.command_give_coin:
+				await cryptosystem.give_coin(str(message.author), command_tokens[2], \
 					command_tokens[3], message)
+			elif command_subfix == conf.command_give_wallet:
+				await cryptosystem.wallet_give(str(message.author), command_tokens[3], \
+					command_tokens[2], message)
 			else:
 				pass # TODO, give info back to user
 		except IndexError:

@@ -1,5 +1,10 @@
 #!/usr/bin/python3
 
+# This entire codebase was written over two main sections. In the first, it was spread out over a
+# month or so, so there is not a formal style guide. In the second, I thought I would be able to do
+# everything really quickly, but I copy and pasted a couple of times without making a function. If
+# it isn't obvious already, this is the definition of legacy code. Read at your own risk.
+
 import asyncio, discord, random, sys, threading
 import conf, will, wu
 

@@ -21,7 +21,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 
 - [x] Connect to Discord API
 - [x] Parse Commands, call functions with appropriate users and permissions
-  - [ ] For some remaining commands, create formal functions
+  - [x] For some remaining commands, create formal functions
     - [x] >wallet
 	  - [x] movet TODO test this
       - [x] give
@@ -34,9 +34,8 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
       - [x] ls
       - [x] top
     - [x] >give
-	  - [ ] coin
+	  - [x] coin
 	  - [ ] token
-	  - [x] wallet
 	  - [ ] towallet
 	- [x] >auction
 	- [x] >token
@@ -57,6 +56,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [ ] grep -r TODO TEMP
 
 ### Important but unnecessary:
+- [x] alias 'give wallet' to 'wallet give'
 - [ ] Install script
 - [ ] '.bank' command (alias for .wallet ls [bank hash])
 - [x] Fortune cat functions
