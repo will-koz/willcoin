@@ -309,7 +309,6 @@ class Cryptosystem:
 
 	async def token_sell (self, user, token, amount, message):
 		working_token = ""
-		wu.log("here")
 		for walleth in self.players[user].wallets:
 			for tokenh in self.wallets[walleth].tokens:
 				if self.tokens[tokenh].name == token:
@@ -320,7 +319,26 @@ class Cryptosystem:
 			return # TODO
 		if not working_token in self.auction:
 			self.auction.append(working_token)
-		self.tokens[working_token].cost = wmath.atoi(amount)
+		self.tokens[working_token].cost = max(wmath.atoi(amount), 0)
+
+	async def token_unown (self, user, token, message):
+		working_token = ""
+		working_wallet = None
+		working_target_wallet = self.wallets[self.bank]
+		for walleth in self.players[user].wallets:
+			for tokenh in self.wallets[walleth].tokens:
+				if self.tokens[tokenh].name == token:
+					working_token = tokenh
+					break
+					break
+		if working_token == "":
+			return # TODO
+		if not working_token in self.auction:
+			self.auction.append(working_token)
+		working_target_wallet.tokens.append(working_token)
+		working_wallet = self.wallets[self.tokens[working_token].owner]
+		working_wallet.tokens.remove(working_token)
+		self.tokens[working_token].owner = self.bank
 
 	def unreserve_coins (self, amount = conf.default_reserve_amount):
 		amount = wu.wint(amount)
@@ -549,6 +567,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			elif command_subfix == conf.command_token_sell:
 				await cryptosystem.token_sell(str(message.author), command_tokens[2], \
 					command_tokens[3], message)
+			elif command_subfix == conf.command_token_unown:
+				await cryptosystem.token_unown(str(message.author), command_tokens[2], message)
 			else:
 				await message.channel.send(conf.text_command_unknown % (command_subfix))
 		except IndexError:

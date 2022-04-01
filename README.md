@@ -45,7 +45,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
       - [x] mint
 	  - [x] ls
       - [x] sell
-      - [ ] unown
+      - [x] unown
     - [x] >save
     - [x] >reserve
     - [x] >unreserve
@@ -66,6 +66,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
   - [ ] make only fortune color a random color ; all others are red or something
   - [x] wikipedia
 - [ ] Create a systemd service / unit
+- [ ] unreserve to specific wallet
 - [ ] make '>info' for commands
 
 ## Thanks
