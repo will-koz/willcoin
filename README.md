@@ -65,7 +65,7 @@ nothing from that session will be saved.
 
 ### Important but unnecessary:
 - [x] alias 'give wallet' to 'wallet give'
-- [ ] Install script
+- [ ] Install script / install guide
 - [x] '.bank' command (alias for .wallet ls [bank hash])
 - [x] Fortune cat functions
   - [x] color
@@ -74,7 +74,7 @@ nothing from that session will be saved.
 - [ ] Create a systemd service / unit
 - [x] unreserve to specific wallet
 - [ ] make '.info' for commands
-  - [ ] about
+  - [x] about
   - [ ] 'list' command
 - [ ] Make wu.log() output the associated user
 

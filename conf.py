@@ -39,6 +39,7 @@ ansi_reset = ansi_escape + "0m"
 ansi_dull = ansi_escape + "2m"
 ansi_error = ansi_escape + "1;31m"
 
+command_about = "about"
 command_account = "account"
 command_account_ls = "list"
 command_account_top = "top"
@@ -105,7 +106,11 @@ fortunes = [
 ]
 
 info_about = """
-TODO
+Willcoin is a discord cryptosystem. Users can create any (realistic) number of wallets and they \
+can assign coins to each one, as well as move tokens betwenn wallets, which are like peices of \
+digital artwork. Users can get coins by minting tokens or trading coins.
+
+Willcoin is open-source. The GitHub page is here: https://github.com/will-koz/willcoin
 """
 info_auction = """
 The `""" + command_auction + """` command displays some of the tokens that are at auction.

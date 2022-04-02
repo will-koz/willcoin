@@ -779,7 +779,9 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	command_mainfix = command_tokens[0] # Like a prefix or a suffix, but the main word in a command
 
 	# If there is a good alternative to switch / case in python, I want to know it
-	if command_mainfix == conf.command_account and permissions == conf.perm_ru:
+	if command_mainfix == conf.command_about and permissions == conf.perm_ru:
+		await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_about, title = ""))
+	elif command_mainfix == conf.command_account and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_account_ls:
@@ -848,7 +850,10 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_info and permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
-			if command_subfix == conf.command_auction:
+			if command_subfix == conf.command_about:
+				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_about, title = \
+					""))
+			elif command_subfix == conf.command_auction:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_auction, \
 					title = ""))
 			elif command_subfix == conf.command_bank:
