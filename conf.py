@@ -108,12 +108,12 @@ info_about = """
 TODO
 """
 info_fortune = """
-The fortune comand is used to get random content. It can be used to get a random unix fortune-like
+The fortune comand is used to get random content. It can be used to get a random unix fortune-like \
 fortune. It will be able to get a random cat image, wikipedia page, and meme soon. TODO
 """
 info_none = """
-Sorry, but the command '%s' wasn't recognized. See if you have any typos, or are thinking of a
-subcommand for another command (i.e. 'init' isn't a command, but 'wallet init' is). Or maybe there
+Sorry, but the command `%s` wasn't recognized. See if you have any typos, or are thinking of a \
+subcommand for another command (i.e. `init` isn't a command, but `wallet init` is). Or maybe there \
 isn't documentation for that yet. If you think there should be, tell the administrator.
 """
 info_token = """
@@ -126,15 +126,16 @@ perm_su = 1 # Permissions - Super User
 text_account_info = """
 Created wallets: %s
 Wallets: %s
-Coins in wallets: %s
+Coins in wallets: %s\n
+**Wallets and Tokens:**%s
 """
 text_account_title = "Account information for %s:"
 text_account_top = "Gave contents of '%saccount top' to %s"
 text_auction = "Gave contents of '%sauction' to %s"
 text_auction_none = "It looks like no one wants to auction tokens right now :("
 text_command_infoprompt = "Maybe try `" + command_character + command_info + " %s`"
-text_command_parseerror = "Error parsing '%s'."
-text_command_unknown = "Unknown command '%s'"
+text_command_parseerror = "Error parsing `%s`."
+text_command_unknown = "Unknown command `%s`"
 text_fortune = "Gave fortune '%s' to %s."
 text_fortune_color = "Gave color '%s' to %s"
 text_fortune_wiki = "Gave wiki '%s' to %s"
@@ -165,6 +166,7 @@ text_target_wallet_not_found_w_user = "Couldn't find a target wallet (requested 
 text_template_account = "**Players:**%s\n\n**Wallets:**%s\n\n**Tokens:**%s"
 text_template_player = "\n%s \u2015 `%s (%s%s net worth)`"
 text_template_token = "\n%s \u2015 `%s (valued at %s%s)\n%s`"
+text_template_sub_token = "\n\u2015 %s `%s (valued at %s%s)\n%s`"
 text_template_wallet = "\n%s \u2015 `%s (with %s%s)\n%s`"
 text_token_attachment_unknown = "Couldn't find an attachment to mint in recent channel history."
 text_token_body = """
@@ -185,7 +187,8 @@ text_wallet_already_exists = "%s, you already have a wallet named '%s'"
 text_wallet_body = """
 Created by %s at %s.
 Currently has %s%s.
-"""
+
+**Tokens:**"""
 text_wallet_destroy = "Successfully destroyed wallet."
 text_wallet_destroy_error = "You don't have enough wallets to destroy wallets."
 text_wallet_footer = "Seed and sha256 hash: %s %s"

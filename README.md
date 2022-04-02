@@ -53,7 +53,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [x] Save data to external file
 - [x] Thread Handling
 - [x] Redo logging
-- [ ] make all output text embeds with no title
+- [x] make all output text embeds with no title
 - [ ] grep -r TODO TEMP
 - [x] grep awaits in front of channel.sends
 

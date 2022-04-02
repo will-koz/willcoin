@@ -65,10 +65,10 @@ async def say_color_fortune (message):
 
 async def say_fortune (message):
 	f = fortune()
-	await message.channel.send(f)
+	await message.channel.send(embed = gen_willcoin_embed(f, title = ""))
 	log(conf.text_fortune % (f, message.author))
 
 async def say_wiki_fortune (message):
 	f = requests.get(conf.wiki_loc).json()["content_urls"]["desktop"]["page"]
-	await message.channel.send(f)
+	await message.channel.send(embed = gen_willcoin_embed(f, title = ""))
 	log(conf.text_fortune_wiki % (f, message.author))
