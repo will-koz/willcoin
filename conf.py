@@ -107,13 +107,23 @@ fortunes = [
 info_about = """
 TODO
 """
+info_auction = """
+The `""" + command_auction + """` command displays some of the tokens that are at auction.
+"""
+info_bank = """
+The `""" + command_bank + """` command displays the bank wallet. It is an alias for `""" + \
+command_wallet + command_token_delimiter + command_wallet_ls + command_token_delimiter + \
+"""[bank hash]`."""
 info_fortune = """
-The `fortune` comand is used to get random content. It can be used to get a random unix \
-fortune-like fortune. You can also use the following sub-commands to get specific random content:
-- `fortune cat` to get a random cat image
-- `fortune wiki` to get a random Wikipedia page
-- `fortune color` to get a random color in hex format. The border of the embed will also be that \
-color
+The `""" + command_fortune + """` comand is used to get random content. It can be used to get a \
+random unix fortune-like fortune. You can also use the following sub-commands to get specific \
+random content:
+- `""" + command_fortune + command_token_delimiter + command_fortune_cat + """` to get a random \
+cat image
+- `""" + command_fortune + command_token_delimiter + command_fortune_wiki + """` to get a random \
+Wikipedia page
+- `""" + command_fortune + command_token_delimiter + command_fortune_color + """` to get a random \
+color in hex format. The border of the embed will also be that color
 """
 info_none = """
 Sorry, but the command `%s` wasn't recognized. See if you have any typos, or are thinking of a \
@@ -121,7 +131,17 @@ subcommand for another command (i.e. `init` isn't a command, but `wallet init` i
 isn't documentation for that yet. If you think there should be, tell the administrator.
 """
 info_token = """
-TODO
+The `token` commands are all related to the buying, selling and distribution of tokens. When you \
+use tokens that you own, you can refer to the tokens by their name. Otherwise, refer to them by \
+their hash. Token commands:
+- `""" + command_token + command_token_delimiter + command_token_buy + """`
+- `""" + command_token + command_token_delimiter + command_token_ls + """`
+- `""" + command_token + command_token_delimiter + command_token_mint + """`
+- `""" + command_token + command_token_delimiter + command_token_sell + """`
+- `""" + command_token + command_token_delimiter + command_token_unown + """`
+- `""" + command_token + command_token_delimiter + command_token_unsell + """`
+"""
+info_token_buy = """
 """
 
 perm_ru = 0 # Permissions - Regular User

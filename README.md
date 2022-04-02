@@ -7,7 +7,7 @@ server, then **remember to read the [Notes](#Notes)**.
 ## Installation
 
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
-recommend installing in Linux or in a Linux VM.
+recommend installing on Linux or in a Linux VM.
 
 - Run `make install`
 - Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
@@ -60,7 +60,7 @@ nothing from that session will be saved.
 - [x] Thread Handling
 - [x] Redo logging
 - [x] make all output text embeds with no title
-- [ ] grep -r TODO TEMP
+- [x] grep -r TODO TEMP (counting this as done because all of the remaining are on this list IIRC)
 - [x] grep awaits in front of channel.sends
 
 ### Important but unnecessary:
@@ -84,7 +84,7 @@ nothing from that session will be saved.
    - [ ] change 'account top' for tokens
    - [ ] cooldown for users
      - [ ] cooldown for minting tokens specifically
- - [ ] alias help to info
+ - [ ] alias 'help' to 'info'
  - [x] Change bot status
  - [ ] Make a readthedocs.io
  - [ ] Make a logo
