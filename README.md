@@ -52,24 +52,30 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - [x] Load data from external file
 - [x] Save data to external file
 - [x] Thread Handling
-- [ ] Redo logging and make all output text embeds
+- [x] Redo logging
+- [ ] make all output text embeds with no title
 - [ ] grep -r TODO TEMP
+- [x] grep awaits in front of channel.sends
 
 ### Important but unnecessary:
 - [x] alias 'give wallet' to 'wallet give'
 - [ ] Install script
-- [ ] '.bank' command (alias for .wallet ls [bank hash])
+- [x] '.bank' command (alias for .wallet ls [bank hash])
 - [x] Fortune cat functions
   - [x] color
-  - [ ] make only fortune color a random color ; all others are red or something
+  - [x] make only fortune color a random color ; all others are red or something
   - [x] wikipedia
 - [ ] Create a systemd service / unit
 - [ ] unreserve to specific wallet
 - [ ] make '>info' for commands
+  - [ ] Make wu.log() output the associated user
 
 ### Long Term
+ - [ ] about
+ - [ ] Change bot status
  - [ ] Make a readthedocs.io
  - [ ] Make a logo
+ - [ ] Get random content from reddit
  - [ ] Server-side utilities
    - [ ] '>announce' command
    - [ ] '>exit' command

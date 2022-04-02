@@ -32,6 +32,7 @@ wc = WillClient()
 # Create a thread for parsing local commands
 
 async def local_command_function (): # Super User command thread
+	wu.log(conf.text_local_command_thread)
 	global exit_requested, wc # Don't know why, but there needs to be a declaration of its globality.
 	while not exit_requested:
 		recieved_command = input()
@@ -51,4 +52,5 @@ local_thread.start()
 
 # Run the bot
 
+wu.log(conf.text_running_bot)
 wc.run(token)

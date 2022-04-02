@@ -13,12 +13,14 @@ class Player:
 		self.wallets = jsonobj["wallets"].copy()
 		self.created_wallets = jsonobj["created_wallets"].copy()
 		self.created_tokens = jsonobj["created_tokens"].copy()
+		wu.log(conf.text_loaded_player % (self.name))
 
 	def new_player (self, _name):
 		self.name = _name
 		self.wallets = []
 		self.created_wallets = []
 		self.created_tokens = []
+		wu.log(conf.text_new_player % (_name))
 
 class Token:
 	def __init__ (self, url, initwallet, creator = conf.anonymous,
@@ -39,6 +41,7 @@ class Token:
 		self.seed = _jsonobj["seed"]
 		self.stamp = _jsonobj["stamp"]
 		self.url = _jsonobj["url"]
+		wu.log(conf.text_loaded_token % (self.hash))
 
 	def new_token (self, _url, _initwallet,
 		_creator = conf.anonymous, _name = conf.default_token_name):
@@ -72,7 +75,7 @@ class Wallet:
 		self.seed = _jsonobj["seed"]
 		self.stamp = _jsonobj["stamp"]
 		self.tokens = _jsonobj["tokens"].copy()
-		wu.log("Loaded in " + self.hash)
+		wu.log(conf.text_loaded_wallet % (self.hash))
 
 	def new_wallet (self, _creator = conf.anonymous, _name = conf.default_wallet_name):
 		# TODO make sure that this function checks against existing wallets
@@ -97,18 +100,25 @@ class Cryptosystem:
 		except FileNotFoundError:
 			self.new_cryptosystem()
 
+	# These next two functions have to do with saving and loading the cryptosystem. I don't know why
+	# I felt the need to document that; it's pretty obvious
+
 	def save_cryptosystem (self):
 		output_file = open(conf.json_file, conf.json_file_mode)
 		output_file.write(jsonpickle.encode(self))
 		output_file.close()
+		wu.log(conf.text_save)
 
 	def load_cryptosystem (self, loc = conf.json_file):
 		file = open(loc)
 		jsonobject = json.load(file)
 		file.close()
 		self.json_cryptosystem(jsonobject)
+		wu.log(conf.text_loaded_cryptosystem)
 
 	def check_player_has_wallet (self, player_name, wallet_name):
+		# I could probably save hundreds of hours over the course of the lifetime of a bot if I
+		# actually used this function instead of reimplimenting it every time.
 		if not player_name in self.players:
 			# Don't need to bother checking, the player doesn't have any wallets
 			return False
@@ -119,7 +129,8 @@ class Cryptosystem:
 		return False
 
 	def json_cryptosystem (self, jsonobj):
-		wu.log("Opening from file")
+		# I don't feel like this needs to be logged because this will be called exactly once and is
+		# already logged elsewhere.
 		self.total_willcoin = jsonobj["total_willcoin"]
 		self.reserve = jsonobj["reserve"]
 		self.auction = jsonobj["auction"].copy()
@@ -139,6 +150,7 @@ class Cryptosystem:
 
 	def new_cryptosystem (self, _size = conf.default_cryptosystem_size):
 		# This is for creating a cryptosystem, not loading one.
+		wu.log(conf.text_new_cryptosystem)
 		self.total_willcoin = _size
 		self.reserve = 0
 		self.auction = []
@@ -157,20 +169,25 @@ class Cryptosystem:
 		# line makes sure they don't already exist.
 		if not str(name) in self.players:
 			self.players[str(name)] = Player(str(name))
-			wu.log(conf.text_new_player % (name))
+		# If you are crazy enough to actually read through the codebase and check if this could be
+		# used in other functions, please file an issue.
 
 	def get_account_coin(self, player_name):
+		# This function goes through a players wallets and returns a sum of the coins
 		coins = 0
 		for i in self.players[player_name].wallets:
 			coins += self.wallets[i].coins
 		return coins
 
 	async def get_account_info (self, player_name, message):
+		# TODO give a list of wallets with the account information
+		# TODO give a list of tokens with the account information
 		try:
 			working_target_user = self.players[player_name]
 		except KeyError:
 			await message.channel.send(conf.text_target_user_not_found % (player_name))
-			return # TODO
+			wu.log(conf.text_target_user_not_found % (player_name))
+			return
 		wallet_sum = self.get_account_coin(player_name) # player init is done in here
 		wallets_num = len(self.players[player_name].wallets)
 		cwallets_num = len(self.players[player_name].created_wallets)
@@ -178,6 +195,7 @@ class Cryptosystem:
 		return return_string
 
 	async def account_top (self, message):
+		# A nice, bloated, way to give the top users / wallets / tokens back to users
 		players = sorted(self.players.items(), reverse = True, \
 			key = lambda item : self.get_account_coin(item[1].name))[:conf.ls_amount]
 		wallets = sorted(self.wallets.items(), reverse = True, \
@@ -211,6 +229,7 @@ class Cryptosystem:
 		final_text = conf.text_template_account % (player_text, wallet_text, token_text)
 		await message.channel.send(embed = wu.gen_willcoin_embed(final_text, \
 			title = conf.text_top_accounts))
+		wu.log(conf.text_account_top % (conf.command_character, message.author))
 
 	async def auction_ls (self, message):
 		# Named auction_ls because auction is already used in this class
@@ -225,6 +244,10 @@ class Cryptosystem:
 		if reply_text == "":
 			reply_text = conf.text_auction_none
 		await message.channel.send(embed = wu.gen_willcoin_embed(reply_text, title = ""))
+		wu.log(conf.text_auction % (conf.command_character, message.author))
+
+	async def bank_ls (self, message):
+		await self.wallet_ls(self.bank, message)
 
 	async def give_coin (self, user, target_user, amount, message):
 		self.player_init(user)
@@ -236,7 +259,8 @@ class Cryptosystem:
 			working_target_user = self.players[target_user]
 		except KeyError:
 			await message.channel.send(conf.text_target_user_not_found % (target_user))
-			return # TODO
+			wu.log(conf.text_target_user_not_found % (target_user))
+			return
 		for i in self.players[user].wallets:
 			if self.wallets[i].coins >= amount:
 				working_wallet = i
@@ -245,15 +269,21 @@ class Cryptosystem:
 			working_target_wallet = i
 			break
 		if not working_wallet:
-			await message.channel.send("Couldn't find a wallet with this number of coins...")
-			return # TODO
+			await message.channel.send(conf.text_wallet_not_found % (amount))
+			wu.log(conf.text_wallet_not_found_w_user % (amount, user))
+			return
 		if not working_target_wallet:
-			return # TODO
+			await message.channel.send(conf.text_target_wallet_not_found)
+			wu.log(conf.text_target_wallet_not_found_w_user % (user))
+			return
 		self.wallets[working_wallet].coins -= amount
 		self.wallets[working_target_wallet].coins += amount
-		# TODO tell user this worked
+		await message.channel.send(conf.text_wallet_give % (conf.symbol, amount, target_user))
+		wu.log(conf.text_give_coin % (conf.symbol, amount, target_user))
 
 	async def give_token (self, user, target_user, target_token, message):
+		# Function used for give token to another player. I don't know what parts of this can be
+		# optimized, and I'm not sure if I want to find out anymore.
 		self.player_init(user)
 		working_target_user = None
 		working_token = ""
@@ -262,12 +292,15 @@ class Cryptosystem:
 			working_target_user = self.players[target_user]
 		except KeyError:
 			await message.channel.send(conf.text_target_user_not_found % (target_user))
-			return # TODO
+			wu.log(conf.text_target_user_not_found % (target_user))
+			return
 		for i in working_target_user.wallets:
 			working_target_wallet = i
 			break
 		if not working_target_wallet:
-			return # TODO
+			await message.channel.send(conf.text_target_wallet_not_found % (target_wallet))
+			wu.log(conf.text_target_wallet_not_found % (target_wallet))
+			return
 		for walleth in self.players[user].wallets:
 			for tokenh in self.wallets[walleth].tokens:
 				if self.tokens[tokenh].name == target_token:
@@ -275,11 +308,14 @@ class Cryptosystem:
 					break
 					break
 		if not working_token:
-			return # TODO
+			await message.channel.send(conf.text_target_token_not_found % (target_token))
+			wu.log(conf.text_target_token_not_found % (target_token))
+			return
 		self.wallets[self.tokens[working_token].owner].tokens.remove(working_token)
 		self.wallets[working_target_wallet].tokens.append(working_token)
 		self.tokens[working_token].owner = working_target_wallet
-
+		await message.channel.send(conf.text_give_token % (target_token, target_user))
+		wu.log(conf.text_give_token % (target_token, target_user))
 
 	async def give_towallet (self, user, target_wallet, amount, message):
 		self.player_init(user)
@@ -291,18 +327,22 @@ class Cryptosystem:
 				working_wallet = i
 				break
 		if not working_wallet:
-			await message.channel.send("Couldn't find a wallet with this number of coins...")
-			return # TODO
+			await message.channel.send(conf.text_wallet_not_found % (amount))
+			wu.log(conf.text_wallet_not_found_w_user % (amount, user))
+			return
 		try:
 			working_target_wallet = self.wallets[target_wallet]
 		except KeyError:
-			await message.channel.send("Couldn't find target wallet")
-			return # TODO
+			await message.channel.send(conf.text_target_wallet_not_found)
+			wu.log(conf.text_target_wallet_not_found_w_user % (user))
+			return
 		self.wallets[working_wallet].coins -= amount
 		working_target_wallet.coins += amount
-		# TODO tell user this worked
+		await message.channel.send(conf.text_give_towallet % (conf.symbol, amount, target_user))
+		wu.log(conf.text_give_towallet % (conf.symbol, amount, target_user))
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
+		# Used client side to put coins into the reserve.
 		amount = wu.wint(amount)
 		amount = min(self.wallets[self.bank].coins, amount)
 		self.wallets[self.bank].coins -= amount
@@ -328,8 +368,8 @@ class Cryptosystem:
 				if self.tokens[i].name == identifier:
 					hash = self.tokens[i].hash
 		if hash == "":
-			# TODO: give this data to user
-			pass
+			await message.channel.send(conf.text_token_not_found % (identifier))
+			wu.log(conf.text_token_not_found % (identifier))
 		else:
 			await self.token_msg(hash, message.channel)
 
@@ -341,23 +381,31 @@ class Cryptosystem:
 				working_token = tokenh
 				break
 		if working_token == "":
-			return # TODO
+			await message.channel.send(conf.text_token_not_found % (token))
+			wu.log(conf.text_token_not_found % (token))
+			return
 		if not working_token in self.auction:
-			return # TODO
+			await message.channel.send(conf.text_token_not_in_auction % (token))
+			wu.log(conf.text_token_not_in_auction % (token))
+			return
 		working_wallet = None
 		for walleth in self.players[user].wallets:
 			if self.wallets[walleth].coins >= self.tokens[working_token].cost:
 				working_wallet = self.wallets[walleth]
 				break
 		if not working_wallet:
-			return # TODO
+			await message.channel.send(conf.text_wallet_not_found % \
+				(self.tokens[working_token].cost))
+			wu.log(conf.text_wallet_not_found % (self.tokens[working_token].cost))
+			return
 		working_wallet.tokens.append(working_token)
 		self.wallets[self.tokens[working_token].owner].tokens.remove(token)
 		working_wallet.coins -= self.tokens[working_token].cost
 		self.wallets[self.tokens[working_token].owner].coins += self.tokens[working_token].cost
 		self.tokens[working_token].owner = working_wallet.hash
 		self.auction.remove(working_token)
-		# TODO Tell user
+		await message.channel.send(conf.text_token_buy % self.tokens[working_token].name)
+		wu.log(conf.text_token_buy % (self.tokens[working_token].name))
 
 	async def token_mint (self, mint_name, message):
 		# TODO make sure all of the returns have appropriate logging and message.sending
@@ -369,7 +417,8 @@ class Cryptosystem:
 				url = m.attachments[0].url
 				break
 		if url == "":
-			return # TODO
+			await message.channel.send(conf.text_token_attachment_unknown)
+			return
 		working_token = Token(url, initwallet, creator = str(message.author), name = mint_name)
 		self.tokens[working_token.hash] = working_token
 		self.wallets[working_token.owner].tokens.append(working_token.hash)
@@ -384,12 +433,16 @@ class Cryptosystem:
 		if len(self.players[working_token.creator].wallets):
 			working_wallet = self.wallets[self.players[working_token.creator].wallets[0]]
 		else:
-			return # TODO
+			await message.channel.send(conf.text_token_mint_warning)
+			wu.log(conf.text_token_mint_warning)
+			return
 		generated_coins = math.ceil(self.wallets[self.bank].coins / conf.return_diminish_factor)
 		self.wallets[self.bank].coins -= generated_coins
 		working_wallet.coins += generated_coins
 
 	async def token_sell (self, user, token, amount, message):
+		# Selling a token does not immediately get the associated number of coins, but it puts a
+		# token to auction, and is called with an amount of coins to set the price.
 		self.player_init(user)
 		working_token = ""
 		for walleth in self.players[user].wallets:
@@ -399,12 +452,18 @@ class Cryptosystem:
 					break
 					break
 		if working_token == "":
-			return # TODO
+			await message.channel.send(conf.text_token_not_found % (token))
+			wu.log(conf.text_token_not_found % (token))
+			return
 		if not working_token in self.auction:
 			self.auction.append(working_token)
 		self.tokens[working_token].cost = max(wmath.atoi(amount), 0)
+		await message.channel.send(conf.text_token_sell % (token))
+		wu.log(conf.text_token_sell % (token))
 
 	async def token_unsell (self, user, token, message):
+		# If you decide you like a token after all, or if you want to jack up the price of a token,
+		# then this might be the command for you.
 		self.player_init(user)
 		working_token = ""
 		for walleth in self.players[user].wallets:
@@ -414,15 +473,21 @@ class Cryptosystem:
 					break
 					break
 		if working_token == "":
-			return # TODO
+			await message.channel.send(conf.text_token_not_found % (token))
+			wu.log(conf.text_token_not_found % (token))
+			return
 		if working_token in self.auction:
 			self.auction.remove(working_token)
-			# TODO Let user know
+			await message.channel.send(conf.text_token_unsell % (token))
+			wu.log(conf.text_token_unsell % (token))
 		else:
-			pass
-			# TODO Let user know
+			await message.channel.send(conf.text_token_not_in_auction % (token))
+			wu.log(conf.text_token_not_in_auction % (token))
 
 	async def token_unown (self, user, token, message):
+		# I don't know why someone would use this, but I coded it in anyway. The general idea is
+		# that if, for some reason, someone wanted to get rid of a token, this would be how they do
+		# it.
 		self.player_init(user)
 		working_token = ""
 		working_wallet = None
@@ -434,15 +499,22 @@ class Cryptosystem:
 					break
 					break
 		if working_token == "":
-			return # TODO
+			await message.channel.send(conf.text_token_not_found % (token))
+			wu.log(conf.text_token_not_found % (token))
+			return
 		if not working_token in self.auction:
+			# If it gets own by the bank again, it can automatically go into auction.
 			self.auction.append(working_token)
 		working_target_wallet.tokens.append(working_token)
 		working_wallet = self.wallets[self.tokens[working_token].owner]
 		working_wallet.tokens.remove(working_token)
 		self.tokens[working_token].owner = self.bank
+		await message.channel.send(conf.text_token_unown % (token))
+		wu.log(conf.text_token_unown % (token))
 
 	def unreserve_coins (self, amount = conf.default_reserve_amount):
+		# I don't know how, after so many commits, this function ended up down here, but it is like
+		# the same thing as reserve, but in reverse. Reverse reserve, as it were.
 		amount = wu.wint(amount)
 		amount = min(self.reserve, amount)
 		self.reserve -= amount
@@ -453,7 +525,8 @@ class Cryptosystem:
 		# owner is the owner of the wallet to be destroyed, name is the name of the wallet to be
 		# destroyed, and message is the message that requested the wallet to be destroyed.
 		self.player_init(str(owner)) # make sure the player exists, to stop errors down the line
-		# TODO
+		# I know, above line is janky considering how the rest of the system works, but I think I
+		# already said somewhere that there is not a style guide for this project.
 		working_wallet = None
 		target_wallet = None # The wallet that all coin and tokens will be moved to
 		for i in self.players[str(owner)].wallets:
@@ -464,24 +537,29 @@ class Cryptosystem:
 			if working_wallet != None and target_wallet != None:
 				break
 		if working_wallet == None or target_wallet == None:
-			# TODO: give this warning back to user
-			return # don't need to go any further
+			await message.channel.send(conf.text_wallet_destroy_error)
+			wu.log(conf.text_wallet_destroy_error)
+			return
 		moved_coins = working_wallet.coins
 		# By storing this in a seperate variable, it'll prevent infinite money glitches, hopefully
 		working_wallet.coins -= moved_coins
 		target_wallet.coins += moved_coins
 		while working_wallet.tokens:
-			# TEMP come back later and determine if there needs to be more delicate handling of
-			# transferred tokens
-			target_wallet.tokens.append(working_wallet.tokens.pop())
+			# TEMP think this is working now, but I want to leave this as a bookmarke in case there
+			# are any bugs.
+			working_token = working_wallet.tokens.pop()
+			self.tokens[working_token].owner = target_wallet.hash
+			target_wallet.tokens.append(working_token)
 
 		# remove from owner wallets, then from creator wallets, then from cryptosystem wallets
 		self.players[working_wallet.creator].created_wallets.remove(working_wallet.hash)
 		self.players[working_wallet.owner].wallets.remove(working_wallet.hash)
 		del self.wallets[working_wallet.hash]
-		# TODO log and tell user
+		await message.channel.send(conf.text_wallet_destroy)
+		wu.log(conf.text_wallet_destroy)
 
 	async def wallet_give (self, user, name, target_user, message):
+		# Give name, owned by user to target_user
 		self.player_init(user)
 		working_user = self.players[user]
 		working_target_user = None
@@ -489,20 +567,24 @@ class Cryptosystem:
 			working_target_user = self.players[target_user]
 		except KeyError:
 			await message.channel.send(conf.text_target_user_not_found % (target_user))
-			return # TODO
+			wu.log(conf.text_target_user_not_found % (target_user))
+			return
 		working_wallet = None
 		for i in working_user.wallets:
 			if self.wallets[i].name == name:
 				working_wallet = i
 				break
 		if not working_wallet:
-			return # TODO
+			await message.channel.send(conf.text_wallet_not_found % (name))
+			return
 		working_user.wallets.remove(working_wallet)
 		working_target_user.wallets.append(working_wallet)
-		self.wallets[working_wallet].owner = working_target_user
-		# TODO give messages back to user
+		self.wallets[working_wallet].owner = str(working_target_user)
+		await message.channel.send(conf.text_wallet_give % (name, target_user))
+		wu.log(conf.text_wallet_give % (name, target_user))
 
 	async def wallet_main (self, user, name, message):
+		# Designates a specific wallet as the main wallet for a user
 		self.player_init(user)
 		working_wallet = ""
 		for wallet in self.players[user].wallets:
@@ -510,13 +592,17 @@ class Cryptosystem:
 				working_wallet = wallet
 				break
 		if working_wallet == "":
-			return # TODO
+			await message.channel.send(conf.text_wallet_not_found_generic % (name))
+			wu.log(conf.text_wallet_not_found_generic % (name))
+			return
 		self.players[user].wallets.remove(working_wallet)
 		self.players[user].wallets.insert(0, working_wallet)
 		await message.channel.send(embed = wu.gen_willcoin_embed(conf.text_wallet_mained % (name, \
 			user), title = ""))
+		wu.log(conf.text_wallet_mained % (name, user))
 
 	async def wallet_move (self, user, wallet, target_wallet, amount, message):
+		# Move the contents of one wallet to another wallet.
 		self.player_init(user)
 		working_wallet = None
 		working_target_wallet = None
@@ -527,14 +613,22 @@ class Cryptosystem:
 				working_target_wallet = self.wallets[walleth]
 			if working_wallet and working_target_wallet:
 				break
-		if not working_wallet or not working_target_wallet:
-			return # TODO
+		if not working_wallet:
+			await message.channel.send(conf.text_wallet_move_error % (wallet))
+			wu.log(conf.text_wallet_move_error % (wallet))
+			return
+		if not working_target_wallet:
+			await message.channel.send(conf.text_wallet_move_error % (target_wallet))
+			wu.log(conf.text_wallet_move_error % (target_wallet))
+			return
 		amount = min(working_wallet.coins, wmath.atoi(amount))
 		working_wallet.coins -= amount
 		working_target_wallet.coins += amount
-		# TODO tell user
+		await message.channel.send(conf.text_wallet_move % (conf.symbol, amount, target_wallet))
+		wu.log(conf.text_wallet_move % (conf.symbol, amount, target_wallet))
 
 	async def wallet_movet (self, user, wallet, target_wallet, token, message):
+		# Move a specific token from a wallet to another wallet.
 		self.player_init(user)
 		working_wallet = None
 		working_target_wallet = None
@@ -546,17 +640,26 @@ class Cryptosystem:
 				working_target_wallet = self.wallets[walleth]
 			if working_wallet and working_target_wallet:
 				break
-		if not working_wallet or not working_target_wallet:
-			return # TODO
+		if not working_wallet:
+			await message.channel.send(conf.text_wallet_move_error % (wallet))
+			wu.log(conf.text_wallet_move_error % (wallet))
+			return
+		if not working_target_wallet:
+			await message.channel.send(conf.text_wallet_move_error % (target_wallet))
+			wu.log(conf.text_wallet_move_error % (target_wallet))
+			return
 		for tokenh in working_wallet:
 			if self.tokens[tokenh].name == token:
 				working_token = tokenh
 				break
 		if not working_token:
-			return # TODO
+			await message.channel.send(conf.text_token_not_found % (token))
+			wu.log(conf.text_token_not_found % (token))
+			return
 		working_wallet.tokens.remove(working_token)
 		working_target_wallet.tokens.append(working_token)
-		# TODO tell user
+		await message.channel.send(conf.text_wallet_movet % (token, target_wallet))
+		wu.log(conf.text_wallet_movet % (token, target_wallet))
 
 	async def wallet_msg (self, hash, mc):
 		working_wallet = self.wallets[hash]
@@ -582,12 +685,14 @@ class Cryptosystem:
 				if self.wallets[i].name == identifier:
 					hash = self.wallets[i].hash
 		if hash == "":
-			# TODO: give this data to user
-			pass
+			# Shameless reuse of move text
+			await message.channel.send(conf.text_wallet_movet % (identifier))
+			wu.log(conf.text_wallet_movet % (identifier))
 		else:
 			await self.wallet_msg(hash, message.channel)
 
 	async def wallet_init (self, creator, name, message):
+		# Create a new wallet, if you couldn't tell
 		self.player_init(creator)
 		if self.check_player_has_wallet(creator, name):
 			creator_name = creator.name
@@ -630,6 +735,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 					title = conf.text_account_title % (str(message.author))))
 	elif command_mainfix == conf.command_auction and permissions == conf.perm_ru:
 		await cryptosystem.auction_ls(message)
+	elif command_mainfix == conf.command_bank and permissions == conf.perm_ru:
+		await cryptosystem.bank_ls(message)
 	elif command_mainfix == conf.command_exit and permissions == conf.perm_su:
 		# TODO finish an exit function
 		return True # returns true to signal that exit was requested.
