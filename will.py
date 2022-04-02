@@ -367,8 +367,8 @@ class Cryptosystem:
 		self.wallets[working_wallet].coins -= amount
 		working_target_wallet.coins += amount
 		await message.channel.send(embed = wu.gen_willcoin_embed(conf.text_give_towallet % \
-			(conf.symbol, amount, target_user), title = ""))
-		wu.log(conf.text_give_towallet % (conf.symbol, amount, target_user))
+			(conf.symbol, amount, target_wallet), title = ""))
+		wu.log(conf.text_give_towallet % (conf.symbol, amount, target_wallet))
 
 	def reserve_coins (self, amount = conf.default_reserve_amount):
 		# Used client side to put coins into the reserve.
@@ -555,14 +555,19 @@ class Cryptosystem:
 			title = ""))
 		wu.log(conf.text_token_unown % (token))
 
-	def unreserve_coins (self, amount = conf.default_reserve_amount):
+	def unreserve_coins (self, amount = conf.default_reserve_amount, target_wallet = ""):
 		# I don't know how, after so many commits, this function ended up down here, but it is like
 		# the same thing as reserve, but in reverse. Reverse reserve, as it were.
+		try:
+			target_wallet = self.wallets[target_wallet].hash
+		except:
+			target_wallet = self.bank
 		amount = wu.wint(amount)
 		amount = min(self.reserve, amount)
 		self.reserve -= amount
-		self.wallets[self.bank].coins += amount
-		wu.log(conf.text_reserve_unreserve % (amount, self.reserve, self.wallets[self.bank].coins))
+		self.wallets[target_wallet].coins += amount
+		wu.log(conf.text_reserve_unreserve % (amount, target_wallet, self.reserve, \
+			self.wallets[self.bank].coins))
 
 	async def wallet_destroy (self, owner, name, message):
 		# owner is the owner of the wallet to be destroyed, name is the name of the wallet to be
@@ -885,9 +890,12 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				wu.log(conf.text_command_parseerror % (command))
 	elif command_mainfix == conf.command_unreserve and permissions == conf.perm_su:
 		try:
-			cryptosystem.unreserve_coins(command_tokens[1])
-		except:
-			cryptosystem.unreserve_coins()
+			cryptosystem.unreserve_coins(command_tokens[1], command_tokens[2])
+		except IndexError:
+			try:
+				cryptosystem.unreserve_coins(command_tokens[1])
+			except IndexError:
+				cryptosystem.unreserve_coins()
 	elif command_mainfix == conf.command_wallet:
 		try:
 			command_subfix = command_tokens[1]

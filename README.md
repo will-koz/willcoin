@@ -66,7 +66,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
   - [x] make only fortune color a random color ; all others are red or something
   - [x] wikipedia
 - [ ] Create a systemd service / unit
-- [ ] unreserve to specific wallet
+- [x] unreserve to specific wallet
 - [ ] make '>info' for commands
   - [ ] Make wu.log() output the associated user
 
