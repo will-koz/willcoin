@@ -70,5 +70,5 @@ async def say_fortune (message):
 
 async def say_wiki_fortune (message):
 	f = requests.get(conf.wiki_loc).json()["content_urls"]["desktop"]["page"]
-	await message.channel.send(embed = gen_willcoin_embed(f, title = ""))
+	await message.channel.send(f)
 	log(conf.text_fortune_wiki % (f, message.author))

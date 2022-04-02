@@ -1,14 +1,15 @@
 # willcoin
 
 Willcoin is a centralized Discord cryptosystem. (That's fancy talk for a bot that attaches numbers
-to a user.)
+to a user.) Go to [Installation](#Installation) to read about how to install your own willcoin
+server, then **remember to read the [Notes](#Notes)**.
 
 ## Installation
 
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
 recommend installing in Linux or in a Linux VM.
 
-- Run `make install` <!-- TODO -->
+- Run `make install`
 - Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
 add to this repo, which is why you should run the above command. This step and the next step is
 documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
@@ -17,13 +18,18 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 
 <!-- TODO: write more of an Installation Guide -->
 
+## Notes
+
+After each session with the server running, remember to run the server-side `save` command, or else
+nothing from that session will be saved.
+
 ## TODO
 
 - [x] Connect to Discord API
 - [x] Parse Commands, call functions with appropriate users and permissions
   - [x] For some remaining commands, create formal functions
     - [x] >wallet
-	  - [x] movet TODO test this
+	  - [x] movet
       - [x] give
       - [x] ls
       - [x] move
@@ -67,12 +73,19 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
   - [x] wikipedia
 - [ ] Create a systemd service / unit
 - [x] unreserve to specific wallet
-- [ ] make '>info' for commands
-  - [ ] Make wu.log() output the associated user
+- [ ] make '.info' for commands
+  - [ ] about
+  - [ ] 'list' command
+- [ ] Make wu.log() output the associated user
 
 ### Long Term
- - [ ] about
- - [ ] Change bot status
+ - [ ] algorithms
+   - [ ] automatically remove tokens from auction if they have been there too long
+   - [ ] change 'account top' for tokens
+   - [ ] cooldown for users
+     - [ ] cooldown for minting tokens specifically
+ - [ ] alias help to info
+ - [x] Change bot status
  - [ ] Make a readthedocs.io
  - [ ] Make a logo
  - [ ] Get random content from reddit
@@ -80,6 +93,7 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
    - [ ] '>announce' command
    - [ ] '>exit' command
    - [ ] '>reboot' command
+ - [ ] use @'s for selecting players
 
 ## Thanks
 

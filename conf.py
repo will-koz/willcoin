@@ -40,7 +40,7 @@ ansi_dull = ansi_escape + "2m"
 ansi_error = ansi_escape + "1;31m"
 
 command_account = "account"
-command_account_ls = "ls"
+command_account_ls = "list"
 command_account_top = "top"
 command_auction = "auction"
 command_bank = "bank"
@@ -59,7 +59,7 @@ command_reserve = "reserve"
 command_save = "save"
 command_token = "token"
 command_token_buy = "buy"
-command_token_ls = "ls"
+command_token_ls = "list"
 command_token_mint = "mint"
 command_token_sell = "sell"
 command_token_unown = "unown"
@@ -69,7 +69,7 @@ command_wallet = "wallet"
 command_wallet_destroy = "destroy"
 command_wallet_give = "give"
 command_wallet_init = "init"
-command_wallet_ls = "ls"
+command_wallet_ls = "list"
 command_wallet_main = "main"
 command_wallet_move = "move"
 command_wallet_movet = "movet"
@@ -108,8 +108,12 @@ info_about = """
 TODO
 """
 info_fortune = """
-The fortune comand is used to get random content. It can be used to get a random unix fortune-like \
-fortune. It will be able to get a random cat image, wikipedia page, and meme soon. TODO
+The `fortune` comand is used to get random content. It can be used to get a random unix \
+fortune-like fortune. You can also use the following sub-commands to get specific random content:
+- `fortune cat` to get a random cat image
+- `fortune wiki` to get a random Wikipedia page
+- `fortune color` to get a random color in hex format. The border of the embed will also be that \
+color
 """
 info_none = """
 Sorry, but the command `%s` wasn't recognized. See if you have any typos, or are thinking of a \
@@ -122,6 +126,8 @@ TODO
 
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
+
+status_name = command_character + command_info
 
 text_account_info = """
 Created wallets: %s
@@ -167,7 +173,7 @@ text_template_account = "**Players:**%s\n\n**Wallets:**%s\n\n**Tokens:**%s"
 text_template_player = "\n%s \u2015 `%s (%s%s net worth)`"
 text_template_token = "\n%s \u2015 `%s (valued at %s%s)\n%s`"
 text_template_sub_token = "\n\u2015 %s `%s (valued at %s%s)\n%s`"
-text_template_wallet = "\n%s \u2015 `%s (with %s%s)\n%s`"
+text_template_wallet = "\n%s \u2015 `%s (with %s%s) owned by %s\n%s`"
 text_token_attachment_unknown = "Couldn't find an attachment to mint in recent channel history."
 text_token_body = """
 Created by %s at %s.

@@ -199,7 +199,7 @@ class Cryptosystem:
 			if counter != 1:
 				wallet_text += "\n"
 			wallet_text += conf.text_template_wallet % (counter, working_wallet.name, conf.symbol, \
-				working_wallet.coins, working_wallet.hash)
+				working_wallet.coins, working_wallet.owner, working_wallet.hash)
 			subcounter = 1
 			for token in working_wallet.tokens:
 				target_token = self.tokens[token]
@@ -234,7 +234,7 @@ class Cryptosystem:
 			if counter != 1:
 				wallet_text += "\n"
 			wallet_text += conf.text_template_wallet % (counter, wallet[1].name, conf.symbol, \
-				wallet[1].coins, wallet[1].hash)
+				wallet[1].coins, wallet[1].owner, wallet[1].hash)
 			counter += 1
 		token_text = ""
 		counter = 1
@@ -803,7 +803,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 	elif command_mainfix == conf.command_bank and permissions == conf.perm_ru:
 		await cryptosystem.bank_ls(message)
 	elif command_mainfix == conf.command_exit and permissions == conf.perm_su:
-		# TODO finish an exit function
+		# This only exits out of one thread not all of them. One of the eventual goals is to remove
+		# all running threads.
 		return True # returns true to signal that exit was requested.
 	elif command_mainfix == conf.command_fortune and permissions == conf.perm_ru:
 		try:

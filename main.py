@@ -22,6 +22,8 @@ token = token.readline().strip()
 class WillClient (discord.Client):
 	async def on_ready (self):
 		wu.log(conf.text_logged_in % (self.user))
+		await wc.change_presence(activity = discord.Activity(type = \
+			discord.ActivityType.listening, name = conf.status_name))
 
 	async def on_message (self, message):
 		global main_cs

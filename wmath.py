@@ -4,6 +4,7 @@ import random
 import conf
 
 def atoi (x):
+	# This is literally the exact same code as wu.wint(), I just forgot about that and wrote this.
 	if int(x):
 		return int(x)
 	else:
