@@ -7,6 +7,8 @@ package:
 
 clean:
 	rm -rf __pycache__
+	# Does not remove cryptosystem.json, because some people might not want that automatically
+	# removed.
 
 fortuned:
 	# fortune dump

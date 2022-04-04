@@ -148,6 +148,7 @@ their hash. Token commands:
 - `""" + command_token + command_token_delimiter + command_token_unsell + """`
 """
 info_token_buy = """
+TODO
 """
 
 perm_ru = 0 # Permissions - Regular User

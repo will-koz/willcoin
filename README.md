@@ -72,13 +72,13 @@ nothing from that session will be saved.
   - [x] color
   - [x] make only fortune color a random color ; all others are red or something
   - [x] wikipedia
-- [ ] Create a systemd service / unit
+- [ ] Create a systemd service (Update: looking at just using crontab, because more systems have it)
 - [x] unreserve to specific wallet
 - [ ] make '.info' for commands
   - [x] about
   - [ ] 'list' command
 - [ ] Make wu.log() output the associated user
-- [ ] Save on shutdown
+- [x] Save on shutdown
 
 ### Long Term
  - [ ] algorithms
