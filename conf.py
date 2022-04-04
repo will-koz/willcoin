@@ -113,6 +113,9 @@ digital artwork. Users can get coins by minting tokens or trading coins.
 
 Willcoin is open-source. The GitHub page is here: https://github.com/will-koz/willcoin
 """
+info_account = """TODO"""
+info_account_list = """TODO"""
+info_account_top = """TODO"""
 info_auction = """
 The `""" + command_auction + """` command displays some of the tokens that are at auction.
 """
@@ -131,6 +134,13 @@ Wikipedia page
 - `""" + command_fortune + command_token_delimiter + command_fortune_color + """` to get a random \
 color in hex format. The border of the embed will also be that color
 """
+info_general = """TODO"""
+info_give = """TODO"""
+info_give_coin = """TODO"""
+info_give_token = """TODO"""
+info_give_towallet = """TODO"""
+info_give_wallet = """TODO"""
+info_ls = """TODO"""
 info_none = """
 Sorry, but the command `%s` wasn't recognized. See if you have any typos, or are thinking of a \
 subcommand for another command (i.e. `init` isn't a command, but `wallet init` is). Or maybe there \
@@ -147,9 +157,20 @@ their hash. Token commands:
 - `""" + command_token + command_token_delimiter + command_token_unown + """`
 - `""" + command_token + command_token_delimiter + command_token_unsell + """`
 """
-info_token_buy = """
-TODO
-"""
+info_token_buy = """TODO"""
+info_token_list = """TODO"""
+info_token_mint = """TODO"""
+info_token_sell = """TODO"""
+info_token_unown = """TODO"""
+info_token_unsell = """TODO"""
+info_wallet = """TODO"""
+info_wallet_destroy = """TODO"""
+info_wallet_give = """TODO"""
+info_wallet_init = """TODO"""
+info_wallet_ls = """TODO"""
+info_wallet_main = """TODO"""
+info_wallet_move = """TODO"""
+info_wallet_movet = """TODO"""
 
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User

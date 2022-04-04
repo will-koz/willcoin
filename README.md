@@ -77,7 +77,6 @@ nothing from that session will be saved.
 - [ ] make '.info' for commands
   - [x] about
   - [ ] 'list' command
-- [ ] Make wu.log() output the associated user
 - [x] Save on shutdown
 
 ### Long Term
@@ -90,6 +89,7 @@ nothing from that session will be saved.
  - [x] Change bot status
  - [ ] Make a readthedocs.io
  - [ ] Make a logo
+ - [ ] Make wu.log() output the associated user
  - [ ] Get random content from reddit
  - [ ] Server-side utilities
    - [ ] '>announce' command
