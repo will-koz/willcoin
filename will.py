@@ -883,7 +883,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			cryptosystem.reserve_coins(command_tokens[1])
 		except IndexError:
 			cryptosystem.reserve_coins()
-	elif command_mainfix == conf.command_save and permissions == conf.perm_su:
+	elif command_mainfix == conf.command_save and (permissions == conf.perm_su or \
+		str(message.author) == conf.administrator):
 		cryptosystem.save_cryptosystem()
 	elif command_mainfix == conf.command_token and permissions == conf.perm_ru:
 		try:

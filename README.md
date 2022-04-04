@@ -15,6 +15,7 @@ add to this repo, which is why you should run the above command. This step and t
 documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - Create a server that can serve as a testing server and invite the bot to that server. See above.
 - Put your Discord bot token into token.txt
+- I would recommend changing the administrator field in conf.py, but it is up to you
 
 <!-- TODO: write more of an Installation Guide -->
 
@@ -77,6 +78,7 @@ nothing from that session will be saved.
   - [x] about
   - [ ] 'list' command
 - [ ] Make wu.log() output the associated user
+- [ ] Save on shutdown
 
 ### Long Term
  - [ ] algorithms

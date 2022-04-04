@@ -5,7 +5,7 @@
 # everything really quickly, but I copy and pasted a couple of times without making a function. If
 # it isn't obvious already, this is the definition of legacy code. Read at your own risk.
 
-import asyncio, discord, random, sys, threading
+import asyncio, atexit, discord, random, sys, threading
 import conf, will, wu
 
 exit_requested = False
@@ -13,6 +13,8 @@ exit_requested = False
 main_cs = will.Cryptosystem(conf.json_file)
 # the main instance of the cryptosystem. Unless the bot is running multiple systems from the same
 # server, there does not need to be an array of cryptosystems
+atexit.register(main_cs.save_cryptosystem)
+# Not quite a formal exit function, but it'll handle unexpected shutdowns.
 
 # Create the Discord Client
 
@@ -41,12 +43,14 @@ async def local_command_function (): # Super User command thread
 		# Nice way to remove the command character if it's there.
 		if recieved_command != "" and recieved_command[0] == conf.command_character:
 			recieved_command = recieved_command[1:]
-		exit_requested = await will.exec_command(recieved_command, main_cs, client = wc, permissions = 1)
+		exit_requested = await will.exec_command(recieved_command, main_cs, client = wc, \
+			permissions = 1)
 
 def local_command_daemon ():
 	loop = asyncio.new_event_loop()
 	asyncio.set_event_loop(loop)
 	loop.run_until_complete(local_command_function())
+	loop.run_until_complete(wc.close())
 	loop.close()
 
 local_thread = threading.Thread(target = local_command_daemon)

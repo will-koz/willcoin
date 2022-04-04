@@ -1,4 +1,5 @@
 administration = "Admin"
+administrator = "Will_ko#1244"
 anonymous = "Anon"
 bank_name = "BankOfWill"
 byte_encoding = "utf-8"
