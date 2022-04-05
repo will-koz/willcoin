@@ -853,6 +853,21 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			if command_subfix == conf.command_about:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_about, title = \
 					""))
+			elif command_subfix == conf.command_account:
+				try:
+					command_trifix = command_tokens[2]
+					if command_trifix == conf.command_account_ls:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_account_list, title = ""))
+					elif command_trifix == conf.command_account_top:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_account_top, title = ""))
+					else:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_account, title = ""))
+				except:
+					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_account, \
+						title = ""))
 			elif command_subfix == conf.command_auction:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_auction, \
 					title = ""))
@@ -865,19 +880,39 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			elif command_subfix == conf.command_give:
 				try:
 					command_trifix = command_tokens[2]
-					if command_trifix == conf.info_give_coin:
-						pass
+					if command_trifix == conf.command_give_coin:
+						await message.channel.send(embed = wu.gen_willcoin_embed( \
+							conf.info_give_coin, title = ""))
+					elif command_trifix == conf.command_give_token:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_give_token, title = ""))
+					elif command_trifix == conf.command_give_towallet:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_give_towallet, title = ""))
+					elif command_trifix == conf.command_give_wallet:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_give_wallet, title = ""))
 					else:
 						await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_give, \
 							title = ""))
 				except:
 					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_give, \
 						title = ""))
+			elif command_subfix == conf.command_info:
+				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general, \
+					title = ""))
 			elif command_subfix == conf.command_token:
 				try:
 					command_trifix = command_tokens[2]
 					if command_trifix == conf.info_token_buy:
-						pass
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_token_buy, title = ""))
+					elif command_trifix == conf.info_token_list:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_token_list, title = ""))
+					elif command_trifix == conf.info_token_mint:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_token_mint, title = ""))
 					else:
 						await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_token, \
 							title = ""))
@@ -888,7 +923,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_none % \
 					(command_subfix), title = ""))
 		except IndexError:
-			await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_about, title = ""))
+			await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general, title = ""))
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.reserve_coins(command_tokens[1])
