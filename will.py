@@ -707,7 +707,7 @@ class Cryptosystem:
 				(target_wallet), title = ""))
 			wu.log(conf.text_wallet_move_error % (target_wallet))
 			return
-		for tokenh in working_wallet:
+		for tokenh in working_wallet.tokens:
 			if self.tokens[tokenh].name == token:
 				working_token = tokenh
 				break
@@ -904,20 +904,59 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			elif command_subfix == conf.command_token:
 				try:
 					command_trifix = command_tokens[2]
-					if command_trifix == conf.info_token_buy:
+					if command_trifix == conf.command_token_buy:
 						await message.channel.send(embed = \
 							wu.gen_willcoin_embed(conf.info_token_buy, title = ""))
-					elif command_trifix == conf.info_token_list:
+					elif command_trifix == conf.command_token_ls:
 						await message.channel.send(embed = \
 							wu.gen_willcoin_embed(conf.info_token_list, title = ""))
-					elif command_trifix == conf.info_token_mint:
+					elif command_trifix == conf.command_token_mint:
 						await message.channel.send(embed = \
 							wu.gen_willcoin_embed(conf.info_token_mint, title = ""))
+					elif command_trifix == conf.command_token_sell:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_token_sell, title = ""))
+					elif command_trifix == conf.command_token_unown:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_token_unown, title = ""))
+					elif command_trifix == conf.command_token_unsell:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_token_unsell, title = ""))
 					else:
 						await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_token, \
 							title = ""))
 				except:
 					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_token, \
+						title = ""))
+			elif command_subfix == conf.command_wallet:
+				try:
+					command_trifix = command_tokens[2]
+					if command_trifix == conf.command_wallet_destroy:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_destroy, title = ""))
+					elif command_trifix == conf.command_wallet_give:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_give, title = ""))
+					elif command_trifix == conf.command_wallet_init:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_init, title = ""))
+					elif command_trifix == conf.command_wallet_ls:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_ls, title = ""))
+					elif command_trifix == conf.command_wallet_main:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_main, title = ""))
+					elif command_trifix == conf.command_wallet_move:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_move, title = ""))
+					elif command_trifix == conf.command_wallet_movet:
+						await message.channel.send(embed = \
+							wu.gen_willcoin_embed(conf.info_wallet_movet, title = ""))
+					else:
+						await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_wallet, \
+							title = ""))
+				except:
+					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_wallet, \
 						title = ""))
 			else:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_none % \
