@@ -135,7 +135,16 @@ Wikipedia page
 color in hex format. The border of the embed will also be that color
 """
 info_general = """TODO"""
-info_give = """TODO"""
+info_give = """
+The `""" + command_give + """` command is used to transfer coins, tokens, and wallets between \
+users. With the exception of `""" + command_give + command_token_delimiter + \
+command_give_towallet + """`, `""" + command_give + """` commands all have the target player as \
+the first argument after the command.
+- `""" + command_give + command_token_delimiter + command_give_coin + """`
+- `""" + command_give + command_token_delimiter + command_give_token + """`
+- `""" + command_give + command_token_delimiter + command_give_towallet + """`
+- `""" + command_give + command_token_delimiter + command_give_wallet + """`
+"""
 info_give_coin = """TODO"""
 info_give_token = """TODO"""
 info_give_towallet = """TODO"""

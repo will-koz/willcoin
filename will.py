@@ -862,6 +862,17 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			elif command_subfix == conf.command_fortune:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_fortune, \
 					title = ""))
+			elif command_subfix == conf.command_give:
+				try:
+					command_trifix = command_tokens[2]
+					if command_trifix == conf.info_give_coin:
+						pass
+					else:
+						await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_give, \
+							title = ""))
+				except:
+					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_give, \
+						title = ""))
 			elif command_subfix == conf.command_token:
 				try:
 					command_trifix = command_tokens[2]
