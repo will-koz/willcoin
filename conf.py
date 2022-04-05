@@ -108,7 +108,7 @@ fortunes = [
 
 info_about = """
 Willcoin is a discord cryptosystem. Users can create any (realistic) number of wallets and they \
-can assign coins to each one, as well as move tokens betwenn wallets, which are like peices of \
+can assign coins to each one, as well as move tokens between wallets, which are like pieces of \
 digital artwork. Users can get coins by minting tokens or trading coins.
 
 Willcoin is open-source. The GitHub page is here: https://github.com/will-koz/willcoin
@@ -145,10 +145,31 @@ the first argument after the command.
 - `""" + command_give + command_token_delimiter + command_give_towallet + """`
 - `""" + command_give + command_token_delimiter + command_give_wallet + """`
 """
-info_give_coin = """TODO give coin"""
-info_give_token = """TODO give token"""
-info_give_towallet = """TODO give towallet"""
-info_give_wallet = """TODO give wallet"""
+info_give_coin = """
+Syntax: `""" + command_character + command_give + command_token_delimiter + command_give_coin + \
+command_token_delimiter + """[player]""" + command_token_delimiter + """[amount]`
+Transfer an amount of coins (specified by [amount]) from one of your wallets to another player's \
+(specified by [player]) main wallet.
+"""
+info_give_token = """
+Syntax: `""" + command_character + command_give + command_token_delimiter + command_give_token + \
+command_token_delimiter + """[player]""" + command_token_delimiter + """[token]`
+Transfer a token (specified by [token]) from one of your wallets to another player's (specified by \
+[player]) main wallet. [token] can be either the name or the hash.
+"""
+info_give_towallet = """
+Syntax: `""" + command_character + command_give + command_token_delimiter + command_give_towallet \
++ command_token_delimiter + """[wallet]""" + command_token_delimiter + """[amount]`
+Transfer an amount of coins (specified by [amount]) from one of your wallets to another wallet \
+(specified by [wallet])
+"""
+info_give_wallet = """
+Syntax: `""" + command_character + command_give + command_token_delimiter + command_give_wallet + \
+command_token_delimiter + """[player]""" + command_token_delimiter + """[wallet]`
+Give another player (specified by [player]) a wallet (specified by [wallet]). [wallet] can be \
+either the name or hash. Different from `""" + command_character + command_wallet + \
+command_token_delimiter + command_wallet_give + """` only in order of arguments.
+"""
 info_ls = """TODO ls"""
 info_none = """
 Sorry, but the command `%s` wasn't recognized. See if you have any typos, or are thinking of a \
@@ -174,7 +195,12 @@ info_token_unown = """TODO token unown"""
 info_token_unsell = """TODO token unsell"""
 info_wallet = """TODO wallet"""
 info_wallet_destroy = """TODO wallet destory"""
-info_wallet_give = """TODO wallet give"""
+info_wallet_give = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_give \
++ command_token_delimiter + """[wallet]""" + command_token_delimiter + """[player]`
+Give another player (specified by [player]) a wallet (specified by [wallet]). [wallet] can be \
+either the name or hash. Different from `""" + command_character + command_give + \
+command_token_delimiter + command_give_wallet + """` only in order of arguments."""
 info_wallet_init = """TODO wallet init"""
 info_wallet_ls = """TODO wallet ls"""
 info_wallet_main = """TODO wallet main"""

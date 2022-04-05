@@ -85,6 +85,7 @@ nothing from that session will be saved.
    - [ ] change 'account top' for tokens
    - [ ] cooldown for users
      - [ ] cooldown for minting tokens specifically
+   - [ ] require '.give wallet' have at least 1 coin or 1 token
  - [ ] alias 'help' to 'info'
  - [x] Change bot status
  - [ ] Make a readthedocs.io

@@ -327,7 +327,7 @@ class Cryptosystem:
 			return
 		for walleth in self.players[user].wallets:
 			for tokenh in self.wallets[walleth].tokens:
-				if self.tokens[tokenh].name == target_token:
+				if self.tokens[tokenh].name == target_token or tokenh == target_token:
 					working_token = tokenh
 					break
 					break
@@ -336,9 +336,11 @@ class Cryptosystem:
 				conf.text_target_token_not_found % (target_token), title = ""))
 			wu.log(conf.text_target_token_not_found % (target_token))
 			return
+		# TODO : fix this
 		self.wallets[self.tokens[working_token].owner].tokens.remove(working_token)
 		self.wallets[working_target_wallet].tokens.append(working_token)
 		self.tokens[working_token].owner = working_target_wallet
+		target_token = self.tokens[workgin_token].hash
 		await message.channel.send(embed = wu.gen_willcoin_embed(conf.text_give_token % \
 			(target_token, target_user), title = ""))
 		wu.log(conf.text_give_token % (target_token, target_user))
@@ -596,7 +598,7 @@ class Cryptosystem:
 		while working_wallet.tokens:
 			# TEMP think this is working now, but I want to leave this as a bookmark in case there
 			# are any bugs.
-			working_token = working_wallet.tokens.pop()
+			working_token = working_wallet.tokens.pop().hash
 			self.tokens[working_token].owner = target_wallet.hash
 			target_wallet.tokens.append(working_token)
 
