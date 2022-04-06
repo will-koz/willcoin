@@ -22,7 +22,9 @@ documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 ## Notes
 
 After each session with the server running, remember to run the server-side `save` command, or else
-nothing from that session will be saved.
+nothing from that session will be saved. To run, just use `./main`. You can also output to a log if
+you are using crontab (which I recommend since this is still in beta) with something like
+`./main >> log.txt`
 
 ## TODO
 

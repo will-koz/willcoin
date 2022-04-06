@@ -113,7 +113,13 @@ digital artwork. Users can get coins by minting tokens or trading coins.
 
 Willcoin is open-source. The GitHub page is here: https://github.com/will-koz/willcoin
 """
-info_account = """TODO info account"""
+info_account = """
+The `""" + command_account + """` command is used to get information about accounts. Alone, it is \
+an alias for `""" + command_character + command_account + command_token_delimiter + \
+command_account_ls + """ [sender]`. There are two sub-commands:
+- `""" + command_fortune + command_token_delimiter + command_account_ls + """`
+- `""" + command_fortune + command_token_delimiter + command_account_top + """`
+"""
 info_account_list = """TODO info account list"""
 info_account_top = """TODO account top"""
 info_auction = """
