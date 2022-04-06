@@ -14,7 +14,7 @@ recommend installing on Linux or in a Linux VM.
 add to this repo, which is why you should run the above command. This step and the next step is
 documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - Create a server that can serve as a testing server and invite the bot to that server. See above.
-- Put your Discord bot token into token.txt
+- Put your Discord bot token into token.txt, if you haven't already
 - I would recommend changing the administrator field in conf.py, but it is up to you
 
 <!-- TODO: write more of an Installation Guide -->
@@ -78,7 +78,7 @@ you are using crontab (which I recommend since this is still in beta) with somet
 - [x] unreserve to specific wallet
 - [ ] make '.info' for commands
   - [x] about
-  - [ ] 'list' command
+  - [x] 'list' command
 - [x] Save on shutdown
 
 ### Long Term

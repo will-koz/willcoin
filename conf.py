@@ -241,8 +241,23 @@ symbol + str(default_cryptosystem_size) + """ in existence, so much more than th
 recommended. If you go back on your decision to list a token for auction (before it is sold), use \
 `""" + command_character + command_token + command_token_delimiter + command_token_unsell + """`.
 """
-info_token_unown = """TODO token unown"""
-info_token_unsell = """TODO token unsell"""
+info_token_unown = """
+Syntax: `""" + command_character + command_token + command_token_delimiter + command_token_unown + \
+command_token_delimiter + """[token]`
+It's happened to all of us. We accidentally spend \u039E150 on an image of a monkey that was \
+procedurally generated, and all of your friends are talking about how stupid you would have to be \
+to do that. Don't worry. You can get rid of all of the evidence by using this command. The [token] \
+can be either the hash or name of a token. After using this command, the token will go back to the \
+bank and will be put up for auction so someone else can make the same mistake you did. (You don't \
+get your coins back though, you only get your honor back.)
+"""
+info_token_unsell = """
+Syntax: `""" + command_character + command_token + command_token_delimiter + command_token_unsell \
++ command_token_delimiter + """[token]`
+The [token] can be either the hash or name of a token. If you decided you don't want to sell a \
+token, using this command will remove it from auction, and then you can relist it later, or not, \
+or give it to someone idk.
+"""
 info_wallet = """
 The `""" + command_wallet + """` commands are all related to creating, using, sharing, and \
 destruction of wallets. When you use wallets that you own, you can refer to the wallets by their \
@@ -255,7 +270,13 @@ name. Otherwise, refer to them by their hash. Wallet commands:
 - `""" + command_wallet + command_token_delimiter + command_wallet_move + """`
 - `""" + command_wallet + command_token_delimiter + command_wallet_movet + """`
 """
-info_wallet_destroy = """TODO wallet destory"""
+info_wallet_destroy = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + \
+command_wallet_destroy + command_token_delimiter + """[wallet]`
+If you have more than 1 wallet, you can move all of the coins and tokens in a wallet (specified by \
+[wallet]) to your main wallet. If [wallet] is your main wallet, coins and tokens are moved to your \
+new main wallet. Then [wallet] is destroyed.
+"""
 info_wallet_give = """
 Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_give \
 + command_token_delimiter + """[wallet]""" + command_token_delimiter + """[player]`
@@ -269,9 +290,30 @@ command_token_delimiter + """[wallet]`
 The [wallet] is either the hash of any wallet or the name of a wallet owned by the caller of this \
 command. This command just gives information about the wallet.
 """
-info_wallet_main = """TODO wallet main"""
-info_wallet_move = """TODO wallet move"""
-info_wallet_movet = """TODO wallet movet"""
+info_wallet_main = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_main \
++ command_token_delimiter + """[wallet]`
+Designates a wallet (specified by [wallet]) as your main wallet. If other users want to give you \
+coins or tokens, they will go into your main wallet. (Unless that person specifically deposits \
+coins into a wallet with `""" + command_character + command_give + command_token_delimiter + \
+command_give_towallet + """`.)
+"""
+info_wallet_move = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_move \
++ command_token_delimiter + """[wallet]""" + command_token_delimiter + """[target]""" + \
+command_token_delimiter + """[amount]`
+Move an amount of coins (specified by [amount]) from a wallet (specified by [wallet]) to another \
+wallet (specified by [target]). [wallet] is a wallet owned by the caller of the function, and can \
+be either a name or a hash. [target] has to be a hash.
+"""
+info_wallet_movet = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_movet \
++ command_token_delimiter + """[wallet]""" + command_token_delimiter + """[target]""" + \
+command_token_delimiter + """[token]`
+Move a token (specified by [token]) from a wallet (specified by [wallet]) to another wallet \
+(specified by [target]). [wallet] is a wallet owned by the caller of the function, and can be \
+either a name or a hash. [target] has to be a hash. [token] can be either a name or a hash.
+"""
 
 perm_ru = 0 # Permissions - Regular User
 perm_su = 1 # Permissions - Super User
