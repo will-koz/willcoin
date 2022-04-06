@@ -27,7 +27,7 @@ rarities = [
 	("uncommon", 1)
 ]
 request_not_found_code = 429
-return_diminish_factor = 30
+return_diminish_factor = 40
 seed_template = "%s:%s:%s:%s"
 special_rarity = "This rarity shouldn't be possible if the random choice algorithm worked..."
 stamp_values = "0123456789abcdef"
@@ -57,6 +57,7 @@ command_give_token = "token"
 command_give_towallet = "towallet"
 command_give_wallet = "wallet"
 command_info = "info"
+command_ls = "list"
 command_reserve = "reserve"
 command_save = "save"
 command_token = "token"
@@ -117,11 +118,20 @@ info_account = """
 The `""" + command_account + """` command is used to get information about accounts. Alone, it is \
 an alias for `""" + command_character + command_account + command_token_delimiter + \
 command_account_ls + """ [sender]`. There are two sub-commands:
-- `""" + command_fortune + command_token_delimiter + command_account_ls + """`
-- `""" + command_fortune + command_token_delimiter + command_account_top + """`
+- `""" + command_account + command_token_delimiter + command_account_ls + """`
+- `""" + command_account + command_token_delimiter + command_account_top + """`
 """
-info_account_list = """TODO info account list"""
-info_account_top = """TODO account top"""
+info_account_list = """
+Syntax: `""" + command_character + command_account + command_token_delimiter + command_account_ls \
++ command_token_delimiter + """[player]`
+Return the account information about a player (specified by [player]).
+"""
+info_account_top = """
+Syntax: `""" + command_character + command_account + command_token_delimiter + command_account_top \
++ """`
+Return the top """ + str(ls_amount) + """ players, wallets and tokens. (The token algorithm is just \
+how much coins the owner says it is worth. This is likely to change in the future.)
+"""
 info_auction = """
 The `""" + command_auction + """` command displays some of the tokens that are at auction.
 """
@@ -183,9 +193,9 @@ subcommand for another command (i.e. `init` isn't a command, but `wallet init` i
 isn't documentation for that yet. If you think there should be, tell the administrator.
 """
 info_token = """
-The `token` commands are all related to the buying, selling and distribution of tokens. When you \
-use tokens that you own, you can refer to the tokens by their name. Otherwise, refer to them by \
-their hash. Token commands:
+The `""" + command_token + """` commands are all related to the buying, selling and distribution \
+of tokens. When you use tokens that you own, you can refer to the tokens by their name. Otherwise, \
+refer to them by their hash. Token commands:
 - `""" + command_token + command_token_delimiter + command_token_buy + """`
 - `""" + command_token + command_token_delimiter + command_token_ls + """`
 - `""" + command_token + command_token_delimiter + command_token_mint + """`
@@ -193,13 +203,58 @@ their hash. Token commands:
 - `""" + command_token + command_token_delimiter + command_token_unown + """`
 - `""" + command_token + command_token_delimiter + command_token_unsell + """`
 """
-info_token_buy = """TODO token buy"""
-info_token_list = """TODO token list"""
-info_token_mint = """TODO token mint"""
-info_token_sell = """TODO token sell"""
+info_token_buy = """
+Syntax: `""" + command_character + command_token + command_token_delimiter + command_token_buy + \
+command_token_delimiter + """[token]`
+The [token] has to be the hash of a token at auction because if you owned it, then you wouldn't be \
+buying it. If the owner of the token has listed it for auction with `""" + command_character + \
+command_token + command_token_delimiter + command_token_sell + """`, then they had to have \
+specified a price, possibly """ + symbol + """0. If the caller of the command has a wallet with \
+that many coin the token will be transferred to their main wallet.
+"""
+info_token_list = """
+Syntax: `""" + command_character + command_token + command_token_delimiter + command_token_ls + \
+command_token_delimiter + """[token]`
+The [token] is either the hash of any token or the name of a token owned by the caller of this \
+command. This command just gives information about the token.
+"""
+info_token_mint = """
+Syntax: `""" + command_character + command_token + command_token_delimiter + command_token_mint + \
+""" [name]`
+After uploading an image or in the same message as an image upload, you can use the `""" + \
+command_token_mint + """` command to turn it into a token with the specified [name]. This does NOT \
+mean that you own the token. Instead, it is given to the bank and is auctioned for """ + symbol + \
+"""0. Anyone can buy it, including the creator. You do get an amount of coin equal to the amount \
+of coins in the bank divided by """ + str(return_diminish_factor) + """, rounded up; if you have a \
+wallet. If you do not have any wallets, you can still mint tokens and you will still be listed as \
+the creator, but you do not get the payout from the bank. If you successfully mint a token, a \
+message will appear with the token which lists the hash, if you choose to buy the token you just \
+minted.
+"""
+info_token_sell = """
+Syntax: `""" + command_character + command_token + command_token_delimiter + command_token_sell + \
+command_token_delimiter + """[token]""" + command_token_delimiter + """[cost]`
+The [token] can be either the hash or name of a token. This command lists the token for auction, \
+and changes the cost (specified by [cost]). It does not automatically sell the token, because \
+there has to be a buyer. You can make the token cost as much as you like, but there are only """ + \
+symbol + str(default_cryptosystem_size) + """ in existence, so much more than that is not \
+recommended. If you go back on your decision to list a token for auction (before it is sold), use \
+`""" + command_character + command_token + command_token_delimiter + command_token_unsell + """`.
+"""
 info_token_unown = """TODO token unown"""
 info_token_unsell = """TODO token unsell"""
-info_wallet = """TODO wallet"""
+info_wallet = """
+The `""" + command_wallet + """` commands are all related to creating, using, sharing, and \
+destruction of wallets. When you use wallets that you own, you can refer to the wallets by their \
+name. Otherwise, refer to them by their hash. Wallet commands:
+- `""" + command_wallet + command_token_delimiter + command_wallet_destroy + """`
+- `""" + command_wallet + command_token_delimiter + command_wallet_give + """`
+- `""" + command_wallet + command_token_delimiter + command_wallet_init + """`
+- `""" + command_wallet + command_token_delimiter + command_wallet_ls + """`
+- `""" + command_wallet + command_token_delimiter + command_wallet_main + """`
+- `""" + command_wallet + command_token_delimiter + command_wallet_move + """`
+- `""" + command_wallet + command_token_delimiter + command_wallet_movet + """`
+"""
 info_wallet_destroy = """TODO wallet destory"""
 info_wallet_give = """
 Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_give \
@@ -208,7 +263,12 @@ Give another player (specified by [player]) a wallet (specified by [wallet]). [w
 either the name or hash. Different from `""" + command_character + command_give + \
 command_token_delimiter + command_give_wallet + """` only in order of arguments."""
 info_wallet_init = """TODO wallet init"""
-info_wallet_ls = """TODO wallet ls"""
+info_wallet_ls = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_ls + \
+command_token_delimiter + """[wallet]`
+The [wallet] is either the hash of any wallet or the name of a wallet owned by the caller of this \
+command. This command just gives information about the wallet.
+"""
 info_wallet_main = """TODO wallet main"""
 info_wallet_move = """TODO wallet move"""
 info_wallet_movet = """TODO wallet movet"""

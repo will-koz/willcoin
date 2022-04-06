@@ -903,6 +903,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 			elif command_subfix == conf.command_info:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general, \
 					title = ""))
+			elif command_subfix == conf.command_ls:
+				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_ls, title = ""))
 			elif command_subfix == conf.command_token:
 				try:
 					command_trifix = command_tokens[2]
@@ -965,6 +967,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 					(command_subfix), title = ""))
 		except IndexError:
 			await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general, title = ""))
+	elif command_mainfix == conf.command_ls and permissions == conf.perm_ru:
+		await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_ls, title = ""))
 	elif command_mainfix == conf.command_reserve and permissions == conf.perm_su:
 		try:
 			cryptosystem.reserve_coins(command_tokens[1])
