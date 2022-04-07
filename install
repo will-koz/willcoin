@@ -1,8 +1,10 @@
 # This is the installation script for the willcoin cryptosystem
 
+# You may need to do `sudo pip3 install -r requirements.txt`, but that also isn't a good idea so
+# don't do it.
 pip3 install -r requirements.txt
 
-touch cryptosystem.json
+# touch cryptosystem.json
 touch token.txt
 
 chmod +x main.py

@@ -97,7 +97,7 @@ class Cryptosystem:
 	def __init__ (self, _location):
 		try:
 			self.load_cryptosystem(_location)
-		except FileNotFoundError:
+		except:
 			self.new_cryptosystem()
 
 	# These next two functions have to do with saving and loading the cryptosystem. I don't know why

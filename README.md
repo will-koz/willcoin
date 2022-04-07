@@ -9,6 +9,7 @@ server, then **remember to read the notes about [Running](#Running)**.
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
 recommend installing on Linux or in a Linux VM.
 
+- Make sure you have a text editor. i.e. vim or emacs on your system, and that it is up to date.
 - [Make sure `python` and `pip` are installed and up to date on your system.](https://www.python.org/downloads/)
 - Run `make install`. This will ask about a cron job. I use
 `@reboot /usr/bin/python3.9 /home/will/git/willcoin/main >> /home/will/git/willcoin/log.txt`
