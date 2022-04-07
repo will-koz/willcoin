@@ -901,8 +901,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_give, \
 						title = ""))
 			elif command_subfix == conf.command_info:
-				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general, \
-					title = ""))
+				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general + \
+					conf.info_general_info, title = ""))
 			elif command_subfix == conf.command_ls:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_ls, title = ""))
 			elif command_subfix == conf.command_token:

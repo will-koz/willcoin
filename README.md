@@ -2,29 +2,32 @@
 
 Willcoin is a centralized Discord cryptosystem. (That's fancy talk for a bot that attaches numbers
 to a user.) Go to [Installation](#Installation) to read about how to install your own willcoin
-server, then **remember to read the [Notes](#Notes)**.
+server, then **remember to read the notes about [Running](#Running)**.
 
 ## Installation
 
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
 recommend installing on Linux or in a Linux VM.
 
-- Run `make install`
+- [Make sure `python` and `pip` are installed and up to date on your system.](https://www.python.org/downloads/)
+- Run `make install`. This will ask about a cron job. I use
+`@reboot /usr/bin/python3.9 /home/will/git/willcoin/main >> /home/will/git/willcoin/log.txt`
 - Find an account with a bot token. The token goes in token.txt, which I am obviously not going to
 add to this repo, which is why you should run the above command. This step and the next step is
 documented [here](https://discordpy.readthedocs.io/en/stable/discord.html).
 - Create a server that can serve as a testing server and invite the bot to that server. See above.
 - Put your Discord bot token into token.txt, if you haven't already
 - I would recommend changing the administrator field in conf.py, but it is up to you
+- You can begin running with a command like `./main`, `./main >> log.txt`, or `./main >> log.txt &`
 
-<!-- TODO: write more of an Installation Guide -->
+- To update, I think you can just do git pull and then run `make install` again
 
-## Notes
+## Running
 
 After each session with the server running, remember to run the server-side `save` command, or else
-nothing from that session will be saved. To run, just use `./main`. You can also output to a log if
-you are using crontab (which I recommend since this is still in beta) with something like
-`./main >> log.txt`
+nothing from that session will be saved. To run, just use `./main`. You can also output to a log
+with `./main >> log.txt`. If you are using crontab (which I recommend since this is still in beta),
+use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willcoin/log.txt`.
 
 ## TODO
 
@@ -68,15 +71,15 @@ you are using crontab (which I recommend since this is still in beta) with somet
 
 ### Important but unnecessary:
 - [x] alias 'give wallet' to 'wallet give'
-- [ ] Install script / install guide
+- [x] Install script / install guide
 - [x] '.bank' command (alias for .wallet ls [bank hash])
 - [x] Fortune cat functions
   - [x] color
   - [x] make only fortune color a random color ; all others are red or something
   - [x] wikipedia
-- [ ] Create a systemd service (Update: looking at just using crontab, because more systems have it)
+- [x] Create a systemd service (Update: looking at just using crontab, because more systems have it)
 - [x] unreserve to specific wallet
-- [ ] make '.info' for commands
+- [x] make '.info' for commands
   - [x] about
   - [x] 'list' command
 - [x] Save on shutdown
@@ -102,4 +105,5 @@ you are using crontab (which I recommend since this is still in beta) with somet
 
 ## Thanks
 
-<!-- TODO -->
+<!-- Update as this grows: -->
+Thank you very much to: *\*Person who makes the logo\** and *\*Person who makes a theme?\**

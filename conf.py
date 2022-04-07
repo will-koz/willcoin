@@ -150,7 +150,26 @@ Wikipedia page
 - `""" + command_fortune + command_token_delimiter + command_fortune_color + """` to get a random \
 color in hex format. The border of the embed will also be that color
 """
-info_general = """TODO info general"""
+info_general = """
+Thanks for using `""" + command_character + command_info + """`. Willcoin is a Discord \
+cryptosystem. (It's like a cryptocurrency, but I don't feel comfortable saying that quite yet, and \
+it’s built on Discord)
+
+The idea of the system is that each user can have any number of wallets, and wallets can be \
+associated (or have) any number of the existing Willcoin and user generated tokens. At the \
+beginning of the system, all of the coins are owned by the bank, but as users begin to mint tokens \
+(which are pieces of art, or memes they have saved to their drives) the bank pays out coins, but \
+at a decreasing rate.
+
+All tokens will be owned by a wallet, and a wallet can have (in theory) any number of tokens. Each \
+wallet and each token has a seed, made by some of the information determined when they are \
+generated, and a hash (https://en.wikipedia.org/wiki/Hash_function), specifically generated using \
+the sha256 hash algorithm (https://en.wikipedia.org/wiki/SHA-2).
+"""
+info_general_info = """
+See `""" + command_character + command_info + command_token_delimiter + command_info + \
+command_token_delimiter + command_info + """` for more information.
+"""
 info_give = """
 The `""" + command_give + """` command is used to transfer coins, tokens, and wallets between \
 users. With the exception of `""" + command_give + command_token_delimiter + \
@@ -186,7 +205,65 @@ Give another player (specified by [player]) a wallet (specified by [wallet]). [w
 either the name or hash. Different from `""" + command_character + command_wallet + \
 command_token_delimiter + command_wallet_give + """` only in order of arguments.
 """
-info_ls = """TODO ls"""
+info_ls = """
+List of commands:
+\u21D2 `""" + command_character + command_about + """`
+\u21D2 `""" + command_character + command_account + """`:
+ \u2192 `""" + command_character + command_account + command_token_delimiter + command_account_ls \
++ command_token_delimiter + """[player]`
+ \u2192 `""" + command_character + command_account + command_token_delimiter + command_account_top \
+ + """`
+\u21D2 `""" + command_character + command_auction + """`
+\u21D2 `""" + command_character + command_bank + """`
+\u21D2 `""" + command_character + command_fortune + """`
+ \u2192 `""" + command_character + command_fortune + command_token_delimiter + command_fortune_cat \
++ """`
+ \u2192 `""" + command_character + command_fortune + command_token_delimiter + \
+command_fortune_color + """`
+ \u2192 `""" + command_character + command_fortune + command_token_delimiter + \
+command_fortune_wiki + """`
+\u21D2 `""" + command_character + command_give + """`
+ \u2192 `""" + command_character + command_give + command_token_delimiter + command_give_coin + \
+ command_token_delimiter + """[player]""" + command_token_delimiter + """[amount]`
+ \u2192 `""" + command_character + command_give + command_token_delimiter + command_give_token + \
+ command_token_delimiter + """[player]""" + command_token_delimiter + """[token]`
+ \u2192 `""" + command_character + command_give + command_token_delimiter + command_give_towallet \
+ + command_token_delimiter + """[wallet]""" + command_token_delimiter + """[amount]`
+ \u2192 `""" + command_character + command_give + command_token_delimiter + command_give_wallet + \
+ command_token_delimiter + """[player]""" + command_token_delimiter + """[wallet]`
+\u21D2 `""" + command_character + command_info + """`
+\u21D2 `""" + command_character + command_ls + """`
+\u21D2 `""" + command_character + command_token + """`
+ \u2192 `""" + command_character + command_token + command_token_delimiter + command_token_buy + \
+ command_token_delimiter + """[token]`
+ \u2192 `""" + command_character + command_token + command_token_delimiter + command_token_ls + \
+ command_token_delimiter + """[token]`
+ \u2192 `""" + command_character + command_token + command_token_delimiter + command_token_mint + \
+ """ [name]`
+ \u2192 `""" + command_character + command_token + command_token_delimiter + command_token_sell + \
+ command_token_delimiter + """[token]""" + command_token_delimiter + """[cost]`
+ \u2192 `""" + command_character + command_token + command_token_delimiter + command_token_unown + \
+ command_token_delimiter + """[token]`
+ \u2192 `""" + command_character + command_token + command_token_delimiter + command_token_unsell \
+ + command_token_delimiter + """[token]`
+\u21D2 `""" + command_character + command_wallet + """`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + \
+ command_wallet_destroy + command_token_delimiter + """[wallet]`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + command_wallet_give \
+ + command_token_delimiter + """[wallet]""" + command_token_delimiter + """[player]`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + command_wallet_init \
+ + command_token_delimiter + """[name]`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + command_wallet_ls + \
+ command_token_delimiter + """[wallet]`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + command_wallet_main \
+ + command_token_delimiter + """[wallet]`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + command_wallet_move \
+ + command_token_delimiter + """[wallet]""" + command_token_delimiter + """[target]""" + \
+ command_token_delimiter + """[amount]`
+ \u2192 `""" + command_character + command_wallet + command_token_delimiter + command_wallet_movet \
+ + command_token_delimiter + """[wallet]""" + command_token_delimiter + """[target]""" + \
+ command_token_delimiter + """[token]`
+"""
 info_none = """
 Sorry, but the command `%s` wasn't recognized. See if you have any typos, or are thinking of a \
 subcommand for another command (i.e. `init` isn't a command, but `wallet init` is). Or maybe there \
@@ -283,7 +360,18 @@ Syntax: `""" + command_character + command_wallet + command_token_delimiter + co
 Give another player (specified by [player]) a wallet (specified by [wallet]). [wallet] can be \
 either the name or hash. Different from `""" + command_character + command_give + \
 command_token_delimiter + command_give_wallet + """` only in order of arguments."""
-info_wallet_init = """TODO wallet init"""
+info_wallet_init = """
+Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_init \
++ command_token_delimiter + """[name]`
+Initializes a new wallet with the name [name]. If this works, a message will be returned that has \
+the seed for a new wallet, and the sha256 hash. Wallets and tokens both have hashes that allow \
+them to be uniquely identified. Names, on the other hand, are useful for identification, but are \
+not unique.
+The seed is generated by the creator of the wallet, the name given to the wallet at creation, and \
+the Unix timestamp. The final field is the stamp, which is just eight randomly generally digits. \
+This prevents someone from accidentally creating two wallets in the same second with the same name \
+which would have the same hash.
+"""
 info_wallet_ls = """
 Syntax: `""" + command_character + command_wallet + command_token_delimiter + command_wallet_ls + \
 command_token_delimiter + """[wallet]`
