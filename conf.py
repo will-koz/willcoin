@@ -167,6 +167,10 @@ All tokens will be owned by a wallet, and a wallet can have (in theory) any numb
 wallet and each token has a seed, made by some of the information determined when they are \
 generated, and a hash (https://en.wikipedia.org/wiki/Hash_function), specifically generated using \
 the sha256 hash algorithm (https://en.wikipedia.org/wiki/SHA-2).
+
+To get information about a user, make sure they are a member of the cryptosystem, and use their \
+name and discriminator (tag). As this project evolves one plan is to add @ing people, but that is \
+not done yet.
 """
 info_general_info = """
 See `""" + command_character + command_info + command_token_delimiter + command_info + \
