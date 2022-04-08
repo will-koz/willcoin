@@ -153,7 +153,9 @@ color in hex format. The border of the embed will also be that color
 info_general = """
 Thanks for using `""" + command_character + command_info + """`. Willcoin is a Discord \
 cryptosystem. (It's like a cryptocurrency, but I don't feel comfortable saying that quite yet, and \
-it’s built on Discord)
+it’s built on Discord). You can use the `""" + command_character + command_info + """` to get more \
+information on commands, and you can use `""" + command_character + command_ls + """` to get a \
+list of all commands.
 
 The idea of the system is that each user can have any number of wallets, and wallets can be \
 associated (or have) any number of the existing Willcoin and user generated tokens. At the \
