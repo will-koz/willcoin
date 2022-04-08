@@ -88,7 +88,9 @@ fortunes = [
 	"dQw4w9WgXcQ",
 	"Epstein didn't kill himself.",
 	"Everybody walk the dinosaur",
+	"Feed the cows!",
 	"Go Greendale!",
+	"Have you actually met anyone from Nebraska?",
 	"Hey you, you're finally awake",
 	"HEYYEYAAEYAAAEYAEYAA",
 	"https://en.wikipedia.org/wiki/Wikipedia",
@@ -102,6 +104,7 @@ fortunes = [
 	"Return to Monke",
 	"Sponsored by Duolingo - \"Have you done your Spanish?\"",
 	"Sponsored by Hooli",
+	"There is an impostor among us.",
 	"This message will never appear on the splash screen, isn't that weird?",
 	"What do you know about rolling down in the deep?",
 	"while (true) return (true) ?: true;"
