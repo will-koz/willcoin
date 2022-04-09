@@ -82,6 +82,7 @@ fortunes = [
 	"\\*\\*Sample Fortune\\*\\*",
 	"\u0D9E",
 	"\u221E\u00B2 - 1 = (\u221E - 1)(\u221E + 1)",
+	"\u222Be\u036Fdx = e\u036F",
 	"<PC Load Letter>",
 	"2 + 2 = 5",
 	"254ebc9d57cb06da5ea1bf685c7a04b0bfe9c808d5dcb5d093fc640f713dab9e",
@@ -104,10 +105,12 @@ fortunes = [
 	"Return to Monke",
 	"Sponsored by Duolingo - \"Have you done your Spanish?\"",
 	"Sponsored by Hooli",
+	"sudo rm -rf / --no-preserve-root",
 	"There is an impostor among us.",
 	"This message will never appear on the splash screen, isn't that weird?",
 	"What do you know about rolling down in the deep?",
-	"while (true) return (true) ?: true;"
+	"while (true) return (true) ?: true;",
+	"xkcd.com/1400"
 ]
 
 info_about = """
