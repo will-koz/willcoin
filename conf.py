@@ -97,11 +97,13 @@ fortunes = [
 	"https://en.wikipedia.org/wiki/Wikipedia",
 	"https://twitter.com",
 	"https://xkcd.com/1400",
+	"I use Arch, btw",
 	"Insane (in the Brain)",
 	"Loading: 142%",
 	"Not PS5 Compatible ... yet",
 	"Open the door, get on the floor",
 	"Or is it?",
+	"\*Out pizzas the hut\*",
 	"Police police police police.",
 	"Return to Monke",
 	"Sponsored by Duolingo - \"Have you done your Spanish?\"",
@@ -109,7 +111,9 @@ fortunes = [
 	"sudo rm -rf / --no-preserve-root",
 	"There is an impostor among us.",
 	"This message will never appear on the splash screen, isn't that weird?",
+	"Vanilla Ice must've really been Under Pressure to create a new song",
 	"What do you know about rolling down in the deep?",
+	"Where do birds go when it rains?",
 	"while (true) return (true) ?: true;"
 ]
 
