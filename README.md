@@ -94,6 +94,7 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
    - [ ] require '.give wallet' have at least 1 coin or 1 token
  - [ ] alias 'help' to 'info'
  - [x] Change bot status
+ - [ ] Figure out if random.cat is 429ing me.
  - [ ] Get random content from reddit
  - [ ] Handle the bug where you can't destroy wallets with user brackets.
  - [ ] Make a readthedocs.io
