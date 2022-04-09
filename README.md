@@ -94,10 +94,11 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
    - [ ] require '.give wallet' have at least 1 coin or 1 token
  - [ ] alias 'help' to 'info'
  - [x] Change bot status
+ - [ ] Fortune cat does not seem to be working. Need to get it working again
+ - [ ] Get random content from reddit
  - [ ] Make a readthedocs.io
  - [ ] Make a logo
  - [ ] Make wu.log() output the associated user
- - [ ] Get random content from reddit
  - [ ] Server-side utilities
    - [ ] '>announce' command
    - [ ] '>exit' command
