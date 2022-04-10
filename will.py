@@ -849,7 +849,8 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 					conf.text_command_infoprompt % (command_mainfix), title = ""))
 			else:
 				wu.log(conf.text_command_parseerror % (command))
-	elif command_mainfix == conf.command_info and permissions == conf.perm_ru:
+	elif (command_mainfix == conf.command_info or command_mainfix == conf.command_help) and \
+		permissions == conf.perm_ru:
 		try:
 			command_subfix = command_tokens[1]
 			if command_subfix == conf.command_about:
@@ -900,7 +901,7 @@ async def exec_command (command, cryptosystem, client, message = None, permissio
 				except:
 					await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_give, \
 						title = ""))
-			elif command_subfix == conf.command_info:
+			elif command_subfix == conf.command_info or command_subfix == conf.command_help:
 				await message.channel.send(embed = wu.gen_willcoin_embed(conf.info_general + \
 					conf.info_general_info, title = ""))
 			elif command_subfix == conf.command_ls:
