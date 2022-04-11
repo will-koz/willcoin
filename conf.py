@@ -252,6 +252,7 @@ command_fortune_wiki + """`
  + command_token_delimiter + """[wallet]""" + command_token_delimiter + """[amount]`
  \u2192 `""" + command_character + command_give + command_token_delimiter + command_give_wallet + \
  command_token_delimiter + """[player]""" + command_token_delimiter + """[wallet]`
+\u21D2 `""" + command_character + command_help + """`
 \u21D2 `""" + command_character + command_info + """`
 \u21D2 `""" + command_character + command_ls + """`
 \u21D2 `""" + command_character + command_token + """`
