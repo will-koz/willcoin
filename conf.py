@@ -103,6 +103,7 @@ fortunes = [
 	"Literally Animal Farm",
 	"Loading: 142%",
 	"Man Wonders If Speeding Ticket Just Karma For Going 120 MPH",
+	"Never give up. Never surrender",
 	"Never mess with the sheep that steel wool comes from.",
 	"Not PS5 Compatible ... yet",
 	"Open the door, get on the floor",
