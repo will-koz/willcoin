@@ -98,8 +98,9 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
  - [ ] Get random content from reddit
  - [ ] Handle the bug where you can't destroy wallets with user brackets.
  - [ ] Make a readthedocs.io
- - [ ] Make a logo
+ - [x] Make a logo
  - [ ] Make wu.log() output the associated user
+ - [ ] Move a 400px x 400px logo to logo/logo_400x400.png
  - [ ] Server-side utilities
    - [ ] '>announce' command
    - [ ] '>exit' command
@@ -108,5 +109,5 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
 
 ## Thanks
 
-<!-- Update as this grows: -->
+<!-- Update as this grows: TODO -->
 Thank you very much to: *\*Person who makes the logo\** and *\*Person who makes a theme?\**
