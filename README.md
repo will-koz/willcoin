@@ -4,6 +4,8 @@ Willcoin is a centralized Discord cryptosystem. (That's fancy talk for a bot tha
 to a user.) Go to [Installation](#Installation) to read about how to install your own willcoin
 server, then **remember to read the notes about [Running](#Running)**.
 
+![Willcoin logo](logo/logo_400x400.png)
+
 ## Installation
 
 This is created on Linux Mint, a Debian based Linux distribution, and not on Windows or OSX. I would
