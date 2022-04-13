@@ -87,6 +87,7 @@ fortunes = [
 	"<PC Load Letter>",
 	"2 + 2 = 5",
 	"254ebc9d57cb06da5ea1bf685c7a04b0bfe9c808d5dcb5d093fc640f713dab9e",
+	"Back in my day, we walked uphill both ways.",
 	"dQw4w9WgXcQ",
 	"Epstein didn't kill himself.",
 	"Everybody walk the dinosaur",
