@@ -110,4 +110,4 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
 ## Thanks
 
 <!-- Update as this grows: TODO -->
-Thank you very much to: *\*Person who makes the logo\** and *\*Person who makes a theme?\**
+Thank you very much to: *donburi* and *\*Person who makes a theme?\**
