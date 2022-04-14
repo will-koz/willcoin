@@ -102,7 +102,7 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
  - [ ] Make a readthedocs.io
  - [x] Make a logo
  - [ ] Make wu.log() output the associated user
- - [ ] Move a 400px x 400px logo to logo/logo_400x400.png
+ - [x] Move a 400px x 400px logo to logo/logo_400x400.png
  - [ ] Server-side utilities
    - [ ] '>announce' command
    - [ ] '>exit' command
