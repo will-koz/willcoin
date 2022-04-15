@@ -101,6 +101,7 @@ fortunes = [
 	"https://xkcd.com/1400",
 	"I use Arch, btw",
 	"Insane (in the Brain)",
+	"Let's Say, Hypothetically",
 	"Literally Animal Farm",
 	"Loading: 142%",
 	"Man Wonders If Speeding Ticket Just Karma For Going 120 MPH",
@@ -115,10 +116,12 @@ fortunes = [
 	"Sponsored by Duolingo - \"Have you done your Spanish?\"",
 	"Sponsored by Hooli",
 	"sudo rm -rf / --no-preserve-root",
+	"The existence of Purple Rain implies the existance of Red Rain.",
 	"There is an impostor among us.",
 	"This message will never appear on the splash screen, isn't that weird?",
 	"Vanilla Ice must've really been Under Pressure to create a new song",
 	"What do you know about rolling down in the deep?",
+	"What happened at 39.9054895\u00B0N, 116.395443\u00B0E?",
 	"Where do birds go when it rains?",
 	"while (true) return (true) ?: true;"
 ]
