@@ -87,6 +87,7 @@ fortunes = [
 	"<PC Load Letter>",
 	"2 + 2 = 5",
 	"254ebc9d57cb06da5ea1bf685c7a04b0bfe9c808d5dcb5d093fc640f713dab9e",
+	"Another day, another watermelon",
 	"Back in my day, we walked uphill both ways.",
 	"dQw4w9WgXcQ",
 	"Epstein didn't kill himself.",
@@ -101,6 +102,7 @@ fortunes = [
 	"https://xkcd.com/1400",
 	"I use Arch, btw",
 	"Insane (in the Brain)",
+	"It was a dark and stormy night.",
 	"Let's Say, Hypothetically",
 	"Literally Animal Farm",
 	"Loading: 142%",
@@ -123,7 +125,8 @@ fortunes = [
 	"What do you know about rolling down in the deep?",
 	"What happened at 39.9054895\u00B0N, 116.395443\u00B0E?",
 	"Where do birds go when it rains?",
-	"while (true) return (true) ?: true;"
+	"while (true) return (true) ?: true;",
+	"zyxwvutsrqponmlkjihgfedcba"
 ]
 
 info_about = """
