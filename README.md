@@ -34,6 +34,8 @@ use something like `@reboot /home/will/git/willcoin/main >> /home/will/git/willc
 
 ## TODO
 
+- [ ] Token sell not working with hash.
+
 - [x] Connect to Discord API
 - [x] Parse Commands, call functions with appropriate users and permissions
   - [x] For some remaining commands, create formal functions

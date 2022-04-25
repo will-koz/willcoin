@@ -135,6 +135,7 @@ fortunes = [
 	"What happened at 39.9054895\u00B0N, 116.395443\u00B0E?",
 	"Where do birds go when it rains?",
 	"while (true) return (true) ?: true;",
+	"You can find Will Smith in the snow if you follow the fresh prints.",
 	"zyxwvutsrqponmlkjihgfedcba"
 ]
 
