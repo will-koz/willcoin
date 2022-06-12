@@ -107,6 +107,7 @@ fortunes = [
 	"I use Arch, btw",
 	"Insane (in the Brain)",
 	"It was a dark and stormy night.",
+	"It's Morbin time.",
 	"Just Lose It.",
 	"Let's Say, Hypothetically",
 	"Literally Animal Farm",
