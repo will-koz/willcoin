@@ -105,6 +105,7 @@ fortunes = [
 	"https://xkcd.com/1400",
 	"I love the smell of napalm in the morning.",
 	"I use Arch, btw",
+	"I'm not saying that I'm into catgirls. However,",
 	"Insane (in the Brain)",
 	"It was a dark and stormy night.",
 	"It's Morbin time.",
