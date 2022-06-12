@@ -114,6 +114,7 @@ fortunes = [
 	"Loading: 142%",
 	"Man Wonders If Speeding Ticket Just Karma For Going 120 MPH",
 	"May the Force be with you",
+	"Morbius II: Into the Morbinverse",
 	"Mug Moment",
 	"Never give up. Never surrender",
 	"Never mess with the sheep that steel wool comes from.",
