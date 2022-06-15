@@ -110,7 +110,7 @@ fortunes = [
 	"It was a dark and stormy night.",
 	"It's Morbin time.",
 	"Just Lose It.",
-	"Let's Say, Hypothetically",
+	"Let's say, hypothetically",
 	"Literally Animal Farm",
 	"Loading: 142%",
 	"Man Wonders If Speeding Ticket Just Karma For Going 120 MPH",
