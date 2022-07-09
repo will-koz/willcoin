@@ -127,6 +127,7 @@ fortunes = [
 	"\*Out pizzas the hut\*",
 	"Police police police police.",
 	"Return to Monke",
+	"SEMI-PROTECT THE CONSTITUTION",
 	"Sponsored by Duolingo - \"Have you done your Spanish?\"",
 	"Sponsored by Hooli",
 	"sudo rm -rf / --no-preserve-root",
