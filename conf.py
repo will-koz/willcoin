@@ -90,6 +90,7 @@ fortunes = [
 	"Another day, another watermelon",
 	"Back in my day, we walked uphill both ways.",
 	"dQw4w9WgXcQ",
+	"Did you ever hear the tragedy of Darth Plageus the Wise?",
 	"Epstein didn't kill himself.",
 	"Everybody walk the dinosaur",
 	"Feed the cows!",
