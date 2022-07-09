@@ -89,6 +89,7 @@ fortunes = [
 	"254ebc9d57cb06da5ea1bf685c7a04b0bfe9c808d5dcb5d093fc640f713dab9e",
 	"Another day, another watermelon",
 	"Back in my day, we walked uphill both ways.",
+	"cat /dev/urandom >> /dev/null",
 	"dQw4w9WgXcQ",
 	"Did you ever hear the tragedy of Darth Plageus the Wise?",
 	"Epstein didn't kill himself.",
