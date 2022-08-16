@@ -111,6 +111,7 @@ fortunes = [
 	"Insane (in the Brain)",
 	"It was a dark and stormy night.",
 	"It's Morbin time.",
+	"Joey \"Joseph\" J. Joey",
 	"Just Lose It.",
 	"Let's say, hypothetically",
 	"Literally Animal Farm",
