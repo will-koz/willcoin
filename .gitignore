@@ -1,4 +1,8 @@
 # Reminder to myself to work on this gitignore.
 
+# Pycache, of course:
+__pycache__
+__pycache__/
+
 # Ignore the token (unique to each user):
 token.txt
