@@ -6,3 +6,5 @@ __pycache__/
 
 # Ignore the token (unique to each user):
 token.txt
+
+# TODO Reminder to myself to update this file at home.
